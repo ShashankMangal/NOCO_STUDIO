@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.OnlineMusicScreen"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/onlinePlayPause"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_baseline_play_circle_outline_24"
+        app:tint="@color/theme2"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/onlineTextCurrentTime"
+            android:text="00:00"
+            android:textColor="#303030"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            />
+
+        <SeekBar
+            android:thumbTint="@color/theme2"
+            android:id="@+id/onlinePlayerSeekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/onlineTextTotalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#303030"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+</layout>

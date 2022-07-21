@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/download_song_screen_animation"
+        android:layout_width="match_parent"
+        android:background="@drawable/gradient_bg"
+        android:layout_height="match_parent"
+        tools:context=".Screens.DownloadSongScreen"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <ScrollView
+            android:id="@+id/downloadScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="7dp"
+                    android:background="@drawable/linear_layout_bg"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginEnd="5dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Current Subscribers"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/airbnb_cereal_book"
+                            android:textColor="@color/white"
+                            />
+
+                        <com.daasuu.cat.CountAnimationTextView
+                            android:id="@+id/count_animation_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:fontFamily="@font/airbnb_cereal_bold"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            />
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/checkout_youtube"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginStart="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/round_back"
+                        android:text="Subscribe\nNCS Hindi"
+                        app:backgroundTint="@color/white"
+                        android:paddingStart="10dp"
+                        android:drawableEnd="@drawable/ic_baseline_subscriptions_24"
+                        />
+
+
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="1dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <com.denzcoskun.imageslider.ImageSlider
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            app:iss_period="1000"
+                            app:iss_corner_radius="10"
+                            app:iss_auto_cycle="true"
+                            app:iss_delay="1000"
+                            android:id="@+id/imageSlider"
+                            />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="ca-app-pub-5127713321341585/8639952829">
+                </com.google.android.gms.ads.AdView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linear_layout_bg"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:elevation="4dp"
+                        android:layout_margin="5dp"
+                        android:id="@+id/promotionCardView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/uniqueId"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                >
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/youtube_logo"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:src="@drawable/youtube"
+                                    app:civ_border_width="1dp"
+                                    android:scaleType="centerCrop"
+                                    app:civ_border_color="@color/textRed"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    >
+
+                                    <TextView
+                                        android:id="@+id/channelNameTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Channel Name"
+                                        android:gravity="center"
+                                        android:fontFamily="@font/airbnb_cereal_black"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/textRed"
+                                        android:textSize="25sp"
+                                        android:singleLine="true"
+                                        android:scrollHorizontally="true"
+                                        />
+
+                                    <Button
+                                        android:id="@+id/subscribeButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="SUBSCRIBE"
+                                        android:textColor="@color/white"
+                                        android:drawableTint="@color/white"
+                                        android:textSize="17sp"
+                                        android:backgroundTint="@color/textRed"
+                                        android:gravity="center"
+                                        android:layout_gravity="center"
+                                        />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+
+
+                            <TextView
+                                android:layout_marginTop="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="For Promotion Enquiry : Instagram-> only_ncshindi"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center"
+                                android:textSize="15sp"
+                                android:textColor="@color/textRed"
+                                android:fontFamily="@font/airbnb_cereal_light"
+                                />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:layout_marginTop="9dp"
+                                android:layout_marginBottom="10dp"
+                                >
+                                <Button
+                                    android:id="@+id/more"
+                                    android:background="@drawable/round_back"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="More"
+                                    android:textColor="@color/theme"
+                                    android:layout_marginRight="20dp"
+                                    />
+
+                                <Button
+                                    android:id="@+id/enquiry"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Enquiry"
+                                    android:background="@drawable/round_back"
+                                    android:textColor="@color/theme"
+                                    android:layout_marginLeft="20dp"
+                                    />
+
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:id="@+id/downloadCardSong"
+                    app:cardBackgroundColor="@color/theme3"
+                    android:padding="10dp"
+                    app:cardElevation="4dp"
+                    app:cardCornerRadius="20dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="7dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/food_back"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_marginTop="23dp"
+                            android:id="@+id/songNameFlowingText"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginEnd="6dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Song Name... ffuieuuifiufuihfhfhfhfhfhfhfhfhfhfhfhfhfhfhffffffffffffff"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/airbnb_cereal_medium"
+                            android:singleLine="true"
+                            android:scrollHorizontally="true"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Preparing File : 00:00"
+                            android:textColor="@color/theme"
+                            android:id="@+id/timer_downloadSong"
+                            android:fontFamily="@font/airbnb_cereal_medium"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:textSize="20sp"
+                            android:drawableEnd="@drawable/ic_baseline_access_time_24"
+                            android:drawableTint="@color/theme"
+                            android:drawablePadding="5dp"
+                            />
+                        <TextView
+                            android:id="@+id/skipTimer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Skip Timer"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="@color/theme"
+                            android:background="@drawable/round_back"
+                            android:padding="10dp"
+                            />
+                        <ImageView
+                            android:id="@+id/downloadImage"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/ic_baseline_cloud_download_24"
+                            android:shadowColor="@color/theme"
+                            app:tint="@color/white" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Download Here"
+                            android:textColor="@color/theme"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/airbnb_cereal_medium"
+                            android:layout_margin="9dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:padding="7dp"
+                    android:background="@drawable/linear_layout_bg"
+                    >
+
+                    <Button
+                        android:id="@+id/telegramChat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="6dp"
+                        android:backgroundTint="#26b0e5"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:text="Telegram"
+                        android:drawableTop="@drawable/ic_baseline_send_24"
+                        />
+                    <Button
+                        android:id="@+id/shareAppDownloadSong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:backgroundTint="#FF5722"
+                        android:textSize="13sp"
+                        android:textColor="@color/white"
+                        android:drawableTop="@drawable/ic_baseline_share_24"
+                        android:text="Share"
+                        />
+
+                    <Button
+                        android:id="@+id/subscribe_yt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginStart="5dp"
+                        android:textSize="13sp"
+                        android:drawableTop="@drawable/ic_baseline_subscriptions_24"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/textRed"
+                        android:text="Subscribe"
+                        />
+
+
+
+                </LinearLayout>
+
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="1dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageSlider2LinearLayout"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:id="@+id/songThumbnail"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginEnd="6dp"
+                            />
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/download_thumbnail"
+                            android:background="@drawable/round_back"
+                            app:backgroundTint="@color/black"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Download Thumbnail"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/airbnb_cereal_book"
+                            android:textStyle="bold"
+                            />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="90dp"
+                    android:id="@+id/playSongCard"
+                    app:cardBackgroundColor="@color/theme3"
+                    android:padding="10dp"
+                    app:cardElevation="4dp"
+                    app:cardCornerRadius="20dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="20dp"
+                    >
+                    <LinearLayout
+                        android:id="@+id/yt_song_play"
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/food_back"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Play &amp; Listen on "
+                            android:textColor="@color/textRed"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:padding="9dp"
+                            android:background="@drawable/round_back"
+                            android:backgroundTint="@color/textRed"
+                            android:layout_gravity="center"
+                            android:layout_margin="22dp"
+                            android:fontFamily="@font/airbnb_cereal_medium"
+                            android:drawableEnd="@drawable/ic_youtube"
+                            android:drawableTint="@color/textRed"
+                            />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subscribe on YouTube for More....(ɔ◔‿◔)ɔ ♥"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:id="@+id/song_policy"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/airbnb_cereal_book"
+                    />
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginStart="50dp"
+    android:layout_marginEnd="50dp"
+    android:layout_height="wrap_content"
+    android:background="@color/theme1">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationViewMaintenance"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="update.json"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="New Version Available"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:fontFamily="@font/airbnb_cereal_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/animationViewMaintenance" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="\nNOCO Studio recommends that you should update to the latest version\n"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:fontFamily="@font/airbnb_cereal_bold"
+        android:textColor="@color/theme3"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/update_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/lightGreen"
+        android:text="UPDATE"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/textView2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

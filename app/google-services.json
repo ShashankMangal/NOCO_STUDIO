@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "495870475299",
+    "firebase_url": "https://rewardapp-1070c-default-rtdb.firebaseio.com",
+    "project_id": "rewardapp-1070c",
+    "storage_bucket": "rewardapp-1070c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495870475299:android:245916b6cb0dc5faa6c596",
+        "android_client_info": {
+          "package_name": "com.sharkBytesLab.nocomusic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495870475299-26laekhdoki7kg5psh5dkjrmvdmp8mfp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharkBytesLab.nocomusic",
+            "certificate_hash": "77a93707d873dd5a3a06d0ac1d24f11856084f41"
+          }
+        },
+        {
+          "client_id": "495870475299-d5tcr9avbjeb7ej1l493b62ehtt6gvk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharkBytesLab.nocomusic",
+            "certificate_hash": "ce214e9c2ceee38f69abc0ca6ebe26d5355c0044"
+          }
+        },
+        {
+          "client_id": "495870475299-f3jdhme3rc8g496iq4oe894ib4vio25a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharkBytesLab.nocomusic",
+            "certificate_hash": "1a05432803ed3d412da68116e884f3600145d0b9"
+          }
+        },
+        {
+          "client_id": "495870475299-h1e973l0m814ajp4hiifs3j02rrlofeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPTEizu6-ddgeMeSzcYnTmcoD-6K6gISc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495870475299-h1e973l0m814ajp4hiifs3j02rrlofeh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495870475299:android:bf0b98de9d649119a6c596",
+        "android_client_info": {
+          "package_name": "com.sharkBytesLab.nocostudio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495870475299-h1e973l0m814ajp4hiifs3j02rrlofeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPTEizu6-ddgeMeSzcYnTmcoD-6K6gISc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495870475299-h1e973l0m814ajp4hiifs3j02rrlofeh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495870475299:android:04a116b14c81bab8a6c596",
+        "android_client_info": {
+          "package_name": "com.sharkBytesLab.rewardapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495870475299-fqta0phl581k9hg5a4cs5s6945b2rgc9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharkBytesLab.rewardapp",
+            "certificate_hash": "ea642f2f7b58f2fd4876de078ee2a343bf5dc41e"
+          }
+        },
+        {
+          "client_id": "495870475299-ni0vbqbm2btafntmejjcrf680gropa4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharkBytesLab.rewardapp",
+            "certificate_hash": "f565f3f5c0f6df238dae2032e5ec1a5ba6d2ca4d"
+          }
+        },
+        {
+          "client_id": "495870475299-pnebj2aglnvk37q7g2obaepsfoeopgh5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharkBytesLab.rewardapp",
+            "certificate_hash": "1a05432803ed3d412da68116e884f3600145d0b9"
+          }
+        },
+        {
+          "client_id": "495870475299-t2coeecuc91mc7tl49ohfqi9ke3aidc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharkBytesLab.rewardapp",
+            "certificate_hash": "059f7d0f414fef89be382b9060557414223281b4"
+          }
+        },
+        {
+          "client_id": "495870475299-h1e973l0m814ajp4hiifs3j02rrlofeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPTEizu6-ddgeMeSzcYnTmcoD-6K6gISc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495870475299-h1e973l0m814ajp4hiifs3j02rrlofeh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-5127713321341585~9396518456"
+    }
+  ],
+  "configuration_version": "1"
+}

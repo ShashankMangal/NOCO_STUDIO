@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_bg"
+    tools:context=".Fragments.LibraryFragment">
+
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/search_song"
+        android:iconifiedByDefault="false"
+        android:layout_margin="8dp"
+        android:textSize="18dp"
+        android:background="@drawable/round_corner"
+
+        >
+
+    </SearchView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Songs Found : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/songs_num"
+        android:fontFamily="@font/airbnb_cereal_medium"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@+id/search_song"
+        app:layout_constraintBottom_toTopOf="@+id/refreshView"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Songs on Server : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/server_song_num"
+        android:fontFamily="@font/airbnb_cereal_medium"
+        android:textAlignment="textEnd"
+        android:textColor="@color/theme3"
+        android:textStyle="bold"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:gravity="end"
+        app:layout_constraintTop_toBottomOf="@+id/search_song"
+        app:layout_constraintBottom_toTopOf="@+id/refreshView"
+        />
+
+
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/songs_num" >
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/downloadRecyclerView"
+            tools:listitem="@layout/download_song_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

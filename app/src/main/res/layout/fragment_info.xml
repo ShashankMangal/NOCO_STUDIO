@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_bg"
+    android:fillViewport="true"
+    tools:context=".Fragments.InfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/round_bk_red"
+                android:backgroundTint="@color/theme3">
+
+
+                <TextView
+                    android:id="@+id/version_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="V"
+                    android:textColor="@color/theme1"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/version_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/version_count"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="Version"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/merge"
+                app:tint="@color/theme1" />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/round_bk"
+                android:backgroundTint="@color/white">
+
+
+                <TextView
+                    android:id="@+id/server_songs_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="--"
+                    android:textColor="@color/theme"
+                    android:textSize="45sp" />
+
+                <TextView
+                    android:id="@+id/server_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/server_songs_count"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="Total Server\nSongs Available"
+                    android:textColor="@color/theme3"
+                    android:textSize="25sp" />
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="20dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/servers"
+                app:tint="@color/theme3" />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+
+                android:background="@drawable/round_bk"
+                android:backgroundTint="@color/white">
+
+
+                <TextView
+                    android:id="@+id/songs_download_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="-----"
+                    android:textColor="@color/theme"
+                    android:textSize="45sp" />
+
+                <TextView
+                    android:id="@+id/son_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/songs_download_count"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="Total Songs\nDownloaded"
+                    android:textColor="@color/theme3"
+                    android:textSize="25sp" />
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/music_file"
+                app:tint="@color/theme3" />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <RelativeLayout
+                android:id="@+id/share_with_friends"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/round_bk"
+                android:backgroundTint="@color/white">
+
+
+                <TextView
+                    android:id="@+id/share_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="SHARE"
+                    android:textColor="@color/theme"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/share_text_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/share_text"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="Invite Friends"
+                    android:textColor="@color/theme3"
+                    android:textSize="25sp" />
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/share"
+                app:tint="@color/theme3" />
+
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/library"
+        android:icon="@drawable/library_icon"
+        android:title="Library"/>
+
+
+    <item
+        android:id="@+id/notify"
+        android:icon="@drawable/ic_baseline_local_florist_24"
+        android:title="Wallpaper"/>
+
+    <item
+        android:id="@+id/play"
+        android:title=""
+        android:checkable="false"
+        android:checked="false"
+        android:clickable="false"
+        android:enabled="false"
+        />
+
+    <item
+        android:id="@+id/info"
+        android:icon="@drawable/info_icon"
+        android:title="Info"/>
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/settings_icon"
+        android:title="Settings"/>
+
+</menu>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_settings_constraint"
+    android:background="@drawable/gradient_bg"
+    android:gravity="center"
+    tools:context=".Fragments.SettingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/theme3"
+        android:id="@+id/linearSettingLayout"
+        android:layout_height="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        >
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationViewMan"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:lottie_autoPlay="true"
+            android:layout_marginBottom="-9dp"
+            android:layout_gravity="top"
+            app:lottie_fileName="man.json"
+            android:layout_weight="2"
+            app:lottie_loop="true" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationViewSubscribe"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:lottie_autoPlay="true"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            app:lottie_fileName="subscribe.json"
+            app:lottie_loop="true" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView_set"
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearSettingLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="150dp"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/feedback"
+                app:cardBackgroundColor="@color/theme3"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_margin="20dp"
+                        android:layout_gravity="center"
+                        android:text="Feedback"
+                        android:textColor="@color/theme1"
+                        android:textSize="25sp"
+                        android:fontFamily="@font/airbnb_cereal_medium"
+                        />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/terms"
+                app:cardBackgroundColor="@color/theme3"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_margin="20dp"
+                        android:layout_gravity="center"
+                        android:text="Terms &amp; Conditions"
+                        android:textColor="@color/theme1"
+                        android:textSize="25sp"
+                        android:fontFamily="@font/airbnb_cereal_medium"
+                        />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/privacy"
+                app:cardBackgroundColor="@color/theme3"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_margin="20dp"
+                        android:layout_gravity="center"
+                        android:text="Privacy &amp; Policy"
+                        android:textColor="@color/theme1"
+                        android:textSize="25sp"
+                        android:fontFamily="@font/airbnb_cereal_medium"
+                        />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/review"
+                app:cardBackgroundColor="@color/theme3"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_margin="20dp"
+                        android:layout_gravity="center"
+                        android:text="Review"
+                        android:textColor="@color/theme1"
+                        android:textSize="25sp"
+                        android:fontFamily="@font/airbnb_cereal_medium"
+                        />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Handcrafted with love in 🇮🇳"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/india_text_set"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:textSize="15sp"
+                android:fontFamily="@font/airbnb_cereal_book"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/copyright_set"
+                />
+
+
+            <TextView
+                android:id="@+id/copyright_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copyright © 2022 Shark Bytes Lab.\nAll rights reserved."
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView_set"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="15sp"
+                android:fontFamily="@font/airbnb_cereal_medium"
+                />
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
