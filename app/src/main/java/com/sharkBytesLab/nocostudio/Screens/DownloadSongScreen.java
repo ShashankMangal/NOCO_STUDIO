@@ -55,6 +55,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -444,7 +445,7 @@ public class DownloadSongScreen extends AppCompatActivity {
 
                 assert infoModel != null;
                 int count = infoModel.getSubs();
-                binding.countAnimationTextView.setAnimationDuration(5000).countAnimation(0, count);
+                binding.countAnimationTextView.setDecimalFormat(new DecimalFormat("###,###,###")).setAnimationDuration(5000).countAnimation(0, count);
 
             }
         });
