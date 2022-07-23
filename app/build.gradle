@@ -64,6 +64,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.wajahatkarim:EasyFlipView:3.0.3'
     implementation 'com.daasuu:CountAnimationTextView:0.1.2'
+    implementation("com.tbuonomo:dotsindicator:4.3")
 
 }
 

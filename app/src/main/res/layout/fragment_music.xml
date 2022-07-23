@@ -8,37 +8,62 @@
     android:background="@drawable/gradient_bg"
     tools:context=".Fragments.MusicFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Music Found On Device !!"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/airbnb_cereal_medium"
-        android:id="@+id/no_song"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="110dp"
-        android:layout_centerHorizontal="true"
-        />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/no_song_lottie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        app:lottie_autoPlay="true"
-        android:visibility="gone"
-        app:lottie_fileName="not_found.json"
-        app:lottie_loop="true" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/music_recycler_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        />
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/music_view_pager"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Music Found On Device !!"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/airbnb_cereal_medium"
+                android:id="@+id/no_song"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="110dp"
+                android:layout_centerHorizontal="true"
+                />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/no_song_lottie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:lottie_autoPlay="true"
+                android:visibility="gone"
+                app:lottie_fileName="not_found.json"
+                app:lottie_loop="true" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/music_view_pager"
+                android:id="@+id/music_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>
