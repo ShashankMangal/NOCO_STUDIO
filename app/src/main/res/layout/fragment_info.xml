@@ -83,15 +83,16 @@
                 android:backgroundTint="@color/white">
 
 
-                <TextView
+                <com.daasuu.cat.CountAnimationTextView
                     android:id="@+id/server_songs_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="25dp"
                     android:fontFamily="@font/baloo"
                     android:text="--"
                     android:textColor="@color/theme"
-                    android:textSize="45sp" />
+                    android:textSize="45sp"
+                    />
 
                 <TextView
                     android:id="@+id/server_text"
@@ -127,20 +128,21 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-
                 android:background="@drawable/round_bk"
                 android:backgroundTint="@color/white">
 
 
-                <TextView
+
+                <com.daasuu.cat.CountAnimationTextView
                     android:id="@+id/songs_download_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="25dp"
                     android:fontFamily="@font/baloo"
-                    android:text="-----"
+                    android:text="------"
                     android:textColor="@color/theme"
-                    android:textSize="45sp" />
+                    android:textSize="45sp"
+                    />
 
                 <TextView
                     android:id="@+id/son_text"

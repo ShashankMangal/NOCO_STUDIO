@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daasuu.cat.CountAnimationTextView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
@@ -38,6 +39,7 @@ import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.DownloadSongScreen;
 import com.sharkBytesLab.nocostudio.Screens.OnlineMusicScreen;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -57,7 +59,8 @@ public class InfoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private TextView version, songs, download;
+    private TextView version;
+    private CountAnimationTextView download, songs;
     private FirebaseFirestore firestore;
     private InfoModel model;
     private RelativeLayout share;
@@ -171,8 +174,9 @@ public class InfoFragment extends Fragment {
 
                 model = documentSnapshot.toObject(InfoModel.class);
 
-                songs.setText(String.valueOf(model.getSongs()));
-                download.setText(String.valueOf(model.getNum()) + "+");
+                int count = model.getNum();
+                download.setDecimalFormat(new DecimalFormat("###,###,###")).setAnimationDuration(3000).countAnimation(0, count);
+                songs.setDecimalFormat(new DecimalFormat("###,###,###")).setAnimationDuration(3000).countAnimation(0, model.getSongs());
 
             }
         });
