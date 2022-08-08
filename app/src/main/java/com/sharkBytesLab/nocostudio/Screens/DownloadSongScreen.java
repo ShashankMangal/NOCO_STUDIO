@@ -527,13 +527,11 @@ public class DownloadSongScreen extends AppCompatActivity {
     }
 
 
-    public void setAds()
-    {
+    public void setAds() {
 
         AdRequest adRequest = new AdRequest.Builder().build();
-        binding.adView.loadAd(adRequest);
 
-        InterstitialAd.load(this,"ca-app-pub-5127713321341585/9330800154", adRequest,
+        InterstitialAd.load(this, "ca-app-pub-5127713321341585/9330800154", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -551,43 +549,9 @@ public class DownloadSongScreen extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
-
-        binding.adView.setAdListener(new AdListener() {
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-            }
-
-            @Override
-            public void onAdFailedToLoad(LoadAdError adError) {
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdImpression() {
-                // Code to be executed when an impression is recorded
-                // for an ad.
-            }
-
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-        });
-
     }
+
+
 
     private void promotionWebViewData()
     {
