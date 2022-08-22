@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">NOCO Studio</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="applovin_sdk_key">doNokpQpB4U8uCdC0RFRN7O2VWKagVVGIFFffq_NSgiVQ4_TOoqDFOmBgdKpxUgGSRpRiC39b85dC8_TkifX2y</string>
+    <string name="applovin_banner_adId">c990b5f1301feeca</string>
+    <string name="applovin_inter_adId">312f55152840940b</string>
+    <dimen name="banner_height">50dp</dimen>
 </resources>
