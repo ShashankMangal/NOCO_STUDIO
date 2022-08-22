@@ -2,6 +2,7 @@ package com.sharkBytesLab.nocostudio.Screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -76,6 +77,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import www.sanju.motiontoast.MotionToast;
+import www.sanju.motiontoast.MotionToastStyle;
 
 public class DownloadSongScreen extends AppCompatActivity {
 
@@ -402,6 +406,17 @@ public class DownloadSongScreen extends AppCompatActivity {
 
     }
 
+    private void showToast(String s)
+    {
+        MotionToast.Companion.createColorToast(this,
+                s,
+                "Click on SKIP TIMER",
+                MotionToastStyle.INFO,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(this, R.font.helvetica_regular));
+
+    }
     private void checkPermission()
     {
         Dexter.withContext(this)
@@ -448,17 +463,37 @@ public class DownloadSongScreen extends AppCompatActivity {
             Bitmap bitmap = draw.getBitmap();
             fileOutputStream = new FileOutputStream(new_file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-            Toast.makeText(this, "Thumbnail Saved In Gallery.", Toast.LENGTH_SHORT).show();
+            MotionToast.Companion.createColorToast(this,
+                    "Thumbnail Saved In Gallery",
+                    "Successfully",
+                    MotionToastStyle.SUCCESS,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
             fileOutputStream.flush();
             fileOutputStream.close();
 
 
         }catch(FileNotFoundException e)
         {
-            Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            MotionToast.Companion.createColorToast(this,
+                    "ERROR ☹️ ",
+                    e.getMessage().toString(),
+                    MotionToastStyle.SUCCESS,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
+
         }catch(IOException e)
         {
             Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            MotionToast.Companion.createColorToast(this,
+                    "ERROR ☹️ ",
+                    e.getMessage().toString(),
+                    MotionToastStyle.SUCCESS,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
         }
 
         refreshGallery(new_file);
@@ -655,7 +690,7 @@ public class DownloadSongScreen extends AppCompatActivity {
             @Override
             public void onAdLoaded(MaxAd ad) {
                 Log.e("Inter Ad", "Loaded");
-                Toast.makeText(DownloadSongScreen.this, "You can skip the timer.", Toast.LENGTH_SHORT).show();
+                showToast("You can skip the timer");
             }
 
             @Override

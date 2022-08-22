@@ -12,8 +12,8 @@ android {
         applicationId "com.sharkBytesLab.nocostudio"
         minSdk 21
         targetSdk 31
-        versionCode 23
-        versionName "23.0.9"
+        versionCode 24
+        versionName "24.1.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -66,6 +66,7 @@ dependencies {
     implementation 'com.daasuu:CountAnimationTextView:0.1.2'
     implementation("com.tbuonomo:dotsindicator:4.3")
     implementation 'com.applovin:applovin-sdk:10.3.4'
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
 
 }
 
