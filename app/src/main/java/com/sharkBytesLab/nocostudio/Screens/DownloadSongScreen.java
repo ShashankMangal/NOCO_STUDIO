@@ -110,15 +110,8 @@ public class DownloadSongScreen extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
 
-        AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
-        AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
-            @Override
-            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
-            {
-                createBannerAd();
-                createInterstitialAd();
-            }
-        } );
+        createBannerAd();
+        createInterstitialAd();
         getSliderImages();
         getInfo();
 
