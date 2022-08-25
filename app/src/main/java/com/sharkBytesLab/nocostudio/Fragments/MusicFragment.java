@@ -1,6 +1,7 @@
 package com.sharkBytesLab.nocostudio.Fragments;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.sharkBytesLab.nocostudio.Adapters.MusicListAdapter;
 import com.sharkBytesLab.nocostudio.Adapters.ViewpagerAdapter;
 import com.sharkBytesLab.nocostudio.Models.AudioModel;
 import com.sharkBytesLab.nocostudio.R;
+import com.sharkBytesLab.nocostudio.Screens.PerksScreen;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.io.File;
@@ -107,8 +109,6 @@ public class MusicFragment extends Fragment {
 
         viewpagerAdapter = new ViewpagerAdapter(getActivity());
         viewPager.setAdapter(viewpagerAdapter);
-
-
 
 
         if(checkPermission() == false)

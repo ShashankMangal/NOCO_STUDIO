@@ -38,6 +38,7 @@ import com.sharkBytesLab.nocostudio.Models.InfoModel;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.DownloadSongScreen;
 import com.sharkBytesLab.nocostudio.Screens.OnlineMusicScreen;
+import com.sharkBytesLab.nocostudio.Screens.PerksScreen;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class InfoFragment extends Fragment {
     private FirebaseFirestore firestore;
     private InfoModel model;
     private RelativeLayout share;
+    private RelativeLayout version_layout;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -108,11 +110,13 @@ public class InfoFragment extends Fragment {
         songs = view.findViewById(R.id.server_songs_count);
         download = view.findViewById(R.id.songs_download_count);
         share = view.findViewById(R.id.share_with_friends);
+        version_layout = view.findViewById(R.id.version_layout);
 
         firestore = FirebaseFirestore.getInstance();
         version.setText("V " + String.valueOf(BuildConfig.VERSION_NAME));
 
 
+        version_layout.setOnClickListener(v-> startActivity(new Intent(getActivity(), PerksScreen.class)));
 
         Runnable objRunnable1 = new Runnable() {
             @Override

@@ -24,6 +24,7 @@
             android:layout_height="110dp">
 
             <RelativeLayout
+                android:id="@+id/version_layout"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/round_bk_red"
