@@ -9,7 +9,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,8 +18,8 @@
 
         <LinearLayout
             android:id="@+id/perkLayoutSave"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
             android:orientation="vertical"
             android:background="@color/colorPrimaryDark"
             android:layout_gravity="center"
@@ -27,10 +27,11 @@
             >
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/noco_new"
+                android:scaleType="centerCrop"
+                android:src="@drawable/perk_design1"
                 />
         </LinearLayout>
 
@@ -45,6 +46,9 @@
         android:layout_margin="20dp"
         android:text="SAVE"
         android:background="@drawable/buttonbg"
+        android:backgroundTint="@color/white"
+        android:elevation="3dp"
+        app:backgroundTint="@color/white"
         android:id="@+id/saveLayoutPerkButton"
         />
 

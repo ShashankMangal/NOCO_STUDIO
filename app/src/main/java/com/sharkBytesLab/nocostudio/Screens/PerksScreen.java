@@ -54,7 +54,7 @@ public class PerksScreen extends AppCompatActivity {
         File file = new File(root+"/Download");
         Date d = new Date();
         CharSequence s  = DateFormat.format("MM-dd-yy hh-mm-ss", d.getTime());
-        String fileName = s.toString()+".jpg";
+        String fileName = "NOCO_Perks" + s.toString()+".jpg";
         File myFile = new File(file, fileName);
         Log.e("Bitmap", bitmap.toString());
 
