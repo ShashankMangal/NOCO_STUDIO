@@ -28,6 +28,17 @@
     <color name="lightYellow">#ffeb3c</color>
 
 
+    <color name="colorItem1Start">#FEBD1B</color>
+    <color name="colorItem1End">#E4A401</color>
+    <color name="colorItem2Start">#4D79FF</color>
+    <color name="colorItem2End">#0039E6</color>
+    <color name="colorItem3Start">#993399</color>
+    <color name="colorItem3End">#602060</color>
+    <color name="colorEndBackground">#50FFFFFF</color>
+    <color name="colorLightText">#ECECEC</color>
+
+
+
 
 
 </resources>

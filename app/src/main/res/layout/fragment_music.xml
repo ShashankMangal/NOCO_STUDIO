@@ -19,11 +19,12 @@
             android:layout_height="wrap_content"
             >
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/music_view_pager"
+            <ImageView
+                android:id="@+id/perk_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="10dp"
+                android:src="@drawable/page1"
                 android:layout_marginEnd="10dp" />
 
             <TextView
@@ -52,7 +53,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@id/music_view_pager"
+                android:layout_below="@id/perk_imageView"
                 android:id="@+id/music_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

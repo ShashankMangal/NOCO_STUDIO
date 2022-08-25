@@ -3,6 +3,7 @@ package com.sharkBytesLab.nocostudio.Screens;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,7 +23,7 @@ import java.util.Locale;
 import www.sanju.motiontoast.MotionToast;
 import www.sanju.motiontoast.MotionToastStyle;
 
-public class PerksScreen extends AppCompatActivity {
+public class Perk1Screen extends AppCompatActivity {
 
     private ActivityPerksScreenBinding binding;
 
@@ -32,6 +33,11 @@ public class PerksScreen extends AppCompatActivity {
         binding = ActivityPerksScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.perk1ImageBack.setOnClickListener(v->
+                {
+                    startActivity(new Intent(getApplicationContext(), AllPerksScreen.class));
+                }
+                );
         binding.saveLayoutPerkButton.setOnClickListener(v ->
                 saveLayout()
         );

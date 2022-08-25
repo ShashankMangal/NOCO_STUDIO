@@ -11,28 +11,22 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
 import com.sharkBytesLab.nocostudio.Adapters.MusicListAdapter;
-import com.sharkBytesLab.nocostudio.Adapters.ViewpagerAdapter;
 import com.sharkBytesLab.nocostudio.Models.AudioModel;
 import com.sharkBytesLab.nocostudio.R;
-import com.sharkBytesLab.nocostudio.Screens.PerksScreen;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.sharkBytesLab.nocostudio.Screens.AllPerksScreen;
+import com.sharkBytesLab.nocostudio.Screens.Perk1Screen;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,8 +53,7 @@ public class MusicFragment extends Fragment {
     private LottieAnimationView not_found;
     private RelativeLayout layout;
     private ArrayList<AudioModel> songsList = new ArrayList<>();
-    private ViewPager viewPager;
-    private ViewpagerAdapter viewpagerAdapter;
+    private ImageView perk_imageView;
 
 
     public MusicFragment() {
@@ -105,13 +98,17 @@ public class MusicFragment extends Fragment {
         noMusicTextView = view.findViewById(R.id.no_song);
         not_found = view.findViewById(R.id.no_song_lottie);
         layout = view.findViewById(R.id.music_frag_layout);
-        viewPager = view.findViewById(R.id.music_view_pager);
+        perk_imageView = view.findViewById(R.id.perk_imageView);
 
-        viewpagerAdapter = new ViewpagerAdapter(getActivity());
-        viewPager.setAdapter(viewpagerAdapter);
+        perk_imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(getActivity(), AllPerksScreen.class));
+            }
+        });
 
-
-        if(checkPermission() == false)
+        if(!checkPermission())
         {
             requestPermission();
         }

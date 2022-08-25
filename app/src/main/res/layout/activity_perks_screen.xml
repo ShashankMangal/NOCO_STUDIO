@@ -5,15 +5,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Screens.PerksScreen">
+    tools:context=".Screens.Perk1Screen">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/perk1Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/perk1ImageBack"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/round_background"
+                android:elevation="3dp"
+                android:padding="5dp"
+                android:layout_marginBottom="12dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+        </RelativeLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/perk1Layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/perk1Header"
+       app:layout_constraintBottom_toTopOf="@+id/saveLayoutPerkButton"
         >
 
         <LinearLayout
@@ -45,10 +76,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="20dp"
         android:text="SAVE"
+        android:textColor="@color/white"
+        android:fontFamily="@font/airbnb_cereal_bold"
         android:background="@drawable/buttonbg"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/theme1"
         android:elevation="3dp"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/theme1"
         android:id="@+id/saveLayoutPerkButton"
         />
 

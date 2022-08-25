@@ -3,8 +3,6 @@ package com.sharkBytesLab.nocostudio.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,32 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daasuu.cat.CountAnimationTextView;
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.interfaces.ItemClickListener;
-import com.denzcoskun.imageslider.models.SlideModel;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.sharkBytesLab.nocostudio.BuildConfig;
 import com.sharkBytesLab.nocostudio.Models.InfoModel;
 import com.sharkBytesLab.nocostudio.R;
-import com.sharkBytesLab.nocostudio.Screens.DownloadSongScreen;
-import com.sharkBytesLab.nocostudio.Screens.OnlineMusicScreen;
-import com.sharkBytesLab.nocostudio.Screens.PerksScreen;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 
 /**
@@ -65,7 +45,7 @@ public class InfoFragment extends Fragment {
     private FirebaseFirestore firestore;
     private InfoModel model;
     private RelativeLayout share;
-    private RelativeLayout version_layout;
+
 
     public InfoFragment() {
         // Required empty public constructor
@@ -103,32 +83,29 @@ public class InfoFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View view =  inflater.inflate(R.layout.fragment_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_info, container, false);
 
 
         version = view.findViewById(R.id.version_count);
         songs = view.findViewById(R.id.server_songs_count);
         download = view.findViewById(R.id.songs_download_count);
         share = view.findViewById(R.id.share_with_friends);
-        version_layout = view.findViewById(R.id.version_layout);
+
 
         firestore = FirebaseFirestore.getInstance();
         version.setText("V " + String.valueOf(BuildConfig.VERSION_NAME));
-
-
-        version_layout.setOnClickListener(v-> startActivity(new Intent(getActivity(), PerksScreen.class)));
 
         Runnable objRunnable1 = new Runnable() {
             @Override
             public void run() {
                 try {
 
-                getInfo();
+                    getInfo();
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity().getApplicationContext(), "Error :"+e.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.i("Error",e.getMessage());
+                    Toast.makeText(getActivity().getApplicationContext(), "Error :" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.i("Error", e.getMessage());
                 }
             }
         };
@@ -166,12 +143,7 @@ public class InfoFragment extends Fragment {
     }
 
 
-
-
-
-    void getInfo()
-
-    {
+    void getInfo() {
         firestore.collection("DownloadCount").document("count").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
