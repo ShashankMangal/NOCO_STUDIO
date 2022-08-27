@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Screens.Perk1Screen">
+    tools:context=".Perks.Perk1Screen">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/perk1Header"
@@ -25,10 +25,10 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/round_background"
                 android:elevation="3dp"
                 android:padding="5dp"
-                android:layout_marginBottom="12dp"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

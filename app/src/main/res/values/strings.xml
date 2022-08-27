@@ -6,5 +6,6 @@
     <string name="applovin_banner_adId">c990b5f1301feeca</string>
     <string name="applovin_inter_adId">312f55152840940b</string>
     <string name="applovin_inter_adId_forPerk1">b2e2c5d6240fcb53</string>
+    <string name="bottom_sheet_dialog">NEW PERKS ADDED \nMINOR BUG FIXED \nNEW NCS Hindi SONGS ADDED</string>
     <dimen name="banner_height">50dp</dimen>
 </resources>

@@ -26,7 +26,6 @@ import com.sharkBytesLab.nocostudio.Adapters.MusicListAdapter;
 import com.sharkBytesLab.nocostudio.Models.AudioModel;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.AllPerksScreen;
-import com.sharkBytesLab.nocostudio.Screens.Perk1Screen;
 
 import java.io.File;
 import java.util.ArrayList;

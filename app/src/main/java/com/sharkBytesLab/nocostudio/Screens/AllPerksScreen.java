@@ -14,6 +14,7 @@ import com.applovin.mediation.MaxAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.sharkBytesLab.nocostudio.MainActivity;
+import com.sharkBytesLab.nocostudio.Perks.Perk1Screen;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.databinding.ActivityAllPerksScreenBinding;
 

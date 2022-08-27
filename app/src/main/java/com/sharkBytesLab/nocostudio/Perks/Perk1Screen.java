@@ -1,4 +1,4 @@
-package com.sharkBytesLab.nocostudio.Screens;
+package com.sharkBytesLab.nocostudio.Perks;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.sharkBytesLab.nocostudio.R;
+import com.sharkBytesLab.nocostudio.Screens.AllPerksScreen;
 import com.sharkBytesLab.nocostudio.databinding.ActivityPerksScreenBinding;
 
 import java.io.File;

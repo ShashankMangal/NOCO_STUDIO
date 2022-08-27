@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,20 +12,19 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.applovin.sdk.AppLovinSdk;
@@ -37,28 +35,20 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
+import com.sharkBytesLab.nocostudio.Utilities.ConstantsValues;
 import com.sharkBytesLab.nocostudio.Fragments.InfoFragment;
 import com.sharkBytesLab.nocostudio.Fragments.LibraryFragment;
 import com.sharkBytesLab.nocostudio.Fragments.MusicFragment;
 import com.sharkBytesLab.nocostudio.Fragments.SettingsFragment;
 import com.sharkBytesLab.nocostudio.Fragments.WallpaperFragment;
-import com.sharkBytesLab.nocostudio.Misc.MyMediaPlayer;
 import com.sharkBytesLab.nocostudio.Misc.RateUsDialog;
+import com.sharkBytesLab.nocostudio.Utilities.PreferenceManager;
 import com.sharkBytesLab.nocostudio.databinding.ActivityMainBinding;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private int versionCode;
     private FirebaseRemoteConfig remoteConfig;
     private FirebaseAnalytics firebaseAnalytics;
+    private BottomSheetDialog bottomSheetDialog;
+    private PreferenceManager preferenceManager;
 
 
     @Override
@@ -76,6 +68,20 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
+
+        if(!preferenceManager.getBoolean(ConstantsValues.KEY_BOTTOM_SHEET_UPDATE_DIALOG))
+        {
+           preferenceManager.putBoolean(ConstantsValues.KEY_BOTTOM_SHEET_UPDATE_DIALOG, true);
+            bottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetStyle);
+            View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.whats_new_bottom_sheet, (LinearLayout) findViewById(R.id.whats_new_bottom_sheet));
+            bottomSheetDialog.setContentView(view);
+            bottomSheetDialog.show();
+        }
+
+
+
 
         AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
         AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {

@@ -22,7 +22,7 @@
             android:name=".Screens.AllPerksScreen"
             android:exported="false" />
         <activity
-            android:name=".Screens.Perk1Screen"
+            android:name=".Perks.Perk1Screen"
             android:exported="false" />
         <activity
             android:name=".Screens.OnlineMusicScreen"
