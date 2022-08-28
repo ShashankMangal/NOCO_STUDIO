@@ -19,6 +19,9 @@
         android:theme="@style/Theme.NOCOStudio"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Perk2Screen"
+            android:exported="false" />
+        <activity
             android:name=".Screens.AllPerksScreen"
             android:exported="false" />
         <activity
