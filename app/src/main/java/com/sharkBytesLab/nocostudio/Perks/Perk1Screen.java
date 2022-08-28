@@ -34,18 +34,18 @@ public class Perk1Screen extends AppCompatActivity {
         binding = ActivityPerksScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.perk1ImageBack.setOnClickListener(v->
+        binding.perk1ImageBack.setOnClickListener(v ->
                 {
                     startActivity(new Intent(getApplicationContext(), AllPerksScreen.class));
+                    finish();
                 }
-                );
+        );
         binding.saveLayoutPerkButton.setOnClickListener(v ->
                 saveLayout()
         );
     }
 
-    private void saveLayout()
-    {
+    private void saveLayout() {
         binding.perkLayoutSave.setDrawingCacheEnabled(true);
         binding.perkLayoutSave.buildDrawingCache();
         binding.perkLayoutSave.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -55,18 +55,16 @@ public class Perk1Screen extends AppCompatActivity {
         save(bitmap);
     }
 
-    private void save(Bitmap bitmap)
-    {
+    private void save(Bitmap bitmap) {
         String root = Environment.getExternalStorageDirectory().getAbsolutePath();
-        File file = new File(root+"/Download");
+        File file = new File(root + "/Download");
         Date d = new Date();
-        CharSequence s  = DateFormat.format("MM-dd-yy hh-mm-ss", d.getTime());
-        String fileName = "NOCO_Perks" + s.toString()+".jpg";
+        CharSequence s = DateFormat.format("MM-dd-yy hh-mm-ss", d.getTime());
+        String fileName = "NOCO_Perks" + s.toString() + ".jpg";
         File myFile = new File(file, fileName);
         Log.e("Bitmap", bitmap.toString());
 
-        if(myFile.exists())
-        {
+        if (myFile.exists()) {
             myFile.delete();
         }
 
@@ -83,10 +81,16 @@ public class Perk1Screen extends AppCompatActivity {
                     MotionToast.LONG_DURATION,
                     ResourcesCompat.getFont(this, R.font.helvetica_regular));
             binding.perkLayoutSave.setDrawingCacheEnabled(false);
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(this, "Error : " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), AllPerksScreen.class));
+        finish();
     }
 }

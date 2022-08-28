@@ -121,11 +121,15 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(Intent.ACTION_SENDTO);
-                i.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
-                i.putExtra(Intent.EXTRA_SUBJECT,subject);
-                i.setData(Uri.parse("mailto:"));
-                startActivity(i);
+                try {
+                    Intent i = new Intent(Intent.ACTION_SENDTO);
+                    i.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
+                    i.putExtra(Intent.EXTRA_SUBJECT,subject);
+                    i.setData(Uri.parse("mailto:"));
+                    startActivity(i);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Error : "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
 
                 Toast.makeText(getContext(), "Type your Feedback here.", Toast.LENGTH_SHORT).show();
 

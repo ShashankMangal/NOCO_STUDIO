@@ -296,9 +296,13 @@ public class DownloadSongScreen extends AppCompatActivity {
 //
 //                }
 
-                if(interstitialAd.isReady())
-                {
-                    interstitialAd.showAd();
+                try {
+                    if(interstitialAd.isReady())
+                    {
+                        interstitialAd.showAd();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
 

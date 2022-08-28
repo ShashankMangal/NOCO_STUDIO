@@ -19,7 +19,11 @@
         android:theme="@style/Theme.NOCOStudio"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Perk2Screen"
+            android:name=".Screens.IntroScreen"
+            android:theme="@style/Theme.Intro"
+            android:exported="true" />
+        <activity
+            android:name=".Perks.Perk2Screen"
             android:exported="false" />
         <activity
             android:name=".Screens.AllPerksScreen"
@@ -57,14 +61,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
-        <service
-            android:name=".Misc.PushNotificationService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <meta-data
             android:name="preloaded_fonts"

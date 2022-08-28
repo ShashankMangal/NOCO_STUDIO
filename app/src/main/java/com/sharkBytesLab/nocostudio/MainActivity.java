@@ -195,10 +195,13 @@ public class MainActivity extends AppCompatActivity {
         versionCode = getCurrentVersionCode();
         remoteConfig = FirebaseRemoteConfig.getInstance();
 
-        checkUpdate();
-        maintenanceBreakUpdate();
-        rateUsDialogCheck();
-
+        try {
+            checkUpdate();
+            maintenanceBreakUpdate();
+            rateUsDialogCheck();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         binding.music.setOnClickListener(new View.OnClickListener() {

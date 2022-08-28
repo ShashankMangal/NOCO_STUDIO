@@ -2,9 +2,13 @@ package com.sharkBytesLab.nocostudio.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TaskStackBuilder;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -17,6 +21,8 @@ import com.sharkBytesLab.nocostudio.databinding.ActivitySplashScreenBinding;
 public class SplashScreen extends AppCompatActivity {
 
     private ActivitySplashScreenBinding binding;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,43 +32,34 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        startThread();
+        preferences = this.getSharedPreferences("splash", MODE_PRIVATE);
+        editor = preferences.edit();
 
-
-    }
-
-    private void startThread() {
-
-        Thread thread = new Thread(){
-            public void run(){
-
-                try{
-                    sleep(2000);
-
-                }
-                catch (Exception e)
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+                if(preferences.getBoolean("isMain", false))
                 {
-                    e.printStackTrace();
+                    startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                    finish();
                 }
-                finally
+                else
                 {
+                    editor.putBoolean("isMain", true);
+                    editor.apply();
 
-                        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-                        intent.putExtra("frag",3);
-                        startActivity(intent);
-
+                    TaskStackBuilder.create(SplashScreen.this)
+                            .addNextIntentWithParentStack(new Intent(SplashScreen.this, MainActivity.class))
+                            .addNextIntent(new Intent(SplashScreen.this, IntroScreen.class))
+                            .startActivities();
                 }
             }
-        };
-        thread.start();
+        }, 2000);
+
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        startThread();
 
-    }
 }

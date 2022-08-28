@@ -10,7 +10,6 @@
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".Perks.Perk2Screen">
@@ -59,7 +58,10 @@
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/perk2Header" />
+                app:layout_constraintTop_toBottomOf="@+id/perk2Header"
+                android:fontFamily="@font/montserrat_regular"
+                android:textStyle="bold"
+                />
 
             <EditText
                 android:id="@+id/perk2ViewCount"
@@ -71,25 +73,30 @@
                 android:background="@drawable/edittext_linear_background"
                 android:hint="Views in Number"
                 android:inputType="number"
-                android:maxLength="22"
+                android:maxLength="9"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/perk2ChannelName" />
+                app:layout_constraintTop_toBottomOf="@+id/perk2ChannelName"
+                android:fontFamily="@font/montserrat_regular"
+                android:textStyle="bold"
+                />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/perk2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/saveLayoutPerk2Button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/perk2ViewCount">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saveLayoutPerk2Button"
+                >
 
                 <LinearLayout
                     android:id="@+id/perk2LayoutSave"
                     android:layout_width="400dp"
                     android:layout_height="400dp"
+                    android:layout_marginTop="20dp"
                     android:layout_gravity="center"
                     android:background="@drawable/perk_design2"
                     android:gravity="bottom|center"
@@ -101,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/airbnb_cereal_medium"
                         android:maxLength="22"
-                        android:text="CHANNEL NAME/USER NAME"
+                        android:text="CHANNEL NAME"
                         android:textColor="@color/black"
                         android:textSize="26sp"
                         android:textStyle="bold"
@@ -126,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/airbnb_cereal_medium"
                         android:maxLength="22"
-                        android:text="10000000"
+                        android:text="1000"
                         android:textColor="@color/theme3"
                         android:textSize="56sp"
                         android:textStyle="bold"
@@ -153,9 +160,10 @@
 
             <Button
                 android:id="@+id/saveLayoutPerk2Button"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginEnd="20dp"
+                android:enabled="false"
                 android:background="@drawable/buttonbg"
                 android:backgroundTint="@color/theme1"
                 android:elevation="3dp"
@@ -163,9 +171,43 @@
                 android:text="SAVE"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/theme1"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/perk2Layout"
+                app:layout_constraintTop_toBottomOf="@id/perk2TextView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                />
+
+            <Button
+                android:id="@+id/previewLayoutPerk2Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/buttonbg"
+                android:backgroundTint="@color/theme3"
+                android:elevation="3dp"
+                android:fontFamily="@font/airbnb_cereal_bold"
+                android:text="PREVIEW"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/theme3"
+                app:layout_constraintBottom_toTopOf="@+id/perk2Layout"
+                app:layout_constraintTop_toBottomOf="@id/perk2TextView"
+                app:layout_constraintStart_toStartOf="parent"
+               />
+
+            <TextView
+                android:id="@+id/perk2TextView"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/perk2ViewCount"
+                app:layout_constraintBottom_toTopOf="@id/previewLayoutPerk2Button"
+                android:text="PREVIEW -> SAVE -> SHARE"
+                android:textColor="@color/theme3"
+                android:fontFamily="@font/airbnb_cereal_medium"
+
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
