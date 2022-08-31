@@ -12,8 +12,8 @@ android {
         applicationId "com.sharkBytesLab.nocostudio"
         minSdk 21
         targetSdk 31
-        versionCode 27
-        versionName "27.2.0"
+        versionCode 28
+        versionName "28.2.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -68,7 +68,8 @@ dependencies {
     implementation 'com.applovin:applovin-sdk:10.3.4'
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
     implementation 'io.github.dreierf:material-intro-screen:0.0.6'
-    implementation 'com.applovin.mediation:facebook-adapter:6.6.0.3'
+    implementation 'com.applovin.mediation:facebook-adapter:6.11.0.5'
+    implementation 'androidx.annotation:annotation:1.4.0'
     implementation 'com.facebook.android:audience-network-sdk:6.11.0'
     implementation 'com.google.ads.mediation:facebook:6.11.0.1'
 }

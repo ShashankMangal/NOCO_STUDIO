@@ -26,7 +26,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
+import com.facebook.ads.*;
 import com.applovin.sdk.AppLovinSdk;
 import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.google.android.gms.ads.MobileAds;
@@ -48,7 +48,6 @@ import com.sharkBytesLab.nocostudio.Fragments.WallpaperFragment;
 import com.sharkBytesLab.nocostudio.Misc.RateUsDialog;
 import com.sharkBytesLab.nocostudio.Utilities.PreferenceManager;
 import com.sharkBytesLab.nocostudio.databinding.ActivityMainBinding;
-
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+        AudienceNetworkAds.initialize(this);
         AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
         AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
             @Override

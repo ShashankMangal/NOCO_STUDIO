@@ -17,12 +17,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.sharkBytesLab.nocostudio.Adapters.MusicListAdapter;
+import com.sharkBytesLab.nocostudio.MainActivity;
 import com.sharkBytesLab.nocostudio.Models.AudioModel;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.AllPerksScreen;
@@ -53,6 +60,7 @@ public class MusicFragment extends Fragment {
     private RelativeLayout layout;
     private ArrayList<AudioModel> songsList = new ArrayList<>();
     private ImageView perk_imageView;
+    private AdView adView;
 
 
     public MusicFragment() {
@@ -98,6 +106,33 @@ public class MusicFragment extends Fragment {
         not_found = view.findViewById(R.id.no_song_lottie);
         layout = view.findViewById(R.id.music_frag_layout);
         perk_imageView = view.findViewById(R.id.perk_imageView);
+
+        adView = new AdView(getActivity().getApplicationContext(), "772807133924163_774117280459815", AdSize.BANNER_HEIGHT_50);
+        LinearLayout adContainer = (LinearLayout) view.findViewById(R.id.banner_container);
+        adContainer.addView(adView);
+        AdListener adListener = new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                Toast.makeText(
+                                getActivity().getApplicationContext(),
+                                "Error: " + adError.getErrorMessage(),
+                                Toast.LENGTH_LONG)
+                        .show();
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+            }
+        };
+        adView.loadAd(adView.buildLoadAdConfig().withAdListener(adListener).build());
 
         perk_imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +241,13 @@ public class MusicFragment extends Fragment {
 
 
 
+    }
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 
 }
