@@ -1,62 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <LinearLayout
         android:id="@+id/download_song_screen_animation"
         android:layout_width="match_parent"
-        android:background="@drawable/gradient_bg"
         android:layout_height="match_parent"
-        tools:context=".Screens.DownloadSongScreen"
+        android:background="@drawable/gradient_bg"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        tools:context=".Screens.DownloadSongScreen">
+
         <ScrollView
             android:id="@+id/downloadScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="7dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/downloadSongImageBack"
+                        android:layout_width="39dp"
+                        android:layout_height="39dp"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="15dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="3dp"
+                        android:background="@drawable/background_image_back"
+                        android:elevation="5dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/downloadSongFav"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/ic_round_favorite_border_24" />
+
+                </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/linear_layout_bg"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="7dp"
-                    android:background="@drawable/linear_layout_bg"
-                    >
+                    android:padding="7dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_marginEnd="5dp"
-                        >
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Current Subscribers"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
                             android:fontFamily="@font/airbnb_cereal_book"
+                            android:text="Current Subscribers"
                             android:textColor="@color/white"
-                            />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <com.daasuu.cat.CountAnimationTextView
                             android:id="@+id/count_animation_textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
                             android:fontFamily="@font/airbnb_cereal_bold"
+                            android:text="0"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
-                            />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -65,17 +98,15 @@
                         android:id="@+id/checkout_youtube"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
                         android:layout_marginStart="5dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/white"
+                        android:layout_marginEnd="6dp"
                         android:background="@drawable/round_back"
-                        android:text="Subscribe\nNCS Hindi"
-                        app:backgroundTint="@color/white"
-                        android:paddingStart="10dp"
                         android:drawableEnd="@drawable/ic_baseline_subscriptions_24"
-                        />
-
+                        android:paddingStart="10dp"
+                        android:text="Subscribe\nNCS Hindi"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:backgroundTint="@color/white" />
 
 
                 </LinearLayout>
@@ -85,153 +116,139 @@
                     android:layout_height="wrap_content"
                     android:elevation="5dp"
                     app:cardCornerRadius="1dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
+
                         <com.denzcoskun.imageslider.ImageSlider
+                            android:id="@+id/imageSlider"
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
-                            app:iss_period="1000"
-                            app:iss_corner_radius="10"
                             app:iss_auto_cycle="true"
+                            app:iss_corner_radius="10"
                             app:iss_delay="1000"
-                            android:id="@+id/imageSlider"
-                            />
+                            app:iss_period="1000" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
+                    android:id="@+id/adLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/adLayout"
-                    android:orientation="vertical"
-                    />
+                    android:orientation="vertical" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/linear_layout_bg"
                     android:layout_marginBottom="10dp"
-                    >
+                    android:background="@drawable/linear_layout_bg">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/promotionCardView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:elevation="4dp"
                         android:layout_margin="5dp"
-                        android:id="@+id/promotionCardView"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:elevation="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/uniqueId"
-                        >
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/uniqueId">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            >
+                            android:orientation="vertical">
 
                             <LinearLayout
-                                android:layout_marginTop="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
                                 android:gravity="center"
-                                >
+                                android:orientation="horizontal">
 
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/youtube_logo"
                                     android:layout_width="90dp"
                                     android:layout_height="90dp"
-                                    android:src="@drawable/youtube"
-                                    app:civ_border_width="1dp"
                                     android:scaleType="centerCrop"
-                                    app:civ_border_color="@color/textRed"/>
+                                    android:src="@drawable/youtube"
+                                    app:civ_border_color="@color/textRed"
+                                    app:civ_border_width="1dp" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    >
+                                    android:orientation="vertical">
 
                                     <TextView
                                         android:id="@+id/channelNameTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Channel Name"
-                                        android:gravity="center"
-                                        android:fontFamily="@font/airbnb_cereal_black"
                                         android:layout_gravity="center"
-                                        android:textColor="@color/textRed"
-                                        android:textSize="25sp"
-                                        android:singleLine="true"
+                                        android:fontFamily="@font/airbnb_cereal_black"
+                                        android:gravity="center"
                                         android:scrollHorizontally="true"
-                                        />
+                                        android:singleLine="true"
+                                        android:text="Channel Name"
+                                        android:textColor="@color/textRed"
+                                        android:textSize="25sp" />
 
                                     <Button
                                         android:id="@+id/subscribeButton"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:backgroundTint="@color/textRed"
+                                        android:drawableTint="@color/white"
+                                        android:gravity="center"
                                         android:text="SUBSCRIBE"
                                         android:textColor="@color/white"
-                                        android:drawableTint="@color/white"
-                                        android:textSize="17sp"
-                                        android:backgroundTint="@color/textRed"
-                                        android:gravity="center"
-                                        android:layout_gravity="center"
-                                        />
+                                        android:textSize="17sp" />
 
                                 </LinearLayout>
 
                             </LinearLayout>
 
 
-
-
                             <TextView
-                                android:layout_marginTop="3dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="For Promotion Enquiry : Instagram-> only_ncshindi"
                                 android:layout_gravity="center_horizontal"
-                                android:gravity="center"
-                                android:textSize="15sp"
-                                android:textColor="@color/textRed"
+                                android:layout_marginTop="3dp"
                                 android:fontFamily="@font/airbnb_cereal_light"
-                                />
+                                android:gravity="center"
+                                android:text="For Promotion Enquiry : Instagram-> only_ncshindi"
+                                android:textColor="@color/textRed"
+                                android:textSize="15sp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center"
                                 android:layout_marginTop="9dp"
                                 android:layout_marginBottom="10dp"
-                                >
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
                                 <Button
                                     android:id="@+id/more"
-                                    android:background="@drawable/round_back"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="More"
-                                    android:textColor="@color/theme"
                                     android:layout_marginRight="20dp"
-                                    />
+                                    android:background="@drawable/round_back"
+                                    android:text="More"
+                                    android:textColor="@color/theme" />
 
                                 <Button
                                     android:id="@+id/enquiry"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Enquiry"
-                                    android:background="@drawable/round_back"
-                                    android:textColor="@color/theme"
                                     android:layout_marginLeft="20dp"
-                                    />
+                                    android:background="@drawable/round_back"
+                                    android:text="Enquiry"
+                                    android:textColor="@color/theme" />
 
                             </LinearLayout>
-
 
 
                         </LinearLayout>
@@ -241,139 +258,134 @@
                 </LinearLayout>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/downloadCardSong"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:id="@+id/downloadCardSong"
-                    app:cardBackgroundColor="@color/theme3"
-                    android:padding="10dp"
-                    app:cardElevation="4dp"
-                    app:cardCornerRadius="20dp"
                     android:layout_marginStart="7dp"
                     android:layout_marginEnd="7dp"
-                    >
+                    android:padding="10dp"
+                    app:cardBackgroundColor="@color/theme3"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/food_back"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <TextView
-                            android:layout_marginTop="23dp"
                             android:id="@+id/songNameFlowingText"
-                            android:layout_marginStart="6dp"
-                            android:layout_marginEnd="6dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="23dp"
+                            android:layout_marginEnd="6dp"
+                            android:fontFamily="@font/airbnb_cereal_medium"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
                             android:text="Song Name... ffuieuuifiufuihfhfhfhfhfhfhfhfhfhfhfhfhfhfhffffffffffffff"
                             android:textColor="@color/white"
-                            android:textSize="22sp"
-                            android:fontFamily="@font/airbnb_cereal_medium"
-                            android:singleLine="true"
-                            android:scrollHorizontally="true"
-                            />
+                            android:textSize="22sp" />
+
                         <TextView
+                            android:id="@+id/timer_downloadSong"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Preparing File : 00:00"
-                            android:textColor="@color/theme"
-                            android:id="@+id/timer_downloadSong"
-                            android:fontFamily="@font/airbnb_cereal_medium"
-                            android:gravity="center"
                             android:layout_gravity="center"
                             android:layout_marginTop="15dp"
-                            android:textSize="20sp"
                             android:drawableEnd="@drawable/ic_baseline_access_time_24"
-                            android:drawableTint="@color/theme"
                             android:drawablePadding="5dp"
-                            />
+                            android:drawableTint="@color/theme"
+                            android:fontFamily="@font/airbnb_cereal_medium"
+                            android:gravity="center"
+                            android:text="Preparing File : 00:00"
+                            android:textColor="@color/theme"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:id="@+id/skipTimer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Skip Timer"
                             android:layout_gravity="center"
                             android:layout_marginTop="15dp"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
-                            android:textColor="@color/theme"
                             android:background="@drawable/round_back"
+                            android:gravity="center"
                             android:padding="10dp"
-                            />
+                            android:text="Skip Timer"
+                            android:textColor="@color/theme"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
                         <ImageView
                             android:id="@+id/downloadImage"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginTop="15dp"
-                            android:src="@drawable/ic_baseline_cloud_download_24"
                             android:shadowColor="@color/theme"
+                            android:src="@drawable/ic_baseline_cloud_download_24"
                             app:tint="@color/white" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_margin="9dp"
+                            android:fontFamily="@font/airbnb_cereal_medium"
                             android:text="Download Here"
                             android:textColor="@color/theme"
-                            android:textSize="18sp"
-                            android:fontFamily="@font/airbnb_cereal_medium"
-                            android:layout_margin="9dp"/>
+                            android:textSize="18sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:padding="7dp"
                     android:background="@drawable/linear_layout_bg"
-                    >
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
 
                     <Button
                         android:id="@+id/telegramChat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
                         android:layout_marginStart="6dp"
+                        android:layout_marginEnd="5dp"
                         android:backgroundTint="#26b0e5"
-                        android:textColor="@color/white"
-                        android:textSize="13sp"
-                        android:text="Telegram"
                         android:drawableTop="@drawable/ic_baseline_send_24"
-                        />
+                        android:text="Telegram"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
                     <Button
                         android:id="@+id/shareAppDownloadSong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:backgroundTint="#FF5722"
-                        android:textSize="13sp"
-                        android:textColor="@color/white"
                         android:drawableTop="@drawable/ic_baseline_share_24"
                         android:text="Share"
-                        />
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/subscribe_yt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
                         android:layout_marginStart="5dp"
-                        android:textSize="13sp"
-                        android:drawableTop="@drawable/ic_baseline_subscriptions_24"
-                        android:textColor="@color/white"
+                        android:layout_marginEnd="6dp"
                         android:backgroundTint="@color/textRed"
+                        android:drawableTop="@drawable/ic_baseline_subscriptions_24"
                         android:text="Subscribe"
-                        />
-
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
 
                 </LinearLayout>
-
-
 
 
                 <androidx.cardview.widget.CardView
@@ -383,103 +395,93 @@
                     android:layout_marginBottom="15dp"
                     android:elevation="5dp"
                     app:cardCornerRadius="1dp">
+
                     <LinearLayout
+                        android:id="@+id/imageSlider2LinearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/imageSlider2LinearLayout"
-                        android:orientation="vertical"
                         android:background="@color/white"
-                        >
+                        android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/songThumbnail"
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
-                            android:id="@+id/songThumbnail"
                             android:layout_marginStart="6dp"
-                            android:layout_marginEnd="6dp"
-                            />
+                            android:layout_marginEnd="6dp" />
 
                         <Button
+                            android:id="@+id/download_thumbnail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/download_thumbnail"
-                            android:background="@drawable/round_back"
-                            app:backgroundTint="@color/black"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="5dp"
+                            android:background="@drawable/round_back"
+                            android:fontFamily="@font/airbnb_cereal_book"
                             android:text="Download Thumbnail"
                             android:textColor="@color/black"
                             android:textSize="16sp"
-                            android:fontFamily="@font/airbnb_cereal_book"
                             android:textStyle="bold"
-                            />
+                            app:backgroundTint="@color/black" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="90dp"
                     android:id="@+id/playSongCard"
-                    app:cardBackgroundColor="@color/theme3"
-                    android:padding="10dp"
-                    app:cardElevation="4dp"
-                    app:cardCornerRadius="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
                     android:layout_marginStart="7dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="7dp"
                     android:layout_marginBottom="20dp"
-                    >
-                    <LinearLayout
-                        android:id="@+id/yt_song_play"
-                        xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:padding="10dp"
+                    app:cardBackgroundColor="@color/theme3"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/yt_song_play"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:background="@drawable/food_back"
-                        android:orientation="vertical"
-                        >
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Play &amp; Listen on "
-                            android:textColor="@color/textRed"
-                            android:textSize="20sp"
-                            android:gravity="center"
-                            android:padding="9dp"
-                            android:background="@drawable/round_back"
-                            android:backgroundTint="@color/textRed"
                             android:layout_gravity="center"
                             android:layout_margin="22dp"
-                            android:fontFamily="@font/airbnb_cereal_medium"
+                            android:background="@drawable/round_back"
+                            android:backgroundTint="@color/textRed"
                             android:drawableEnd="@drawable/ic_youtube"
                             android:drawableTint="@color/textRed"
-                            />
+                            android:fontFamily="@font/airbnb_cereal_medium"
+                            android:gravity="center"
+                            android:padding="9dp"
+                            android:text="Play &amp; Listen on "
+                            android:textColor="@color/textRed"
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
 
-
-
-
-
-
                 <TextView
+                    android:id="@+id/song_policy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Subscribe on YouTube for More....(ɔ◔‿◔)ɔ ♥"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:id="@+id/song_policy"
-                    android:textColor="#FFFFFF"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/airbnb_cereal_book"
-                    />
+                    android:text="Subscribe on YouTube for More....(ɔ◔‿◔)ɔ ♥"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>

@@ -3,11 +3,9 @@ package com.sharkBytesLab.nocostudio.Adapters;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,10 +15,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.sharkBytesLab.nocostudio.Models.DownloadModel;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.DownloadSongScreen;
@@ -56,8 +50,6 @@ public class DownloadSongAdapter extends RecyclerView.Adapter<DownloadSongAdapte
 
         holder.textView.setText(downloadModel.getTitle());
         Glide.with(context).load(downloadModel.getImage()).thumbnail(Glide.with(context).load(R.drawable.spinner)).into(holder.imageView);
-
-
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,9 +92,6 @@ public class DownloadSongAdapter extends RecyclerView.Adapter<DownloadSongAdapte
                 timer.start();
 
                 context.startActivity(i);
-
-
-
             }
         });
 

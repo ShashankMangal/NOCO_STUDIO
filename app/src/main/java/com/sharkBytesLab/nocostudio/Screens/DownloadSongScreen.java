@@ -7,7 +7,9 @@ import androidx.core.content.res.ResourcesCompat;
 import android.Manifest;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -54,6 +56,8 @@ import com.google.android.material.slider.Slider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -70,6 +74,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,10 +92,10 @@ public class DownloadSongScreen extends AppCompatActivity {
     private ActivityDownloadSongScreenBinding binding;
     private FirebaseFirestore firestore;
     private SliderModel model;
-    private String songTitle ;
-    private String songImage ;
-    private String songLink ;
-    private String songId ;
+    private String songTitle;
+    private String songImage;
+    private String songLink;
+    private String songId;
     private Boolean reward;
     private String videoLink;
     private InterstitialAd mInterstitialAd;
@@ -100,7 +105,9 @@ public class DownloadSongScreen extends AppCompatActivity {
     private InfoModel infoModel;
     private MaxAdView adView;
     private MaxInterstitialAd interstitialAd;
-    private int retry=0;
+    private int retry = 0;
+    private ArrayList<String> favLists;
+    private boolean favListIsChecked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,18 +123,17 @@ public class DownloadSongScreen extends AppCompatActivity {
         getInfo();
 
 
-
-
         binding.downloadImage.setEnabled(false);
         binding.downloadImage.setAlpha(0.3F);
         long dur = TimeUnit.SECONDS.toMillis(41);
+        favLists = new ArrayList<>();
 
-        new CountDownTimer(dur, 1000){
+        new CountDownTimer(dur, 1000) {
 
             @Override
             public void onTick(long l) {
 
-                String sDuration = String.format(Locale.ENGLISH, "%02d : %02d", TimeUnit.MILLISECONDS.toMinutes(l), TimeUnit.MILLISECONDS.toSeconds(l)-
+                String sDuration = String.format(Locale.ENGLISH, "%02d : %02d", TimeUnit.MILLISECONDS.toMinutes(l), TimeUnit.MILLISECONDS.toSeconds(l) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
 
                 binding.timerDownloadSong.setText("Preparing File : " + sDuration.toString());
@@ -165,6 +171,32 @@ public class DownloadSongScreen extends AppCompatActivity {
             }
         });
 
+        binding.downloadSongFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+
+                if(!favListIsChecked)
+                {
+                    if(!favLists.contains(songTitle))
+                    {
+                        favLists.add(songTitle);
+                    }
+                    saveData();
+                    binding.downloadSongFav.setImageResource(R.drawable.ic_round_favorite_24);
+                    favListIsChecked = true;
+                }
+                else
+                {
+                    binding.downloadSongFav.setImageResource(R.drawable.ic_round_favorite_border_24);
+                    favLists.remove(songTitle);
+                    saveData();
+                    favListIsChecked = false;
+                }
+
+            }
+        });
+
 
         binding.checkoutYoutube.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,10 +213,9 @@ public class DownloadSongScreen extends AppCompatActivity {
 
         binding.downloadThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
-                    checkPermission();
+                checkPermission();
 
             }
         });
@@ -297,8 +328,7 @@ public class DownloadSongScreen extends AppCompatActivity {
 //                }
 
                 try {
-                    if(interstitialAd.isReady())
-                    {
+                    if (interstitialAd.isReady()) {
                         interstitialAd.showAd();
                     }
                 } catch (Exception e) {
@@ -310,7 +340,6 @@ public class DownloadSongScreen extends AppCompatActivity {
         });
 
 
-
         firestore = FirebaseFirestore.getInstance();
 
         try {
@@ -320,6 +349,7 @@ public class DownloadSongScreen extends AppCompatActivity {
                 songImage = extras.getString("image");
                 songLink = extras.getString("link");
                 songId = extras.getString("videoId");
+                addToFavList(songTitle);
 
             }
 
@@ -329,8 +359,7 @@ public class DownloadSongScreen extends AppCompatActivity {
 //
 //            binding.imageSlider2.setImageList(slideModels2, ScaleTypes.FIT);
 
-              Glide.with(getApplicationContext()).load(songImage).thumbnail(Glide.with(getApplicationContext()).load(R.drawable.spinner)).into(binding.songThumbnail);
-
+            Glide.with(getApplicationContext()).load(songImage).thumbnail(Glide.with(getApplicationContext()).load(R.drawable.spinner)).into(binding.songThumbnail);
 
 
         } catch (Exception e) {
@@ -346,7 +375,7 @@ public class DownloadSongScreen extends AppCompatActivity {
         try {
 
         } catch (Exception e) {
-            Log.d("Youtube Player Error : ",e.getMessage());
+            Log.d("Youtube Player Error : ", e.getMessage());
         }
 
 
@@ -365,13 +394,12 @@ public class DownloadSongScreen extends AppCompatActivity {
 
 
                 } catch (Exception e) {
-                    Log.d("Error : ",e.getMessage());
+                    Log.d("Error : ", e.getMessage());
                     Toast.makeText(DownloadSongScreen.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-
 
 
         binding.downloadImage.setOnClickListener(new View.OnClickListener() {
@@ -381,8 +409,7 @@ public class DownloadSongScreen extends AppCompatActivity {
 
                 try {
 
-                    if(!reward)
-                    {
+                    if (!reward) {
 
                         downloadCount();
                         reward = true;
@@ -394,7 +421,7 @@ public class DownloadSongScreen extends AppCompatActivity {
                     startActivity(intent);
 
                 } catch (Exception e) {
-                    Log.d("Mega WebView Error : ",e.getMessage());
+                    Log.d("Mega WebView Error : ", e.getMessage());
                 }
 
 
@@ -403,8 +430,7 @@ public class DownloadSongScreen extends AppCompatActivity {
 
     }
 
-    private void showToast(String s)
-    {
+    private void showToast(String s) {
         MotionToast.Companion.createColorToast(this,
                 s,
                 "Click on SKIP TIMER",
@@ -414,47 +440,85 @@ public class DownloadSongScreen extends AppCompatActivity {
                 ResourcesCompat.getFont(this, R.font.helvetica_regular));
 
     }
-    private void checkPermission()
-    {
+
+    private void checkPermission() {
         Dexter.withContext(this)
                 .withPermissions(
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE
                 ).withListener(new MultiplePermissionsListener() {
-                    @Override public void onPermissionsChecked(MultiplePermissionsReport report)
-                    {
-                        if(report.areAllPermissionsGranted())
-                        {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
 
                             saveImage();
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(DownloadSongScreen.this, "Please allow all permission!", Toast.LENGTH_SHORT).show();
                         }
                     }
 
-                    @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
                 }).check();
     }
 
-    private void saveImage()
+    private void addToFavList(String songTitle) {
+
+        readData();
+        if (favLists.contains(songTitle.toString()))
+        {
+            binding.downloadSongFav.setImageResource(R.drawable.ic_round_favorite_24);
+            favListIsChecked = true;
+        }
+        else
+        {
+            binding.downloadSongFav.setImageResource(R.drawable.ic_round_favorite_border_24);
+            favListIsChecked = false;
+        }
+
+    }
+
+    private void saveData()
     {
+        SharedPreferences sharedPreferences = getSharedPreferences("fav", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(favLists);
+        editor.putString("favList", json);
+        editor.apply();
+    }
+
+    private void readData()
+    {
+
+        SharedPreferences sharedPreference = getSharedPreferences("fav", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreference.getString("favList", null);
+        Type type = new TypeToken<ArrayList<String>> (){}.getType();
+        favLists = gson.fromJson(json, type);
+
+        if(favLists == null)
+        {
+            favLists = new ArrayList<>();
+        }
+
+    }
+
+    private void saveImage() {
         FileOutputStream fileOutputStream = null;
         File file = getDisc();
 
-        if(!file.exists() && !file.mkdirs())
-        {
+        if (!file.exists() && !file.mkdirs()) {
             file.mkdirs();
         }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyymmsshhmmss");
         String date = simpleDateFormat.format(new Date());
         String name = "IMG" + date + ".jpg";
-        String fileName = file.getAbsolutePath()+"/"+name;
+        String fileName = file.getAbsolutePath() + "/" + name;
         File new_file = new File(fileName);
 
-        try{
+        try {
 
             BitmapDrawable draw = (BitmapDrawable) binding.songThumbnail.getDrawable();
             Bitmap bitmap = draw.getBitmap();
@@ -471,8 +535,7 @@ public class DownloadSongScreen extends AppCompatActivity {
             fileOutputStream.close();
 
 
-        }catch(FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             MotionToast.Companion.createColorToast(this,
                     "ERROR ☹️ ",
                     e.getMessage().toString(),
@@ -481,8 +544,7 @@ public class DownloadSongScreen extends AppCompatActivity {
                     MotionToast.LONG_DURATION,
                     ResourcesCompat.getFont(this, R.font.helvetica_regular));
 
-        }catch(IOException e)
-        {
+        } catch (IOException e) {
             Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             MotionToast.Companion.createColorToast(this,
                     "ERROR ☹️ ",
@@ -496,9 +558,7 @@ public class DownloadSongScreen extends AppCompatActivity {
         refreshGallery(new_file);
     }
 
-    void getInfo()
-
-    {
+    void getInfo() {
         firestore.collection("DownloadCount").document("count").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -513,23 +573,19 @@ public class DownloadSongScreen extends AppCompatActivity {
         });
     }
 
-    private void refreshGallery(File file)
-    {
+    private void refreshGallery(File file) {
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(Uri.fromFile(file));
         getApplicationContext().sendBroadcast(intent);
     }
 
 
-    private File getDisc()
-    {
+    private File getDisc() {
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         return new File(file, "NOCO Studio");
     }
 
-    void getSliderImages()
-
-    {
+    void getSliderImages() {
         firestore.collection("Slider").document("images").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -564,13 +620,11 @@ public class DownloadSongScreen extends AppCompatActivity {
 //
 //    }
 
-    private void downloadCount()
-    {
+    private void downloadCount() {
 
         firestore.collection("DownloadCount").document("count").update("num", FieldValue.increment(1)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-
 
 
             }
@@ -609,8 +663,7 @@ public class DownloadSongScreen extends AppCompatActivity {
                 });
     }
 
-    private void promotionWebViewData()
-    {
+    private void promotionWebViewData() {
         firestore.collection("Promotion").document("promotion").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -625,9 +678,8 @@ public class DownloadSongScreen extends AppCompatActivity {
         });
     }
 
-    private void createBannerAd()
-    {
-        adView = new MaxAdView( getResources().getString(R.string.applovin_banner_adId), this );
+    private void createBannerAd() {
+        adView = new MaxAdView(getResources().getString(R.string.applovin_banner_adId), this);
         adView.setListener(new MaxAdViewAdListener() {
             @Override
             public void onAdExpanded(MaxAd ad) {
@@ -673,15 +725,14 @@ public class DownloadSongScreen extends AppCompatActivity {
         int width = ViewGroup.LayoutParams.MATCH_PARENT;
         int heightPx = getResources().getDimensionPixelSize(R.dimen.banner_height);
 
-        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx, Gravity.BOTTOM) );
+        adView.setLayoutParams(new FrameLayout.LayoutParams(width, heightPx, Gravity.BOTTOM));
         adView.setBackgroundColor(Color.WHITE);
         LinearLayout adLayout = findViewById(R.id.adLayout);
-        adLayout.addView( adView );
+        adLayout.addView(adView);
         adView.loadAd();
     }
 
-    private void createInterstitialAd()
-    {
+    private void createInterstitialAd() {
         interstitialAd = new MaxInterstitialAd(getResources().getString(R.string.applovin_inter_adId), this);
         MaxAdListener adListener = new MaxAdListener() {
             @Override
@@ -714,7 +765,7 @@ public class DownloadSongScreen extends AppCompatActivity {
             @Override
             public void onAdLoadFailed(String adUnitId, MaxError error) {
                 retry++;
-                long delay = TimeUnit.SECONDS.toMillis((long)Math.pow(2, Math.min(6, retry)));
+                long delay = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retry)));
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
