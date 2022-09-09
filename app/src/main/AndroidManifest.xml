@@ -39,6 +39,9 @@
             android:name=".Screens.SetWallpaperScreen"
             android:exported="false" />
         <activity
+            android:name=".Screens.FavouriteScreen"
+            android:exported="false" />
+        <activity
             android:name=".Screens.PolicyScreen"
             android:exported="false" />
         <activity

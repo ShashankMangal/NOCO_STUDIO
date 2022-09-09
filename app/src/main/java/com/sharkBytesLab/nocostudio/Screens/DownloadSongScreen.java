@@ -283,6 +283,7 @@ public class DownloadSongScreen extends AppCompatActivity {
             }
         });
 
+        binding.downloadSongImageBack.setOnClickListener(v -> onBackPressed());
 
         binding.subscribeYt.setOnClickListener(new View.OnClickListener() {
             @Override

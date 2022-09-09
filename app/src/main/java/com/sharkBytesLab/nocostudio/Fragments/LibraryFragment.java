@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ import com.sharkBytesLab.nocostudio.MainActivity;
 import com.sharkBytesLab.nocostudio.Models.DownloadModel;
 import com.sharkBytesLab.nocostudio.Models.InfoModel;
 import com.sharkBytesLab.nocostudio.R;
+import com.sharkBytesLab.nocostudio.Screens.FavouriteScreen;
 
 import java.util.ArrayList;
 
@@ -76,6 +78,7 @@ public class LibraryFragment extends Fragment {
     private TextView songs_num, server;
     private SwipeRefreshLayout swipeRefreshLayout;
     private InfoModel model;
+    private ImageView favSong;
 
 
     public LibraryFragment() {
@@ -122,6 +125,7 @@ public class LibraryFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.refreshView);
         songs_num = view.findViewById(R.id.songs_num);
         server = view.findViewById(R.id.server_song_num);
+        favSong = view.findViewById(R.id.fav_song);
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -162,6 +166,8 @@ public class LibraryFragment extends Fragment {
         getInfo();
 
         clearAll();
+
+        favSong.setOnClickListener(v-> startActivity(new Intent(getActivity(), FavouriteScreen.class)));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
