@@ -113,11 +113,7 @@ public class MusicFragment extends Fragment {
         AdListener adListener = new AdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {
-                Toast.makeText(
-                                getActivity().getApplicationContext(),
-                                "Error: " + adError.getErrorMessage(),
-                                Toast.LENGTH_LONG)
-                        .show();
+
             }
 
             @Override
