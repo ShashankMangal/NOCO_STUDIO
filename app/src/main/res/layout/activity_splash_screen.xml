@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/india_text"
+        app:layout_constraintBottom_toTopOf="@id/copyright_text"
         />
 
     <TextView
@@ -33,34 +33,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Handcrafted with love in 🇮🇳"
+
+    <ImageView
+        android:id="@+id/splash_sbl_logo"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:src="@drawable/sbl_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/india_text"
-        android:textSize="15sp"
-        android:fontFamily="@font/airbnb_cereal_book"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/copyright_text"
+        app:layout_constraintBottom_toTopOf="@id/copyright_text"
         />
-
-
-
-
-    <com.github.ybq.android.spinkit.SpinKitView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Wave"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/india_text"
-        android:layout_width="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_height="wrap_content"
-        app:SpinKit_Color="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
