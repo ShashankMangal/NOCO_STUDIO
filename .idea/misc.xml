@@ -49,28 +49,19 @@
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCOStudio/app/src/main/res/layout/wallpaper_items_layout.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCOStudio/app/src/main/res/menu/bottom_nav.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCOStudio/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1865" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/drawable/background_image_back.xml" value="0.2565" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/drawable/background_image_profile.xml" value="0.2555" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/drawable/ic_fav_icon.xml" value="0.2255" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/drawable/ic_round_favorite_24.xml" value="0.2255" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/drawable/round_back_white_1000.xml" value="0.2255" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/drawable/round_circle_white.xml" value="0.2255" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/activity_all_perks_screen.xml" value="0.25104166666666666" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/activity_download_song_screen.xml" value="0.25104166666666666" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/activity_favourite_screen.xml" value="0.25104166666666666" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/activity_splash_screen.xml" value="0.25104166666666666" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/download_song_item_layout.xml" value="0.25104166666666666" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/fragment_info.xml" value="0.25104166666666666" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/fragment_library.xml" value="0.25104166666666666" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/fragment_music.xml" value="0.25104166666666666" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/page_item.xml" value="0.25104166666666666" />
-        <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/layout/update_app.xml" value="0.25104166666666666" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.116" />
         <entry key="..\:/Android Apps By ShaShank/APPS FOR INTERN/NOCO_STUDIO/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.116" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCOStudio/app/src/main/res/drawable/round_back.xml" value="0.3505" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCOStudio/app/src/main/res/layout/activity_download_song_screen.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/drawable/background_image_back.xml" value="0.2985" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.2985" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/drawable/buttonbg.xml" value="0.2985" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/drawable/mic_green_circle.xml" value="0.2985" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/drawable/perk_icon_background.xml" value="0.2985" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/drawable/perk_item_1_background.xml" value="0.2985" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/drawable/perk_item_2_background.xml" value="0.2985" />
@@ -79,11 +70,16 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/drawable/round_background.xml" value="0.2985" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/activity_all_perks_screen.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/activity_download_song_screen.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/activity_favourite_screen.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/activity_intro_screen.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/activity_main.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/activity_online_music_screen.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/activity_perk2_screen.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/activity_perks_screen.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/fragment_info.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/fragment_library.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/fragment_music.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/fragment_settings.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/page_item.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/update_app.xml" value="0.33" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/NOCO_STUDIO/app/src/main/res/layout/whats_new_bottom_sheet.xml" value="0.34791666666666665" />

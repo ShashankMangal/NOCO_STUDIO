@@ -79,6 +79,7 @@ public class LibraryFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private InfoModel model;
     private ImageView favSong;
+    private LottieAnimationView mic;
 
 
     public LibraryFragment() {
@@ -126,6 +127,7 @@ public class LibraryFragment extends Fragment {
         songs_num = view.findViewById(R.id.songs_num);
         server = view.findViewById(R.id.server_song_num);
         favSong = view.findViewById(R.id.fav_song);
+        mic = view.findViewById(R.id.mic_search);
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -183,6 +185,14 @@ public class LibraryFragment extends Fragment {
             }
         });
 
+        mic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -208,7 +218,6 @@ public class LibraryFragment extends Fragment {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Error on getting songs list.", Toast.LENGTH_SHORT).show();
         }
-
 
         return view;
     }
