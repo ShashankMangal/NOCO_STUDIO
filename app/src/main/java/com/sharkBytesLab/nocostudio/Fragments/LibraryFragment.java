@@ -1,11 +1,13 @@
 package com.sharkBytesLab.nocostudio.Fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -13,12 +15,17 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.provider.Settings;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +87,8 @@ public class LibraryFragment extends Fragment {
     private InfoModel model;
     private ImageView favSong;
     private LottieAnimationView mic;
+    private SpeechRecognizer speechRecognizer;
+    private int micState = 0;
 
 
     public LibraryFragment() {
@@ -165,6 +174,13 @@ public class LibraryFragment extends Fragment {
         myRef = FirebaseDatabase.getInstance().getReference();
         list = new ArrayList<>();
 
+        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+        }
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
+        final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
         getInfo();
 
         clearAll();
@@ -189,7 +205,70 @@ public class LibraryFragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+
+                if(micState == 0)
+                {
+                    Toast.makeText(getActivity(), "Speak to Search Song.", Toast.LENGTH_SHORT).show();
+                    speechRecognizer.startListening(speechRecognizerIntent);
+                    micState = 1;
+                }
+                else
+                {
+                    micState = 0;
+                    Toast.makeText(getActivity(), "Voice Search Stopped!", Toast.LENGTH_SHORT).show();
+                    speechRecognizer.stopListening();
+                }
+
+            }
+        });
+
+        speechRecognizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float v) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int i) {
+
+            }
+
+            @Override
+            public void onResults(Bundle bundle)
+            {
+                ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                processSearch(data.get(0));
+                searchView.setQuery(data.get(0), false);
+            }
+
+            @Override
+            public void onPartialResults(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
             }
         });
 
@@ -236,8 +315,6 @@ public class LibraryFragment extends Fragment {
         }
 
     }
-
-
 
 
     public void getDataFromFirebase()
@@ -363,8 +440,21 @@ public class LibraryFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+        if(requestCode == 1)
+        {
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(getActivity(), "Permission Granted.", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(getActivity(), "Permission Denied !", Toast.LENGTH_SHORT).show();
+            }
+        }
 
-
-
+    }
 }
