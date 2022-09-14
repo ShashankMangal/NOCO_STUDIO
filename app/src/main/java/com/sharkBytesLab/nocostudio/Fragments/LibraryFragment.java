@@ -26,6 +26,7 @@ import android.provider.Settings;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,9 +87,6 @@ public class LibraryFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private InfoModel model;
     private ImageView favSong;
-    private LottieAnimationView mic;
-    private SpeechRecognizer speechRecognizer;
-    private int micState = 0;
 
 
     public LibraryFragment() {
@@ -136,7 +134,7 @@ public class LibraryFragment extends Fragment {
         songs_num = view.findViewById(R.id.songs_num);
         server = view.findViewById(R.id.server_song_num);
         favSong = view.findViewById(R.id.fav_song);
-        mic = view.findViewById(R.id.mic_search);
+
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -174,13 +172,6 @@ public class LibraryFragment extends Fragment {
         myRef = FirebaseDatabase.getInstance().getReference();
         list = new ArrayList<>();
 
-        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, 1);
-        }
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
-        final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-
         getInfo();
 
         clearAll();
@@ -198,77 +189,6 @@ public class LibraryFragment extends Fragment {
             public boolean onQueryTextChange(String s) {
                 processSearch(s);
                 return false;
-            }
-        });
-
-        mic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-
-                if(micState == 0)
-                {
-                    Toast.makeText(getActivity(), "Speak to Search Song.", Toast.LENGTH_SHORT).show();
-                    speechRecognizer.startListening(speechRecognizerIntent);
-                    micState = 1;
-                }
-                else
-                {
-                    micState = 0;
-                    Toast.makeText(getActivity(), "Voice Search Stopped!", Toast.LENGTH_SHORT).show();
-                    speechRecognizer.stopListening();
-                }
-
-            }
-        });
-
-        speechRecognizer.setRecognitionListener(new RecognitionListener() {
-            @Override
-            public void onReadyForSpeech(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-
-            }
-
-            @Override
-            public void onRmsChanged(float v) {
-
-            }
-
-            @Override
-            public void onBufferReceived(byte[] bytes) {
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-
-            }
-
-            @Override
-            public void onError(int i) {
-
-            }
-
-            @Override
-            public void onResults(Bundle bundle)
-            {
-                ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                processSearch(data.get(0));
-                searchView.setQuery(data.get(0), false);
-            }
-
-            @Override
-            public void onPartialResults(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onEvent(int i, Bundle bundle) {
-
             }
         });
 
@@ -440,21 +360,4 @@ public class LibraryFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(requestCode == 1)
-        {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
-                Toast.makeText(getActivity(), "Permission Granted.", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                Toast.makeText(getActivity(), "Permission Denied !", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
 }
