@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 public class MusicFragment extends Fragment {
 
     public static final int REQUEST_CODE = 1;
+    private ArrayList<MusicFiles> musicFiles;
+
     public MusicFragment() {
         // Required empty public constructor
     }
@@ -55,6 +58,7 @@ public class MusicFragment extends Fragment {
         else
         {
             Toast.makeText(getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
+            musicFiles = getAllAudio(getActivity().getApplicationContext());
         }
     }
 
@@ -67,6 +71,7 @@ public class MusicFragment extends Fragment {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
                 Toast.makeText(getActivity(), "Permission Granted Successfully!", Toast.LENGTH_SHORT).show();
+                musicFiles = getAllAudio(getActivity().getApplicationContext());
             }
             else
             {
@@ -140,10 +145,20 @@ public class MusicFragment extends Fragment {
         {
             while(cursor.moveToNext())
             {
+                String album = cursor.getString(0);
+                String title = cursor.getString(1);
+                String duration = cursor.getString(2);
+                String path = cursor.getString(3);
+                String artist = cursor.getString(4);
+
+                MusicFiles musicFiles = new MusicFiles(path, title, artist, album, duration);
+                Log.e("path : " + path, "Album : " + album);
+                tempAudioFiles.add(musicFiles);
 
             }
+            cursor.close();
         }
-
+        return tempAudioFiles;
     }
 
 
