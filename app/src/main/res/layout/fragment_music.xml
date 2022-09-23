@@ -5,20 +5,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/music_frag_layout"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Fragments.MusicFragment">
 
 
     <com.google.android.material.tabs.TabLayout
+        android:layout_marginEnd="6dp"
+        android:layout_marginStart="6dp"
         android:id="@+id/music_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme1"
+        android:background="@color/white"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="center"
-        app:tabTextColor="@color/white"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:tabTextColor="@color/lightBlack"
+        app:tabIndicatorHeight="40dp"
+        app:tabSelectedTextColor="@color/white"
+        app:tabIndicatorColor="@color/theme1"
+        app:tabIndicator="@drawable/tab_indicator"/>
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"

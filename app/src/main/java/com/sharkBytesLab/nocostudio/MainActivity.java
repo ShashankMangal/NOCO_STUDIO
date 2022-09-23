@@ -2,14 +2,18 @@ package com.sharkBytesLab.nocostudio;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics firebaseAnalytics;
     private BottomSheetDialog bottomSheetDialog;
     private PreferenceManager preferenceManager;
+    public static final int REQUEST_CODE = 1;
 
 
     @Override
@@ -112,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
         switch (frag)
         {
