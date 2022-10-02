@@ -43,13 +43,12 @@ public class MusicFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_music, container, false);
 
-        permissions();
-        initViewPager(view);
+        permissions(view);
 
         return view;
     }
 
-    private void permissions()
+    private void permissions(View view)
     {
         if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
@@ -59,6 +58,7 @@ public class MusicFragment extends Fragment {
         {
             Toast.makeText(getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
             musicFiles = getAllAudio(getActivity().getApplicationContext());
+            initViewPager(view);
         }
     }
 
