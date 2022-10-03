@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/theme2"
+    android:background="@color/theme1"
+    android:elevation="3dp"
     android:id="@+id/audio_item">
 
     <ImageView

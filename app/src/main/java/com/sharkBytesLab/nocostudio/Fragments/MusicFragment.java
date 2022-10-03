@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.sharkBytesLab.nocostudio.Adapters.SectionPagerAdapter;
 import com.sharkBytesLab.nocostudio.Misc.MusicFiles;
 import com.sharkBytesLab.nocostudio.R;
 import java.util.ArrayList;
@@ -30,25 +31,66 @@ import java.util.ArrayList;
 public class MusicFragment extends Fragment {
 
     public static final int REQUEST_CODE = 1;
-    private ArrayList<MusicFiles> musicFiles;
+    static public ArrayList<MusicFiles> musicFiles;
+    private ViewPager viewPager;
+    private View myFragment;
+    private TabLayout tabLayout;
 
     public MusicFragment() {
         // Required empty public constructor
     }
+
+    public static MusicFragment getInstance() {return new MusicFragment();}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view =  inflater.inflate(R.layout.fragment_music, container, false);
+        myFragment =  inflater.inflate(R.layout.fragment_music, container, false);
+        Log.i("GetAllAudio", "CreateView");
+        permissions(myFragment);
+        viewPager = myFragment.findViewById(R.id.music_viewPager);
+        tabLayout = myFragment.findViewById(R.id.music_tab_layout);
 
-        permissions(view);
-
-        return view;
+        return myFragment;
     }
 
-    private void permissions(View view)
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        musicFiles = getAllAudio(getActivity().getApplicationContext());
+        setUpViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private void setUpViewPager(ViewPager viewPager)
+    {
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new SongsFragment(), "Songs");
+        adapter.addFragment(new AlbumFragment(), "Albums");
+        viewPager.setAdapter(adapter);
+
+    }
+
+    public void permissions(View view)
     {
         if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
@@ -56,7 +98,7 @@ public class MusicFragment extends Fragment {
         }
         else
         {
-            Toast.makeText(getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
             musicFiles = getAllAudio(getActivity().getApplicationContext());
             initViewPager(view);
         }
@@ -83,6 +125,7 @@ public class MusicFragment extends Fragment {
 
     private void initViewPager(View view)
     {
+        Log.i("GetAllAudio", "Init");
         ViewPager viewPager = view.findViewById(R.id.music_viewPager);
         TabLayout tabLayout = view.findViewById(R.id.music_tab_layout);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
@@ -128,6 +171,7 @@ public class MusicFragment extends Fragment {
 
     public static ArrayList<MusicFiles> getAllAudio(Context context)
     {
+        Log.i("GetAllAudio", "True");
         ArrayList<MusicFiles> tempAudioFiles = new ArrayList<>();
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         String []projection =
@@ -160,6 +204,5 @@ public class MusicFragment extends Fragment {
         }
         return tempAudioFiles;
     }
-
 
 }
