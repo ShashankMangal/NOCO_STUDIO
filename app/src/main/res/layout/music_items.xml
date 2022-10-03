@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_marginTop="7dp"
+android:layout_marginRight="7dp"
+android:layout_marginLeft="7dp"
+android:id="@+id/audio_item"
+android:layout_height="wrap_content"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/theme1"
-    android:elevation="3dp"
-    android:id="@+id/audio_item">
+    android:elevation="20dp"
+    app:cardCornerRadius="8dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="#EFEFEF"
+        >
 
-    <ImageView
-        android:layout_margin="3dp"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/music_img"
-        android:src="@drawable/music_file"
-        android:padding="5dp"
-        />
+        <ImageView
+            android:id="@+id/music_img"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/noco_png"
+            app:tint="@color/theme1"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="File Name"
-        android:layout_toEndOf="@id/music_img"
-        android:layout_centerVertical="true"
-        android:textSize="18sp"
-        android:fontFamily="@font/alata"
-        android:textColor="@color/white"
-        android:id="@+id/music_file_name"
-        />
-
+        <TextView
+            android:id="@+id/music_file_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_toEndOf="@id/music_img"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:fontFamily="@font/alata"
+            android:text="Music"
+            android:textColor="#414141"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
 
 </RelativeLayout>
