@@ -21,9 +21,16 @@
         android:theme="@style/Theme.NOCOStudio"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Screens.PlayerScreen"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Screens.IntroScreen"
-            android:theme="@style/Theme.Intro"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.Intro" />
         <activity
             android:name=".Perks.Perk2Screen"
             android:exported="false" />
