@@ -94,13 +94,13 @@
         />
 
     <RelativeLayout
+        android:layout_marginBottom="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relative_layout_for_bottom"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/cover_art_shadow"
         >
 
         <ImageView
@@ -159,6 +159,48 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@id/relative_layout_for_bottom"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/seek_bar_layout"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:id="@+id/durationPlayed"
+            android:textColor="@color/theme1"
+            android:fontFamily="@font/airbnb_cereal_medium"
+            android:textStyle="normal"
+            android:layout_marginStart="33dp"
+            android:layout_alignParentStart="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:id="@+id/durationTotal"
+            android:textColor="@color/theme1"
+            android:fontFamily="@font/airbnb_cereal_medium"
+            android:textStyle="normal"
+            android:layout_marginEnd="33dp"
+            android:layout_alignParentEnd="true"
+            />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>
 </layout>
