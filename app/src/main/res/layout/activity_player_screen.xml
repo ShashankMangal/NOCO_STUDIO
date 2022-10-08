@@ -51,13 +51,13 @@
             android:src="@drawable/ic_welcome_intro"
             android:id="@+id/cover_art"
             />
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="250dp"-->
-<!--            android:id="@+id/imageViewGradient"-->
-<!--            android:src="@drawable/cover_art_shadow"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            />-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/imageViewGradient"
+            android:src="@drawable/cover_art_shadow"
+            android:layout_alignParentBottom="true"
+            />
 
     </RelativeLayout>
 
