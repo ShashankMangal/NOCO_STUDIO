@@ -2,8 +2,15 @@ package com.sharkBytesLab.nocostudio.Screens;
 
 import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.musicFiles;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.palette.graphics.Palette;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -11,6 +18,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.bumptech.glide.Glide;
@@ -20,7 +31,7 @@ import com.sharkBytesLab.nocostudio.databinding.ActivityPlayerScreenBinding;
 
 import java.util.ArrayList;
 
-public class PlayerScreen extends AppCompatActivity
+public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCompletionListener
 {
     private ActivityPlayerScreenBinding binding;
     private int position = -1;
@@ -39,6 +50,7 @@ public class PlayerScreen extends AppCompatActivity
         getIntentMethod();
         binding.songName.setText(listSongs.get(position).getTitle());
         binding.songArtist.setText("Artist : " + listSongs.get(position).getArtist());
+        mediaPlayer.setOnCompletionListener(this);
 
         binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -191,7 +203,8 @@ public class PlayerScreen extends AppCompatActivity
                     handler.postDelayed(this, 100);
                 }
             });
-            binding.playPause.setImageResource(R.drawable.ic_pause);
+            mediaPlayer.setOnCompletionListener(this);
+            binding.playPause.setBackgroundResource(R.drawable.ic_pause);
             mediaPlayer.start();
         }
         else
@@ -219,7 +232,8 @@ public class PlayerScreen extends AppCompatActivity
                     handler.postDelayed(this, 100);
                 }
             });
-            binding.playPause.setImageResource(R.drawable.playnow_icon);
+            mediaPlayer.setOnCompletionListener(this);
+            binding.playPause.setBackgroundResource(R.drawable.playnow_icon);
         }
     }
 
@@ -269,7 +283,8 @@ public class PlayerScreen extends AppCompatActivity
                     handler.postDelayed(this, 100);
                 }
             });
-            binding.playPause.setImageResource(R.drawable.ic_pause);
+            mediaPlayer.setOnCompletionListener(this);
+            binding.playPause.setBackgroundResource(R.drawable.ic_pause);
             mediaPlayer.start();
         }
         else
@@ -297,7 +312,8 @@ public class PlayerScreen extends AppCompatActivity
                     handler.postDelayed(this, 100);
                 }
             });
-            binding.playPause.setImageResource(R.drawable.playnow_icon);
+            mediaPlayer.setOnCompletionListener(this);
+            binding.playPause.setBackgroundResource(R.drawable.playnow_icon);
         }
     }
 
@@ -356,15 +372,97 @@ public class PlayerScreen extends AppCompatActivity
         int durationTotal = Integer.parseInt(listSongs.get(position).getDuration()) / 1000;
         binding.durationTotal.setText(formattedTime(durationTotal));
         byte[] art = retriever.getEmbeddedPicture();
-
+        Bitmap bitmap;
         if(art != null)
         {
-            Glide.with(this).asBitmap().load(art).into(binding.coverArt);
+            bitmap = BitmapFactory.decodeByteArray(art, 0, art.length);
+            imageAnimation(this, binding.coverArt, bitmap);
+            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(@Nullable Palette palette) {
+                    Palette.Swatch swatch = palette.getDominantSwatch();
+                    if(swatch!=null)
+                    {
+                        binding.imageViewGradient.setBackgroundResource(R.drawable.cover_art_shadow);
+                        binding.mContainer.setBackgroundResource(R.drawable.main_bg);
+                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getRgb(), 0x00000000});
+                        binding.imageViewGradient.setBackground(gradientDrawable);
+
+                        GradientDrawable gradientDrawableBg = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getRgb(), 0x00000000});
+                        binding.mContainer.setBackground(gradientDrawableBg);
+                        binding.songName.setTextColor(swatch.getTitleTextColor());
+                        binding.songArtist.setTextColor(swatch.getBodyTextColor());
+                    }
+                    else
+                    {
+                        binding.imageViewGradient.setBackgroundResource(R.drawable.cover_art_shadow);
+                        binding.mContainer.setBackgroundResource(R.drawable.main_bg);
+                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{0xff000000, 0x00000000});
+                        binding.imageViewGradient.setBackground(gradientDrawable);
+
+                        GradientDrawable gradientDrawableBg = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{0xff000000, 0xff000000});
+                        binding.mContainer.setBackground(gradientDrawableBg);
+                    }
+                }
+            });
         }
         else
         {
             Glide.with(this).asBitmap().load(R.drawable.ic_welcome_intro).into(binding.coverArt);
+            binding.imageViewGradient.setBackgroundResource(R.drawable.cover_art_shadow);
+            binding.mContainer.setBackgroundResource(R.drawable.main_bg);
         }
     }
 
+    public void imageAnimation(Context context, ImageView imageView, Bitmap bitmap)
+    {
+        Animation animOut = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
+        Animation animIn = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+        animOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Glide.with(context).load(bitmap).into(imageView);
+                animIn.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                imageView.startAnimation(animIn);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        imageView.startAnimation(animOut);
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp)
+    {
+           nextBtnClicked();
+           if(mediaPlayer != null)
+           {
+               mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+               mediaPlayer.start();
+               mediaPlayer.setOnCompletionListener(this);
+           }
+    }
 }

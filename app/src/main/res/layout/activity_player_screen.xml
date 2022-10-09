@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mContainer"
-    android:background="@color/white"
+    android:background="@drawable/main_bg"
     tools:context=".Screens.PlayerScreen">
 
     <RelativeLayout
@@ -55,7 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:id="@+id/imageViewGradient"
-            android:src="@drawable/cover_art_shadow"
             android:layout_alignParentBottom="true"
             />
 
