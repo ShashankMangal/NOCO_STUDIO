@@ -35,6 +35,7 @@ public class MusicFragment extends Fragment {
     private ViewPager viewPager;
     private View myFragment;
     private TabLayout tabLayout;
+    static public boolean shuffleBoolean = false, repeatBoolean = false;
 
     public MusicFragment() {
         // Required empty public constructor
@@ -181,6 +182,7 @@ public class MusicFragment extends Fragment {
                 MediaStore.Audio.Media.DURATION,
                 MediaStore.Audio.Media.DATA,
                 MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media._ID
                 };
 
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
@@ -194,8 +196,9 @@ public class MusicFragment extends Fragment {
                 String duration = cursor.getString(2);
                 String path = cursor.getString(3);
                 String artist = cursor.getString(4);
+                String id = cursor.getString(5);
 
-                MusicFiles musicFiles = new MusicFiles(path, title, artist, album, duration);
+                MusicFiles musicFiles = new MusicFiles(path, title, artist, album, duration, id);
                 Log.e("path : " + path, "Album : " + album);
                 tempAudioFiles.add(musicFiles);
 
