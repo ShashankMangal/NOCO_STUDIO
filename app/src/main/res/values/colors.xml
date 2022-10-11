@@ -37,6 +37,8 @@
     <color name="colorEndBackground">#50FFFFFF</color>
     <color name="colorLightText">#ECECEC</color>
     <color name="lightBlack">#7F000000</color>
+    <color name="lightGrey">#EFEFEF</color>
+    <color name="lightTheme">#F7E3EE</color>
 
 
 

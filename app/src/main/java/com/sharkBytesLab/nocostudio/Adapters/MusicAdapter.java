@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,6 +75,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
             }
         });
 
+        if(position%2==0)
+        {
+            holder.background_color.setBackgroundColor(ContextCompat.getColor(mContext, R.color.lightTheme));
+        }
+
 
     }
 
@@ -88,11 +95,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
 
         TextView file_name;
         ImageView album_art;
+        RelativeLayout background_color;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             file_name = itemView.findViewById(R.id.music_file_name);
             album_art = itemView.findViewById(R.id.music_img);
+            background_color = itemView.findViewById(R.id.background_color);
         }
     }
 
