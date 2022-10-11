@@ -30,7 +30,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/noco_png"
+            android:src="@drawable/headphone_outline"
             app:tint="@color/theme1"
             />
 
@@ -40,6 +40,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:layout_toEndOf="@id/music_img"
             android:ellipsize="marquee"
             android:singleLine="true"
