@@ -40,7 +40,6 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_centerVertical="true"
             android:layout_marginLeft="6dp"
             android:layout_toEndOf="@id/music_img"
-            android:layout_toStartOf="@id/delete_song"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:marqueeRepeatLimit="marquee_forever"
@@ -52,16 +51,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:textStyle="bold" />
 
 
-        <ImageView
-            android:id="@+id/delete_song"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:scaleType="center"
-            android:src="@drawable/ic_delete"
-            app:tint="@color/theme1"
-            />
+
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

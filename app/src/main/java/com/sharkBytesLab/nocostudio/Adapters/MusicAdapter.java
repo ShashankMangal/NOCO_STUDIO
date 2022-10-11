@@ -73,63 +73,10 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
             }
         });
 
-        holder.delete_song.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-
-                PopupMenu popupMenu = new PopupMenu(mContext, view);
-                popupMenu.getMenuInflater().inflate(R.menu.pop_up, popupMenu.getMenu());
-                popupMenu.show();
-                popupMenu.setOnMenuItemClickListener((item) ->{
-                    switch(item.getItemId())
-                            {
-                                case R.id.delete:
-                                    deleteSong(position, view);
-                                    break;
-                            }
-                            return true;
-                });
-
-
-            }
-        });
 
     }
 
-    private void deleteSong(int position, View view)
-    {
-        Uri contextUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, Long.parseLong(mFiles.get(position).getId()));
 
-        File file = new File(mFiles.get(position).getPath());
-        boolean deleted = file.delete();
-        if(deleted)
-        {
-            mContext.getContentResolver().delete(contextUri, null, null);
-            mFiles.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, mFiles.size());
-
-            MotionToast.Companion.createColorToast((Activity) mContext,
-                    "DELETE",
-                    "Song Deleted Successfully!",
-                    MotionToastStyle.ERROR,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(mContext, R.font.helvetica_regular));
-        }
-        else
-        {
-            MotionToast.Companion.createColorToast((Activity) mContext,
-                    "ERROR",
-                    "Song can't be Deleted!",
-                    MotionToastStyle.WARNING,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(mContext, R.font.helvetica_regular));
-        }
-
-    }
 
     @Override
     public int getItemCount() {
@@ -140,13 +87,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     {
 
         TextView file_name;
-        ImageView album_art, delete_song;
+        ImageView album_art;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             file_name = itemView.findViewById(R.id.music_file_name);
             album_art = itemView.findViewById(R.id.music_img);
-            delete_song = itemView.findViewById(R.id.delete_song);
         }
     }
 
