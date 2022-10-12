@@ -17,8 +17,9 @@
 <!--    <color name="darkRed">#b70042</color>-->
 <!--    <color name="lightBlue">#3B5796</color>-->
 
-    <color name="theme">#ea0a53</color>
-    <color name="theme1">#ea0a53</color>
+<!--    <color name="theme">#ea0a53</color>-->
+    <color name="theme1">#e92e40</color>
+    <color name="theme">#e92e40</color>
     <color name="theme2">#f76006</color>
     <color name="theme3">#414141</color>
     <color name="textRed">#F80404</color>
