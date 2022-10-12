@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -46,6 +47,9 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
         binding.songName.setText(listSongs.get(position).getTitle());
         binding.songArtist.setText("Artist : " + listSongs.get(position).getArtist());
         mediaPlayer.setOnCompletionListener(this);
+
+        binding.songName.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        binding.songName.setSelected(true);
 
         binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
