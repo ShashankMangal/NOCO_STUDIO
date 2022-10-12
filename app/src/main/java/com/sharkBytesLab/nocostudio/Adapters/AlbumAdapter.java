@@ -1,6 +1,7 @@
 package com.sharkBytesLab.nocostudio.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.sharkBytesLab.nocostudio.Misc.MusicFiles;
 import com.sharkBytesLab.nocostudio.R;
+import com.sharkBytesLab.nocostudio.Screens.AlbumDetailsScreen;
 
 import java.util.ArrayList;
 
@@ -50,8 +52,17 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder>
         }
         else
         {
-            Glide.with(mContext).load(R.drawable.noco_png).into(holder.album_image);
+            Glide.with(mContext).load(R.drawable.album_cover_art).into(holder.album_image);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, AlbumDetailsScreen.class);
+                intent.putExtra("albumName", albumFiles.get(position).getAlbum());
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

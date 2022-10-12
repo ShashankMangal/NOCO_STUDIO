@@ -48,13 +48,14 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:background="@color/white"
-            android:src="@drawable/ic_welcome_intro"
+            android:src="@drawable/player_cover"
             android:id="@+id/cover_art"
             />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:id="@+id/imageViewGradient"
+            android:src="@drawable/cover_art_shadow"
             android:layout_alignParentBottom="true"
             />
 

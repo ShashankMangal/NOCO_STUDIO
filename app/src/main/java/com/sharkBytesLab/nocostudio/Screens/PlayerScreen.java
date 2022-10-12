@@ -475,7 +475,7 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
         }
         else
         {
-            Glide.with(this).asBitmap().load(R.drawable.ic_welcome_intro).into(binding.coverArt);
+            Glide.with(this).asBitmap().load(R.drawable.player_cover).into(binding.coverArt);
             binding.imageViewGradient.setBackgroundResource(R.drawable.cover_art_shadow);
             binding.mContainer.setBackgroundResource(R.drawable.main_bg);
         }

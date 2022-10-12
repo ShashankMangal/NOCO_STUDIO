@@ -21,6 +21,13 @@
         android:theme="@style/Theme.NOCOStudio"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Screens.AlbumDetailsScreen"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Screens.PlayerScreen"
             android:exported="false">
             <meta-data

@@ -39,6 +39,8 @@
     <color name="lightBlack">#7F000000</color>
     <color name="lightGrey">#EFEFEF</color>
     <color name="lightTheme">#F7E3EE</color>
+    <color name="darkTheme">#1c1c1c</color>
+    <color name="splashTheme">#a92121</color>
 
 
 

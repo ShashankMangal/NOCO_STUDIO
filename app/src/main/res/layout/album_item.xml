@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/theme1"
+        android:background="@color/darkTheme"
         android:id="@+id/relative_layout"
         >
 
@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:id="@+id/album_image"
-            android:src="@drawable/noco_png"
+            android:scaleType="centerCrop"
+            android:src="@drawable/album_cover_art"
             />
 
         <TextView
