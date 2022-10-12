@@ -63,7 +63,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         }
         else
         {
-            Glide.with(mContext).load(R.drawable.headphone_outline).into(holder.album_art);
+            Glide.with(mContext).load(R.drawable.noco_latest_logo).into(holder.album_art);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +78,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         if(position%2==0)
         {
             holder.background_color.setBackgroundColor(ContextCompat.getColor(mContext, R.color.lightTheme));
-            Glide.with(mContext).load(R.drawable.headphone_fill).into(holder.album_art);
+            Glide.with(mContext).load(R.drawable.noco_latest_logo).into(holder.album_art);
         }
 
 

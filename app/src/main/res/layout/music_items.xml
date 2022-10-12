@@ -30,7 +30,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/headphone_outline"
+            android:src="@drawable/noco_latest_logo"
             />
 
         <TextView
