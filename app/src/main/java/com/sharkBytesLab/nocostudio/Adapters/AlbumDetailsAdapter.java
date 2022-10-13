@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.sharkBytesLab.nocostudio.Misc.MusicFiles;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.AlbumDetailsScreen;
+import com.sharkBytesLab.nocostudio.Screens.PlayerScreen;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class AlbumDetailsAdapter extends RecyclerView.Adapter<AlbumDetailsAdapte
 {
 
     private Context mContext;
-    private ArrayList<MusicFiles> albumFiles;
+    static public ArrayList<MusicFiles> albumFiles;
     private View view;
 
     public AlbumDetailsAdapter(Context mContext, ArrayList<MusicFiles> albumFiles)
@@ -59,6 +60,18 @@ public class AlbumDetailsAdapter extends RecyclerView.Adapter<AlbumDetailsAdapte
             holder.background.setBackgroundColor(ContextCompat.getColor(mContext, R.color.darkTheme));
             holder.album_name.setTextColor(ContextCompat.getColor(mContext, R.color.white));
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(mContext, PlayerScreen.class);
+                intent.putExtra("sender", "albumDetails");
+                intent.putExtra("position", position);
+                mContext.startActivity(intent);
+
+            }
+        });
 
     }
 

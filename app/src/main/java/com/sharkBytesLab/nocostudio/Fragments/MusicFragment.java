@@ -32,6 +32,7 @@ public class MusicFragment extends Fragment {
 
     public static final int REQUEST_CODE = 1;
     static public ArrayList<MusicFiles> musicFiles;
+    static public ArrayList<MusicFiles> albums = new ArrayList<>();
     private ViewPager viewPager;
     private View myFragment;
     private TabLayout tabLayout;
@@ -172,7 +173,9 @@ public class MusicFragment extends Fragment {
 
     public static ArrayList<MusicFiles> getAllAudio(Context context)
     {
+        albums.clear();
         Log.i("GetAllAudio", "True");
+        ArrayList<String> duplicate = new ArrayList<>();
         ArrayList<MusicFiles> tempAudioFiles = new ArrayList<>();
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         String []projection =
@@ -189,8 +192,7 @@ public class MusicFragment extends Fragment {
 
         if(cursor != null)
         {
-            while(cursor.moveToNext())
-            {
+            while(cursor.moveToNext()) {
                 String album = cursor.getString(0);
                 String title = cursor.getString(1);
                 String duration = cursor.getString(2);
@@ -202,6 +204,11 @@ public class MusicFragment extends Fragment {
                 Log.e("path : " + path, "Album : " + album);
                 tempAudioFiles.add(musicFiles);
 
+                if (!duplicate.contains(album))
+                {
+                    albums.add(musicFiles);
+                    duplicate.add(album);
+                }
             }
             cursor.close();
         }
