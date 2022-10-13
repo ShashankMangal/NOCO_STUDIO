@@ -1,6 +1,7 @@
 package com.sharkBytesLab.nocostudio.Screens;
 
 import static com.sharkBytesLab.nocostudio.Adapters.AlbumDetailsAdapter.albumFiles;
+import static com.sharkBytesLab.nocostudio.Adapters.MusicAdapter.mFiles;
 import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.*;
 
 import androidx.annotation.Nullable;
@@ -388,7 +389,7 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
             listSongs = albumFiles;
             binding.playingText.setText("Playing from " + albumFiles.get(position).getAlbum() + " Album ");
         } else {
-            listSongs = musicFiles;
+            listSongs = mFiles;
         }
         if (listSongs != null) {
             binding.playPause.setImageResource(R.drawable.ic_pause);

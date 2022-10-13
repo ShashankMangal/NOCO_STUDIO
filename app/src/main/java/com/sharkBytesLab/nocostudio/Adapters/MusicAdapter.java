@@ -38,7 +38,7 @@ import www.sanju.motiontoast.MotionToastStyle;
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder>
 {
     private Context mContext;
-    private ArrayList<MusicFiles> mFiles;
+    public static ArrayList<MusicFiles> mFiles;
 
     public MusicAdapter(Context mContext, ArrayList<MusicFiles> mFiles) {
         this.mContext = mContext;
@@ -114,5 +114,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         retriever.release();
         return art;
     }
+
+    public void updateList(ArrayList<MusicFiles> musicFilesArrayList)
+    {
+        mFiles = new ArrayList<>();
+        mFiles.addAll(musicFilesArrayList);
+        notifyDataSetChanged();
+    }
+
 
 }

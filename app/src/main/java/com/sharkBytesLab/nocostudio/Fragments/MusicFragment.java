@@ -16,10 +16,15 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -37,6 +42,9 @@ public class MusicFragment extends Fragment {
     private View myFragment;
     private TabLayout tabLayout;
     static public boolean shuffleBoolean = false, repeatBoolean = false;
+    private EditText search_song_et;
+    private TextView noco_studio_text;
+    private ImageView song_search, song_history;
 
     public MusicFragment() {
         // Required empty public constructor
@@ -54,8 +62,61 @@ public class MusicFragment extends Fragment {
         permissions(myFragment);
         viewPager = myFragment.findViewById(R.id.music_viewPager);
         tabLayout = myFragment.findViewById(R.id.music_tab_layout);
-
+        search_song_et = myFragment.findViewById(R.id.song_search_et);
+        song_search = myFragment.findViewById(R.id.song_search);
+        noco_studio_text = myFragment.findViewById(R.id.song_frag_nocoStudio_text);
+        song_history = myFragment.findViewById(R.id.song_history);
+        visibleItem();
         return myFragment;
+    }
+
+    private void visibleItem()
+    {
+        song_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(search_song_et.getVisibility()==View.GONE)
+                {
+                    search_song_et.setVisibility(View.VISIBLE);
+                    noco_studio_text.setVisibility(View.GONE);
+                }
+                else
+                {
+                    search_song_et.setVisibility(View.GONE);
+                    noco_studio_text.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        search_song_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                String name = String.valueOf(s).toLowerCase();
+                ArrayList<MusicFiles> myFiles = new ArrayList<>();
+
+                for(MusicFiles m : musicFiles)
+                {
+                    if(m.getTitle().toLowerCase().contains(name))
+                    {
+                        myFiles.add(m);
+                    }
+                }
+                SongsFragment.musicAdapter.updateList(myFiles);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -81,6 +142,8 @@ public class MusicFragment extends Fragment {
 
             }
         });
+
+
     }
 
     private void setUpViewPager(ViewPager viewPager)

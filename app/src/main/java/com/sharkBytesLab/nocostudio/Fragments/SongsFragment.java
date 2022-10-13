@@ -1,29 +1,25 @@
 package com.sharkBytesLab.nocostudio.Fragments;
 
-import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.getAllAudio;
-import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.musicFiles;
 
+import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.musicFiles;
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.sharkBytesLab.nocostudio.Adapters.MusicAdapter;
 import com.sharkBytesLab.nocostudio.R;
 
 public class SongsFragment extends Fragment {
 
         private RecyclerView recyclerView;
-        private MusicAdapter musicAdapter;
+        public static MusicAdapter musicAdapter;
 
     public SongsFragment() {
         // Required empty public constructor

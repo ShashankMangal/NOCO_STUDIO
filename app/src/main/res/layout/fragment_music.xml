@@ -14,6 +14,76 @@
         android:orientation="vertical"
         >
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/theme1"
+            >
+
+            <TextView
+                android:id="@+id/song_frag_nocoStudio_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="NOCO Studio"
+                android:textColor="@color/white"
+                android:fontFamily="@font/airbnb_cereal_medium"
+                android:textStyle="normal"
+                android:layout_marginStart="18dp"
+                android:textSize="23sp"
+                android:visibility="visible"
+                />
+
+            <EditText
+                android:id="@+id/song_search_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="18dp"
+                app:layout_constraintEnd_toStartOf="@id/song_search"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/white"
+                android:drawableEnd="@drawable/ic_drop_left"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:fontFamily="@font/airbnb_cereal_medium"
+                android:backgroundTint="@color/white"
+                android:visibility="gone"
+                />
+
+            <ImageView
+                android:id="@+id/song_search"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_baseline_search_24"
+               app:layout_constraintEnd_toStartOf="@id/song_history"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+               android:layout_marginEnd="5dp"
+                />
+
+            <ImageView
+                android:id="@+id/song_history"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_history"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="10dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
