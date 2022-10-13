@@ -42,9 +42,9 @@ public class MusicFragment extends Fragment {
     private View myFragment;
     private TabLayout tabLayout;
     static public boolean shuffleBoolean = false, repeatBoolean = false;
-    private EditText search_song_et;
-    private TextView noco_studio_text;
-    private ImageView song_search, song_history;
+    private static EditText search_song_et;
+    private static TextView noco_studio_text;
+    private static ImageView song_search, song_history;
 
     public MusicFragment() {
         // Required empty public constructor
@@ -69,6 +69,7 @@ public class MusicFragment extends Fragment {
         visibleItem();
         return myFragment;
     }
+
 
     private void visibleItem()
     {
