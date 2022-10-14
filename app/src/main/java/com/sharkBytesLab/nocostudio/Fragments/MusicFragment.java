@@ -2,6 +2,7 @@ package com.sharkBytesLab.nocostudio.Fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -20,6 +21,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -44,20 +47,22 @@ public class MusicFragment extends Fragment {
     static public boolean shuffleBoolean = false, repeatBoolean = false;
     private static EditText search_song_et;
     private static TextView noco_studio_text;
-    private static ImageView song_search, song_history;
+    private static ImageView song_search, song_review;
 
     public MusicFragment() {
         // Required empty public constructor
     }
 
-    public static MusicFragment getInstance() {return new MusicFragment();}
+    public static MusicFragment getInstance() {
+        return new MusicFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        myFragment =  inflater.inflate(R.layout.fragment_music, container, false);
+        myFragment = inflater.inflate(R.layout.fragment_music, container, false);
         Log.i("GetAllAudio", "CreateView");
         permissions(myFragment);
         viewPager = myFragment.findViewById(R.id.music_viewPager);
@@ -65,25 +70,38 @@ public class MusicFragment extends Fragment {
         search_song_et = myFragment.findViewById(R.id.song_search_et);
         song_search = myFragment.findViewById(R.id.song_search);
         noco_studio_text = myFragment.findViewById(R.id.song_frag_nocoStudio_text);
-        song_history = myFragment.findViewById(R.id.song_history);
+        song_review = myFragment.findViewById(R.id.song_review);
         visibleItem();
         return myFragment;
     }
 
 
-    private void visibleItem()
-    {
-        song_search.setOnClickListener(new View.OnClickListener() {
+    private void visibleItem() {
+
+        song_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                if(search_song_et.getVisibility()==View.GONE)
-                {
+
+                Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + getContext().getPackageName());
+                Intent i = new Intent(Intent.ACTION_VIEW, uri);
+
+                try {
+                    startActivity(i);
+                } catch (Exception e) {
+
+                    Toast.makeText(getContext(), "Error :" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        song_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (search_song_et.getVisibility() == View.GONE) {
                     search_song_et.setVisibility(View.VISIBLE);
                     noco_studio_text.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     search_song_et.setVisibility(View.GONE);
                     noco_studio_text.setVisibility(View.VISIBLE);
                 }
@@ -97,15 +115,12 @@ public class MusicFragment extends Fragment {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String name = String.valueOf(s).toLowerCase();
                 ArrayList<MusicFiles> myFiles = new ArrayList<>();
 
-                for(MusicFiles m : musicFiles)
-                {
-                    if(m.getTitle().toLowerCase().contains(name))
-                    {
+                for (MusicFiles m : musicFiles) {
+                    if (m.getTitle().toLowerCase().contains(name)) {
                         myFiles.add(m);
                     }
                 }
@@ -147,8 +162,7 @@ public class MusicFragment extends Fragment {
 
     }
 
-    private void setUpViewPager(ViewPager viewPager)
-    {
+    private void setUpViewPager(ViewPager viewPager) {
         SectionPagerAdapter adapter = new SectionPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new SongsFragment(), "Songs");
         adapter.addFragment(new AlbumFragment(), "Albums");
@@ -156,14 +170,10 @@ public class MusicFragment extends Fragment {
 
     }
 
-    public void permissions(View view)
-    {
-        if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
+    public void permissions(View view) {
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-        }
-        else
-        {
+        } else {
             //Toast.makeText(getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
             musicFiles = getAllAudio(getActivity().getApplicationContext());
             initViewPager(view);
@@ -174,23 +184,18 @@ public class MusicFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode == REQUEST_CODE)
-        {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getActivity(), "Permission Granted Successfully!", Toast.LENGTH_SHORT).show();
                 musicFiles = getAllAudio(getActivity().getApplicationContext());
-            }
-            else
-            {
+            } else {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
             }
         }
 
     }
 
-    private void initViewPager(View view)
-    {
+    private void initViewPager(View view) {
         Log.i("GetAllAudio", "Init");
         ViewPager viewPager = view.findViewById(R.id.music_viewPager);
         TabLayout tabLayout = view.findViewById(R.id.music_tab_layout);
@@ -201,18 +206,17 @@ public class MusicFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    public static class ViewPagerAdapter extends FragmentPagerAdapter
-    {
+    public static class ViewPagerAdapter extends FragmentPagerAdapter {
         private ArrayList<Fragment> fragments;
         private ArrayList<String> titles;
+
         public ViewPagerAdapter(@NonNull FragmentManager fm) {
             super(fm);
             this.fragments = new ArrayList<>();
             this.titles = new ArrayList<>();
         }
 
-        void addFragments(Fragment fragment, String title)
-        {
+        void addFragments(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
         }
@@ -235,28 +239,26 @@ public class MusicFragment extends Fragment {
         }
     }
 
-    public static ArrayList<MusicFiles> getAllAudio(Context context)
-    {
+    public static ArrayList<MusicFiles> getAllAudio(Context context) {
         albums.clear();
         Log.i("GetAllAudio", "True");
         ArrayList<String> duplicate = new ArrayList<>();
         ArrayList<MusicFiles> tempAudioFiles = new ArrayList<>();
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        String []projection =
+        String[] projection =
                 {
-                MediaStore.Audio.Media.ALBUM,
-                MediaStore.Audio.Media.TITLE,
-                MediaStore.Audio.Media.DURATION,
-                MediaStore.Audio.Media.DATA,
-                MediaStore.Audio.Media.ARTIST,
-                MediaStore.Audio.Media._ID
+                        MediaStore.Audio.Media.ALBUM,
+                        MediaStore.Audio.Media.TITLE,
+                        MediaStore.Audio.Media.DURATION,
+                        MediaStore.Audio.Media.DATA,
+                        MediaStore.Audio.Media.ARTIST,
+                        MediaStore.Audio.Media._ID
                 };
 
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
 
-        if(cursor != null)
-        {
-            while(cursor.moveToNext()) {
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
                 String album = cursor.getString(0);
                 String title = cursor.getString(1);
                 String duration = cursor.getString(2);
@@ -268,8 +270,7 @@ public class MusicFragment extends Fragment {
                 Log.e("path : " + path, "Album : " + album);
                 tempAudioFiles.add(musicFiles);
 
-                if (!duplicate.contains(album))
-                {
+                if (!duplicate.contains(album)) {
                     albums.add(musicFiles);
                     duplicate.add(album);
                 }
@@ -278,5 +279,4 @@ public class MusicFragment extends Fragment {
         }
         return tempAudioFiles;
     }
-
 }
