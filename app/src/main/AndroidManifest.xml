@@ -90,6 +90,8 @@
         <meta-data
             android:name="applovin.sdk.key"
             android:value="@string/applovin_sdk_key" />
+
+        <service android:name=".Misc.MusicService" android:enabled="true"/>
     </application>
 
 </manifest>

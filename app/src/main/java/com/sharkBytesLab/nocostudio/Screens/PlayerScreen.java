@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.palette.graphics.Palette;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -20,6 +23,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -28,16 +32,19 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.sharkBytesLab.nocostudio.Misc.ActionPlaying;
 import com.sharkBytesLab.nocostudio.Misc.MusicFiles;
+import com.sharkBytesLab.nocostudio.Misc.MusicService;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.databinding.ActivityPlayerScreenBinding;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
+public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCompletionListener, ActionPlaying, ServiceConnection {
     private ActivityPlayerScreenBinding binding;
     private int position = -1;
     private static ArrayList<MusicFiles> listSongs = new ArrayList<>();
@@ -45,6 +52,7 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
     private static MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
     private Thread playThread, prevThread, nextThread;
+    MusicService musicService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,10 +158,18 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
 
     @Override
     protected void onResume() {
+        Intent intent = new Intent(this, MusicService.class);
+        bindService(intent, this, BIND_AUTO_CREATE);
         playThreadBtn();
         nextThreadBtn();
         prevThreadBtn();
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unbindService(this);
     }
 
     private void playThreadBtn() {
@@ -172,7 +188,7 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
         playThread.start();
     }
 
-    private void playPauseBtnClicked() {
+    public void playPauseBtnClicked() {
         if (mediaPlayer.isPlaying()) {
             binding.playPause.setImageResource(R.drawable.playnow_icon);
             mediaPlayer.pause();
@@ -222,7 +238,7 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
         nextThread.start();
     }
 
-    private void nextBtnClicked() {
+    public void nextBtnClicked() {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.release();
@@ -304,7 +320,7 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
         prevThread.start();
     }
 
-    private void prevBtnClicked() {
+    public void prevBtnClicked() {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.release();
@@ -500,5 +516,19 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
             mediaPlayer.start();
             mediaPlayer.setOnCompletionListener(this);
         }
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service)
+    {
+        MusicService.MyBinder myBinder = (MusicService.MyBinder) service;
+        musicService = myBinder.getService();
+        Toast.makeText(this, "Connected" + musicService, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName)
+    {
+        musicService = null;
     }
 }

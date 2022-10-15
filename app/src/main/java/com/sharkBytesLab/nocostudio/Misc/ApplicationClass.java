@@ -5,16 +5,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-import com.google.gson.JsonObject;
-import com.onesignal.OSNotificationOpenedResult;
-import com.onesignal.OneSignal;
-
-import org.json.JSONObject;
-
-public class MyApplication extends Application
+public class ApplicationClass extends Application
 {
-    private static final String ONESIGNAL_APP_ID = "021eebb5-b392-4248-8ba8-0ec1718509ef";
-
     public static final String CHANNEL_ID_1 = "channel1";
     public static final String CHANNEL_ID_2 = "channel2";
     public static final String ACTION_PREVIOUS = "actionprevious";
@@ -24,15 +16,7 @@ public class MyApplication extends Application
     @Override
     public void onCreate() {
         super.onCreate();
-
-        // Enable verbose OneSignal logging to debug issues if needed.
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
-
-        // OneSignal Initialization
-        OneSignal.initWithContext(this);
-        OneSignal.setAppId(ONESIGNAL_APP_ID);
         createNotificationChannel();
-
     }
 
     private void createNotificationChannel()
@@ -51,7 +35,4 @@ public class MyApplication extends Application
 
         }
     }
-
-
-
 }
