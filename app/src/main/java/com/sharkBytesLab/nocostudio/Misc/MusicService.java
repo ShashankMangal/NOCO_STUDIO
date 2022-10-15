@@ -14,13 +14,13 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class MusicService extends Service implements MediaPlayer.OnCompletionListener
-{
+public class MusicService extends Service implements MediaPlayer.OnCompletionListener {
     IBinder mBinder = new MyBinder();
     MediaPlayer mediaPlayer;
     ArrayList<MusicFiles> musicFiles = new ArrayList<>();
     Uri uri;
     int position = -1;
+    ActionPlaying actionPlaying;
 
     @Override
     public void onCreate() {
@@ -35,100 +35,88 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         return mBinder;
     }
 
-    public class MyBinder extends Binder
-    {
-        public MusicService getService()
-        {
+    public class MyBinder extends Binder {
+        public MusicService getService() {
             return MusicService.this;
         }
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         int myPosition = intent.getIntExtra("servicePosition", -1);
-        if(myPosition!=-1)
-        {
+        if (myPosition != -1) {
             playMedia(myPosition);
         }
         return START_STICKY;
     }
 
-    private void playMedia(int startPosition)
-    {
+    private void playMedia(int startPosition) {
         musicFiles = listSongs;
         position = startPosition;
 
-        if(mediaPlayer!=null)
-        {
+        if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
-            if(musicFiles!=null)
-            {
+            if (musicFiles != null) {
                 createMediaPlayer(position);
                 mediaPlayer.start();
             }
-        }
-        else
-        {
+        } else {
             createMediaPlayer(position);
             mediaPlayer.start();
         }
     }
 
-    public void start()
-    {
+    public void start() {
         mediaPlayer.start();
     }
 
-    public boolean isPlaying()
-    {
+    public boolean isPlaying() {
         return mediaPlayer.isPlaying();
     }
 
-    public void stop()
-    {
+    public void stop() {
         mediaPlayer.stop();
     }
 
-    public void release()
-    {
+    public void release() {
         mediaPlayer.release();
     }
 
-    public int getDuration()
-    {
-       return mediaPlayer.getDuration();
+    public int getDuration() {
+        return mediaPlayer.getDuration();
     }
 
-    public void seekTo(int position)
-    {
+    public void seekTo(int position) {
         mediaPlayer.seekTo(position);
     }
 
-    public int getCurrentPosition()
-    {
+    public int getCurrentPosition() {
         return mediaPlayer.getCurrentPosition();
     }
 
-    public void createMediaPlayer(int position)
-    {
+    public void createMediaPlayer(int position) {
         uri = Uri.parse(musicFiles.get(position).getPath());
         mediaPlayer = MediaPlayer.create(getBaseContext(), uri);
     }
 
-    public void pause()
-    {
+    public void pause() {
         mediaPlayer.pause();
     }
 
-    public void onCompleted()
-    {
+    public void onCompleted() {
         mediaPlayer.setOnCompletionListener(this);
     }
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
+        if (actionPlaying != null) {
+            actionPlaying.nextBtnClicked();
+        }
+
+        createMediaPlayer(position);
+        mediaPlayer.start();
+        onCompleted();
 
     }
 }

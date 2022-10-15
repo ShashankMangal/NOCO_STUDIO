@@ -44,7 +44,7 @@ import com.sharkBytesLab.nocostudio.databinding.ActivityPlayerScreenBinding;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCompletionListener, ActionPlaying, ServiceConnection {
+public class PlayerScreen extends AppCompatActivity implements ActionPlaying, ServiceConnection {
     private ActivityPlayerScreenBinding binding;
     private int position = -1;
     public static ArrayList<MusicFiles> listSongs = new ArrayList<>();
@@ -495,16 +495,6 @@ public class PlayerScreen extends AppCompatActivity implements MediaPlayer.OnCom
             }
         });
         imageView.startAnimation(animOut);
-    }
-
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-        nextBtnClicked();
-        if (musicService != null) {
-            musicService.createMediaPlayer(position);
-            musicService.start();
-            musicService.onCompleted();
-        }
     }
 
     @Override
