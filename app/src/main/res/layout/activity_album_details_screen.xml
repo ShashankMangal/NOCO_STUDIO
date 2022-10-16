@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:text="Album Name : "
             android:textStyle="bold"
-            android:textSize="28sp"
+            android:textSize="23sp"
             android:textColor="@color/lightBlack"
-            android:fontFamily="@font/aladin"
+            android:fontFamily="@font/montserrat_regular"
             />
 
         <TextView
@@ -46,10 +46,10 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textStyle="bold"
-            android:textSize="28sp"
+            android:textSize="20sp"
             android:textColor="#bf0826"
             android:id="@+id/album_detail_name"
-            android:fontFamily="@font/aladin"
+            android:fontFamily="@font/montserrat_regular"
             />
 
 

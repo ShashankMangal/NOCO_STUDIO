@@ -3,6 +3,7 @@ package com.sharkBytesLab.nocostudio.Screens;
 import static com.sharkBytesLab.nocostudio.Adapters.AlbumDetailsAdapter.albumFiles;
 import static com.sharkBytesLab.nocostudio.Adapters.MusicAdapter.mFiles;
 import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.*;
+import static com.sharkBytesLab.nocostudio.Misc.MyApplication.ACTION_NEXT;
 import static com.sharkBytesLab.nocostudio.Misc.MyApplication.ACTION_PLAY;
 import static com.sharkBytesLab.nocostudio.Misc.MyApplication.ACTION_PREVIOUS;
 import static com.sharkBytesLab.nocostudio.Misc.MyApplication.CHANNEL_ID_2;
@@ -542,7 +543,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
         Intent pauseIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_PLAY);
         PendingIntent pausePending = PendingIntent.getBroadcast(this, 0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent nextIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_PREVIOUS);
+        Intent nextIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_NEXT);
         PendingIntent nextPending = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         byte[] picture = null;
