@@ -518,7 +518,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
     {
         MusicService.MyBinder myBinder = (MusicService.MyBinder) service;
         musicService = myBinder.getService();
-        Toast.makeText(this, "Connected" + musicService, Toast.LENGTH_SHORT).show();
+        musicService.setCallback(this);
         binding.seekBar.setMax(musicService.getDuration() / 1000);
         metaData(uri);
         binding.songName.setText(listSongs.get(position).getTitle());
@@ -563,9 +563,9 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
                 .setSmallIcon(playPauseBtn).setLargeIcon(thumb)
                 .setContentTitle(listSongs.get(position).getTitle())
                 .setContentText(listSongs.get(position).getArtist())
-                .addAction(io.github.dreierf.materialintroscreen.R.drawable.ic_previous, "Previous", prevPending)
+                .addAction(R.drawable.ic_baseline_skip_previous_24, "Previous", prevPending)
                 .addAction(playPauseBtn, "Pause", pausePending)
-                .addAction(io.github.dreierf.materialintroscreen.R.drawable.ic_next, "Next", nextPending)
+                .addAction(R.drawable.ic_baseline_skip_next_24, "Next", nextPending)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                 .setMediaSession(mediaSessionCompat.getSessionToken()))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
