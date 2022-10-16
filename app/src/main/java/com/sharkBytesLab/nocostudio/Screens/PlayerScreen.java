@@ -546,7 +546,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
         PendingIntent nextPending = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         byte[] picture = null;
-        picture = getAlbumArt(musicFiles.get(position).getPath());
+        picture = getAlbumArt(listSongs.get(position).getPath());
 
         Bitmap thumb = null;
         if(picture!=null)
@@ -557,9 +557,11 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
         {
             thumb = BitmapFactory.decodeResource(getResources(), R.drawable.album_cover_art);
         }
+
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_2)
-                .setSmallIcon(playPauseBtn).setLargeIcon(thumb).setContentTitle(musicFiles.get(position).getTitle())
-                .setContentText(musicFiles.get(position).getArtist())
+                .setSmallIcon(playPauseBtn).setLargeIcon(thumb)
+                .setContentTitle(listSongs.get(position).getTitle())
+                .setContentText(listSongs.get(position).getArtist())
                 .addAction(io.github.dreierf.materialintroscreen.R.drawable.ic_previous, "Previous", prevPending)
                 .addAction(playPauseBtn, "Pause", pausePending)
                 .addAction(io.github.dreierf.materialintroscreen.R.drawable.ic_next, "Next", nextPending)
@@ -571,6 +573,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0, notification);
+
     }
 
     private byte[] getAlbumArt(String uri)
