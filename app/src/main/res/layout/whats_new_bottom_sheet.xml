@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/whats_new_bottom_sheet"
-    android:background="@drawable/bottom_sheet_background"
+    android:background="@color/theme1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
