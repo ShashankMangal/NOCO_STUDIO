@@ -16,6 +16,7 @@ import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.sharkBytesLab.nocostudio.MainActivity;
 import com.sharkBytesLab.nocostudio.Perks.Perk1Screen;
 import com.sharkBytesLab.nocostudio.Perks.Perk2Screen;
+import com.sharkBytesLab.nocostudio.Perks.Perk3Screen;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.databinding.ActivityAllPerksScreenBinding;
 
@@ -80,6 +81,21 @@ public class AllPerksScreen extends AppCompatActivity
         });
 
         binding.perk3CardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if(interstitialAd.isReady())
+                    {
+                        interstitialAd.showAd();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                startActivity(new Intent(getApplicationContext(), Perk3Screen.class));
+            }
+        });
+
+        binding.perk4CardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(AllPerksScreen.this, "Coming Soon !", Toast.LENGTH_SHORT).show();

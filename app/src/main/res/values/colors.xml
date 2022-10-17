@@ -35,6 +35,8 @@
     <color name="colorItem2End">#0039E6</color>
     <color name="colorItem3Start">#993399</color>
     <color name="colorItem3End">#602060</color>
+    <color name="colorItem4Start">#4CAF50</color>
+    <color name="colorItem4End">#8BC34A</color>
     <color name="colorEndBackground">#50FFFFFF</color>
     <color name="colorLightText">#ECECEC</color>
     <color name="lightBlack">#7F000000</color>
