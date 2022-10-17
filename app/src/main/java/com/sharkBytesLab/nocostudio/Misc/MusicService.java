@@ -1,17 +1,33 @@
 package com.sharkBytesLab.nocostudio.Misc;
 
+import static com.sharkBytesLab.nocostudio.Misc.MyApplication.ACTION_NEXT;
+import static com.sharkBytesLab.nocostudio.Misc.MyApplication.ACTION_PLAY;
+import static com.sharkBytesLab.nocostudio.Misc.MyApplication.ACTION_PREVIOUS;
+import static com.sharkBytesLab.nocostudio.Misc.MyApplication.CHANNEL_ID_2;
 import static com.sharkBytesLab.nocostudio.Screens.PlayerScreen.listSongs;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+
+import com.sharkBytesLab.nocostudio.R;
+import com.sharkBytesLab.nocostudio.Screens.PlayerScreen;
 
 import java.util.ArrayList;
 
@@ -22,11 +38,12 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     Uri uri;
     int position = -1;
     ActionPlaying actionPlaying;
+    MediaSessionCompat mediaSessionCompat;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        mediaSessionCompat = new MediaSessionCompat(getBaseContext(), "NOCO Studio");
     }
 
     @Nullable
@@ -124,7 +141,8 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         return mediaPlayer.getCurrentPosition();
     }
 
-    public void createMediaPlayer(int position) {
+    public void createMediaPlayer(int positionInner) {
+        position = positionInner;
         uri = Uri.parse(musicFiles.get(position).getPath());
         mediaPlayer = MediaPlayer.create(getBaseContext(), uri);
     }
@@ -138,14 +156,18 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     }
 
     @Override
-    public void onCompletion(MediaPlayer mediaPlayer) {
+    public void onCompletion(MediaPlayer mp) {
         if (actionPlaying != null) {
             actionPlaying.nextBtnClicked();
-        }
 
-        createMediaPlayer(position);
-        mediaPlayer.start();
-        onCompleted();
+            if(mediaPlayer!=null)
+            {
+                createMediaPlayer(position);
+                mediaPlayer.start();
+                onCompleted();
+            }
+
+        }
 
     }
 
@@ -153,4 +175,60 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     {
         this.actionPlaying = actionPlaying;
     }
+
+    @SuppressLint("NotificationId0")
+    public void showNotification(int playPauseBtn)
+    {
+        Intent intent = new Intent(this, PlayerScreen.class);
+        PendingIntent contentIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        Intent prevIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_PREVIOUS);
+        PendingIntent prevPending = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent pauseIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_PLAY);
+        PendingIntent pausePending = PendingIntent.getBroadcast(this, 0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent nextIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_NEXT);
+        PendingIntent nextPending = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        byte[] picture = null;
+        picture = getAlbumArt(musicFiles.get(position).getPath());
+
+        Bitmap thumb = null;
+        if(picture!=null)
+        {
+            thumb = BitmapFactory.decodeByteArray(picture, 0, picture.length);
+        }
+        else
+        {
+            thumb = BitmapFactory.decodeResource(getResources(), R.drawable.album_cover_art);
+        }
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_2)
+                .setSmallIcon(playPauseBtn).setLargeIcon(thumb)
+                .setContentTitle(musicFiles.get(position).getTitle())
+                .setContentText(musicFiles.get(position).getArtist())
+                .addAction(R.drawable.ic_baseline_skip_previous_24, "Previous", prevPending)
+                .addAction(playPauseBtn, "Pause", pausePending)
+                .addAction(R.drawable.ic_baseline_skip_next_24, "Next", nextPending)
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+                        .setMediaSession(mediaSessionCompat.getSessionToken()))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setOnlyAlertOnce(true)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .build();
+
+       startForeground(2, notification);
+
+    }
+
+    private byte[] getAlbumArt(String uri)
+    {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(uri);
+        byte[] art = retriever.getEmbeddedPicture();
+        retriever.release();
+        return art;
+    }
+
 }
