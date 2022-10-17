@@ -9,19 +9,19 @@
 
 
     <SearchView
+        android:id="@+id/search_song"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:queryHint="Song, Artist, Movie Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/fav_song"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/search_song"
-        android:iconifiedByDefault="false"
         android:layout_margin="8dp"
-        android:textSize="18dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/round_corner"
+        android:iconifiedByDefault="false"
+        android:queryHint="Song, Artist, Movie Name"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@id/fav_song"
+        app:layout_constraintStart_toStartOf="parent"
 
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
     </SearchView>
 
