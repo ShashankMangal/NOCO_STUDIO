@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:background="@drawable/noco_background_new"
+        android:background="@drawable/latest_background"
         android:layout_height="match_parent"
         tools:context=".Screens.AllPerksScreen">
 

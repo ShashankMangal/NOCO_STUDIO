@@ -34,6 +34,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.sharkBytesLab.nocostudio.Adapters.SectionPagerAdapter;
 import com.sharkBytesLab.nocostudio.Misc.MusicFiles;
 import com.sharkBytesLab.nocostudio.R;
+import com.sharkBytesLab.nocostudio.Screens.AllPerksScreen;
+
 import java.util.ArrayList;
 
 public class MusicFragment extends Fragment {
@@ -47,7 +49,7 @@ public class MusicFragment extends Fragment {
     static public boolean shuffleBoolean = false, repeatBoolean = false;
     private static EditText search_song_et;
     private static TextView noco_studio_text;
-    private static ImageView song_search, song_review;
+    private static ImageView song_search, perks;
 
     public MusicFragment() {
         // Required empty public constructor
@@ -70,7 +72,7 @@ public class MusicFragment extends Fragment {
         search_song_et = myFragment.findViewById(R.id.song_search_et);
         song_search = myFragment.findViewById(R.id.song_search);
         noco_studio_text = myFragment.findViewById(R.id.song_frag_nocoStudio_text);
-        song_review = myFragment.findViewById(R.id.song_review);
+        perks = myFragment.findViewById(R.id.perks);
         visibleItem();
         return myFragment;
     }
@@ -78,20 +80,11 @@ public class MusicFragment extends Fragment {
 
     private void visibleItem() {
 
-        song_review.setOnClickListener(new View.OnClickListener() {
+        perks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-
-                Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + getContext().getPackageName());
-                Intent i = new Intent(Intent.ACTION_VIEW, uri);
-
-                try {
-                    startActivity(i);
-                } catch (Exception e) {
-
-                    Toast.makeText(getContext(), "Error :" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(getActivity(), AllPerksScreen.class));
             }
         });
 
