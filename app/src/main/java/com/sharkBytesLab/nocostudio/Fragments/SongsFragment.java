@@ -35,9 +35,13 @@ public class SongsFragment extends Fragment {
         if(!(musicFiles.size() < 1))
         {
             Log.i("GetAllAudio", "IF");
-            musicAdapter = new MusicAdapter(getContext(), musicFiles);
-            recyclerView.setAdapter(musicAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+            try {
+                musicAdapter = new MusicAdapter(getContext(), musicFiles);
+                recyclerView.setAdapter(musicAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return view;
     }

@@ -19,50 +19,51 @@ import com.sharkBytesLab.nocostudio.Screens.AlbumDetailsScreen;
 
 import java.util.ArrayList;
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder>
-{
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder> {
 
     private Context mContext;
     private ArrayList<MusicFiles> albumFiles;
     private View view;
 
-    public AlbumAdapter(Context mContext, ArrayList<MusicFiles> albumFiles)
-    {
+    public AlbumAdapter(Context mContext, ArrayList<MusicFiles> albumFiles) {
         this.mContext = mContext;
         this.albumFiles = albumFiles;
     }
 
     @NonNull
     @Override
-    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(mContext).inflate(R.layout.album_item, parent, false);
         return new MyHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
 
         holder.album_name.setText(albumFiles.get(position).getAlbum());
-        byte [] image = getAlbumArt(albumFiles.get(position).getPath());
-        if(image!=null)
-        {
-            Glide.with(mContext).asBitmap().load(image).into(holder.album_image);
+        byte[] image = new byte[0];
+        try {
+            image = getAlbumArt(albumFiles.get(position).getPath());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else
-        {
+        if (image != null) {
+            Glide.with(mContext).asBitmap().load(image).into(holder.album_image);
+        } else {
             Glide.with(mContext).load(R.drawable.album_cover_art).into(holder.album_image);
         }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, AlbumDetailsScreen.class);
-                intent.putExtra("albumName", albumFiles.get(position).getAlbum());
-                mContext.startActivity(intent);
-            }
-        });
+        try {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, AlbumDetailsScreen.class);
+                    intent.putExtra("albumName", albumFiles.get(position).getAlbum());
+                    mContext.startActivity(intent);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -71,8 +72,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder>
         return albumFiles.size();
     }
 
-    public class MyHolder extends RecyclerView.ViewHolder
-    {
+    public class MyHolder extends RecyclerView.ViewHolder {
         ImageView album_image;
         TextView album_name;
 
@@ -83,8 +83,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder>
         }
     }
 
-    private byte[] getAlbumArt(String uri)
-    {
+    private byte[] getAlbumArt(String uri) {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(uri);
         byte[] art = retriever.getEmbeddedPicture();

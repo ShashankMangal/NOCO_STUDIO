@@ -71,6 +71,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
         setContentView(binding.getRoot());
         getIntentMethod();
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
             WindowManager.LayoutParams winParams = window.getAttributes();
@@ -513,8 +514,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
     }
 
     @Override
-    public void onServiceConnected(ComponentName name, IBinder service)
-    {
+    public void onServiceConnected(ComponentName name, IBinder service) {
         MusicService.MyBinder myBinder = (MusicService.MyBinder) service;
         musicService = myBinder.getService();
         musicService.setCallback(this);
@@ -527,8 +527,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName componentName)
-    {
+    public void onServiceDisconnected(ComponentName componentName) {
         musicService = null;
     }
 

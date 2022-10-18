@@ -35,8 +35,7 @@ import java.util.ArrayList;
 import www.sanju.motiontoast.MotionToast;
 import www.sanju.motiontoast.MotionToastStyle;
 
-public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder>
-{
+public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder> {
     private Context mContext;
     public static ArrayList<MusicFiles> mFiles;
 
@@ -53,30 +52,33 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position)
-    {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.file_name.setText(mFiles.get(position).getTitle());
-        byte [] image = getAlbumArt(mFiles.get(position).getPath());
-        if(image!=null)
-        {
-            Glide.with(mContext).asBitmap().load(image).into(holder.album_art);
+        byte[] image = new byte[0];
+        try {
+            image = getAlbumArt(mFiles.get(position).getPath());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else
-        {
+        if (image != null) {
+            Glide.with(mContext).asBitmap().load(image).into(holder.album_art);
+        } else {
             Glide.with(mContext).load(R.drawable.noco_latest_logo).into(holder.album_art);
         }
+        try {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, PlayerScreen.class);
+                    intent.putExtra("position", position);
+                    mContext.startActivity(intent);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, PlayerScreen.class);
-                intent.putExtra("position", position);
-                mContext.startActivity(intent);
-            }
-        });
-
-        if(position%2==0)
-        {
+        if (position % 2 == 0) {
             holder.background_color.setBackgroundColor(ContextCompat.getColor(mContext, R.color.lightTheme));
             Glide.with(mContext).load(R.drawable.noco_latest_logo).into(holder.album_art);
         }
@@ -85,14 +87,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     }
 
 
-
     @Override
     public int getItemCount() {
         return mFiles.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder
-    {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView file_name;
         ImageView album_art;
@@ -106,8 +106,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         }
     }
 
-    private byte[] getAlbumArt(String uri)
-    {
+    private byte[] getAlbumArt(String uri) {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(uri);
         byte[] art = retriever.getEmbeddedPicture();
@@ -115,8 +114,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         return art;
     }
 
-    public void updateList(ArrayList<MusicFiles> musicFilesArrayList)
-    {
+    public void updateList(ArrayList<MusicFiles> musicFilesArrayList) {
         mFiles = new ArrayList<>();
         mFiles.addAll(musicFilesArrayList);
         notifyDataSetChanged();
