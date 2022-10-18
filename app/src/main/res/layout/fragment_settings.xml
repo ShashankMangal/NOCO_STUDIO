@@ -243,6 +243,21 @@
                 android:fontFamily="@font/airbnb_cereal_medium"
                 />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="😊 Thanks to PEXELS for Images 😊"
+                android:textColor="@color/theme1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView_set"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="15sp"
+                android:fontFamily="@font/airbnb_cereal_medium"
+                />
+
 
 
         </LinearLayout>
