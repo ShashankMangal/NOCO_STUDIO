@@ -34,6 +34,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -523,7 +524,14 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
         binding.songName.setText(listSongs.get(position).getTitle());
         binding.songArtist.setText("Artist : " + listSongs.get(position).getArtist());
         musicService.onCompleted();
-        musicService.showNotification(R.drawable.ic_pause);
+
+        try {
+            musicService.showNotification(R.drawable.ic_pause);
+        } catch (Exception e) {
+            Toast.makeText(this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.v("Player error : ", e.getMessage());
+        }
+
     }
 
     @Override
