@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -14,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.provider.MediaStore;
@@ -31,11 +33,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.sharkBytesLab.nocostudio.Adapters.MusicListAdapter;
 import com.sharkBytesLab.nocostudio.Adapters.SectionPagerAdapter;
 import com.sharkBytesLab.nocostudio.Misc.MusicFiles;
+import com.sharkBytesLab.nocostudio.Models.AudioModel;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.AllPerksScreen;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MusicFragment extends Fragment {
@@ -50,6 +55,7 @@ public class MusicFragment extends Fragment {
     private static EditText search_song_et;
     private static TextView noco_studio_text;
     private static ImageView song_search, perks;
+    private ArrayList<AudioModel> songsList = new ArrayList<>();
 
     public MusicFragment() {
         // Required empty public constructor
@@ -82,8 +88,7 @@ public class MusicFragment extends Fragment {
 
         perks.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 startActivity(new Intent(getActivity(), AllPerksScreen.class));
             }
         });
@@ -168,6 +173,7 @@ public class MusicFragment extends Fragment {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
         } else {
             //Toast.makeText(getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
+//            showMusic();
             musicFiles = getAllAudio(getActivity().getApplicationContext());
             initViewPager(view);
         }
@@ -248,7 +254,8 @@ public class MusicFragment extends Fragment {
                         MediaStore.Audio.Media._ID
                 };
 
-        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+        String selection = MediaStore.Audio.Media.IS_MUSIC + " !=0";
+        Cursor cursor = context.getContentResolver().query(uri, projection,  selection, null, null);
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -261,9 +268,12 @@ public class MusicFragment extends Fragment {
 
                 MusicFiles musicFiles = new MusicFiles(path, title, artist, album, duration, id);
                 Log.e("path : " + path, "Album : " + album);
+                Log.e("playstore", album + title + " time : " + duration + path + artist + id);
+                boolean time = Integer.parseInt(duration) > 1000;
+                if(time)
                 tempAudioFiles.add(musicFiles);
 
-                if (!duplicate.contains(album)) {
+                if (!duplicate.contains(album) && time) {
                     albums.add(musicFiles);
                     duplicate.add(album);
                 }
@@ -271,5 +281,49 @@ public class MusicFragment extends Fragment {
             cursor.close();
         }
         return tempAudioFiles;
+    }
+
+    private void showMusic() {
+
+        String[] projection = {
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Media.DURATION
+        };
+
+
+        String selection = MediaStore.Audio.Media.IS_MUSIC + " !=0";
+
+        Cursor cursor = null;
+        try {
+            cursor = getActivity().getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null, null);
+
+
+            while (cursor.moveToNext()) {
+                AudioModel songData = new AudioModel(cursor.getString(1), cursor.getString(0), cursor.getString(2));
+                if (new File(songData.getPath()).exists())
+                    songsList.add(songData);
+            }
+//
+//            if(songsList.size() == 0)
+//            {
+//                noMusicTextView.setVisibility(View.VISIBLE);
+//                not_found.setVisibility(View.VISIBLE);
+//                layout.setBackgroundResource(R.drawable.night);
+//            }
+//            else
+//            {
+//
+//                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                recyclerView.setAdapter(new MusicListAdapter(songsList, getActivity()));
+//
+//
+//            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

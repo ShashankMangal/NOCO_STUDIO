@@ -64,7 +64,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         int myPosition = intent.getIntExtra("servicePosition", -1);
         String actionName = intent.getStringExtra("ActionName");
         if (myPosition != -1) {
-            playMedia(myPosition);
+            try {
+                playMedia(myPosition);
+            } catch (Exception e) {
+                Toast.makeText(this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
 
         if(actionName!=null)
