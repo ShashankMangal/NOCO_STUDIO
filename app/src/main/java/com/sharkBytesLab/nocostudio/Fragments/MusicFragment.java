@@ -255,6 +255,7 @@ public class MusicFragment extends Fragment {
                 };
 
         String selection = MediaStore.Audio.Media.IS_MUSIC + " !=0";
+        String opus = ".opus";
         Cursor cursor = context.getContentResolver().query(uri, projection,  selection, null, null);
 
         if (cursor != null) {
@@ -267,63 +268,27 @@ public class MusicFragment extends Fragment {
                 String id = cursor.getString(5);
 
                 MusicFiles musicFiles = new MusicFiles(path, title, artist, album, duration, id);
-                Log.e("path : " + path, "Album : " + album);
-                Log.e("playstore", album + title + " time : " + duration + path + artist + id);
-                boolean time = Integer.parseInt(duration) > 1000;
-                if(time)
-                tempAudioFiles.add(musicFiles);
 
-                if (!duplicate.contains(album) && time) {
+
+
+                boolean time = Integer.parseInt(duration) > 1000;
+                if(time && !path.contains(opus)) {
+                    tempAudioFiles.add(musicFiles);
+                    Log.e("playstoreAlbum : ", album);
+                    Log.e("playstoreTitle : ", title);
+                    Log.e("playstoreDuration : ", duration);
+                    Log.e("playstorePath : ", path);
+                    Log.e("playstoreArtist : ", artist);
+                    Log.e("playstoreId : ", id);
+                    Log.e("playstoreId : ", "     ");
+                if (!duplicate.contains(album)) {
                     albums.add(musicFiles);
                     duplicate.add(album);
                 }
-            }
+            }}
             cursor.close();
         }
         return tempAudioFiles;
     }
 
-    private void showMusic() {
-
-        String[] projection = {
-                MediaStore.Audio.Media.TITLE,
-                MediaStore.Audio.Media.DATA,
-                MediaStore.Audio.Media.DURATION
-        };
-
-
-        String selection = MediaStore.Audio.Media.IS_MUSIC + " !=0";
-
-        Cursor cursor = null;
-        try {
-            cursor = getActivity().getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null, null);
-
-
-            while (cursor.moveToNext()) {
-                AudioModel songData = new AudioModel(cursor.getString(1), cursor.getString(0), cursor.getString(2));
-                if (new File(songData.getPath()).exists())
-                    songsList.add(songData);
-            }
-//
-//            if(songsList.size() == 0)
-//            {
-//                noMusicTextView.setVisibility(View.VISIBLE);
-//                not_found.setVisibility(View.VISIBLE);
-//                layout.setBackgroundResource(R.drawable.night);
-//            }
-//            else
-//            {
-//
-//                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                recyclerView.setAdapter(new MusicListAdapter(songsList, getActivity()));
-//
-//
-//            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
 }
