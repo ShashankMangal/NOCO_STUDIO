@@ -17,8 +17,9 @@
 <!--    <color name="darkRed">#b70042</color>-->
 <!--    <color name="lightBlue">#3B5796</color>-->
 
-    <color name="theme">#ea0a53</color>
-    <color name="theme1">#ea0a53</color>
+<!--    <color name="theme">#ea0a53</color>-->
+    <color name="theme1">#e92e40</color>
+    <color name="theme">#e92e40</color>
     <color name="theme2">#f76006</color>
     <color name="theme3">#414141</color>
     <color name="textRed">#F80404</color>
@@ -34,8 +35,16 @@
     <color name="colorItem2End">#0039E6</color>
     <color name="colorItem3Start">#993399</color>
     <color name="colorItem3End">#602060</color>
+    <color name="colorItem4Start">#4CAF50</color>
+    <color name="colorItem4End">#8BC34A</color>
     <color name="colorEndBackground">#50FFFFFF</color>
     <color name="colorLightText">#ECECEC</color>
+    <color name="lightBlack">#7F000000</color>
+    <color name="lightGrey">#EFEFEF</color>
+    <color name="lightTheme">#F7E3EE</color>
+    <color name="darkTheme">#1c1c1c</color>
+    <color name="splashTheme">#a92121</color>
+
 
 
 

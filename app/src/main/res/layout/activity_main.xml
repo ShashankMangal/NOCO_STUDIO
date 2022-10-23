@@ -46,7 +46,5 @@
         android:src="@drawable/playnow_icon"
         app:layout_anchor="@id/bottomAppBar" />
 
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

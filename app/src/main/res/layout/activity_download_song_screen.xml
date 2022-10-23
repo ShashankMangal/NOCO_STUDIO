@@ -479,7 +479,7 @@
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/airbnb_cereal_book"
                     android:text="Subscribe on YouTube for More....(ɔ◔‿◔)ɔ ❣"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/theme1"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -497,13 +497,14 @@
                         android:textSize="20sp"
                         android:fontFamily="@font/tempus"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/theme1"
                         />
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:src="@drawable/sbl_logo"
+                        app:tint="@color/theme1"
                         />
 
                 </LinearLayout>

@@ -2,78 +2,118 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/music_frag_layout"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/gradient_bg"
+    android:background="@color/white"
     tools:context=".Fragments.MusicFragment">
 
     <LinearLayout
-        android:id="@+id/banner_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-    <ScrollView
-        android:layout_below="@id/banner_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         >
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/theme1"
             >
 
-            <ImageView
-                android:id="@+id/perk_imageView"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/perk_banner" />
-
-
             <TextView
+                android:id="@+id/song_frag_nocoStudio_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No Music Found On Device !!"
-                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="NOCO Studio"
                 android:textColor="@color/white"
                 android:fontFamily="@font/airbnb_cereal_medium"
-                android:id="@+id/no_song"
-                android:visibility="gone"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="110dp"
-                android:layout_centerHorizontal="true"
+                android:textStyle="normal"
+                android:layout_marginStart="18dp"
+                android:textSize="23sp"
+                android:visibility="visible"
                 />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/no_song_lottie"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/song_search_et"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                app:lottie_autoPlay="true"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="18dp"
+                app:layout_constraintEnd_toStartOf="@id/song_search"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/white"
+                android:drawableEnd="@drawable/ic_drop_left"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:fontFamily="@font/airbnb_cereal_medium"
+                android:backgroundTint="@color/white"
                 android:visibility="gone"
-                app:lottie_fileName="not_found.json"
-                app:lottie_loop="true" />
+                />
 
+            <ImageView
+                android:id="@+id/song_search"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_baseline_search_24"
+               app:layout_constraintEnd_toStartOf="@id/perks"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+               android:layout_marginEnd="5dp"
+                />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@id/perk_imageView"
-                android:id="@+id/music_recycler_view"
+            <ImageView
+                android:id="@+id/perks"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:tint="@color/white"
+                android:src="@drawable/badge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="10dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <com.google.android.material.tabs.TabLayout
+                android:layout_marginEnd="6dp"
+                android:layout_marginStart="6dp"
+                android:id="@+id/music_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                />
+                android:background="@color/white"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorGravity="center"
+                app:tabTextColor="@color/lightBlack"
+                app:tabIndicatorHeight="40dp"
+                app:tabSelectedTextColor="@color/white"
+                app:tabIndicatorColor="@color/theme1"
+                app:tabIndicator="@drawable/tab_indicator"/>
 
+        </com.google.android.material.appbar.AppBarLayout>
 
-        </RelativeLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/music_viewPager"
+            android:layout_marginBottom="50dp"
+            />
 
-    </ScrollView>
-
+    </LinearLayout>
 
 </RelativeLayout>
