@@ -291,9 +291,10 @@ public class MainActivity extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     final String new_version_code = remoteConfig.getString("version_ns");
+                    final String update_link = remoteConfig.getString("update_ns");
                     if(Integer.parseInt(new_version_code) > getCurrentVersionCode())
                     {
-                        showUpdateDialog();
+                        showUpdateDialog(update_link);
 
                     }
 
@@ -306,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showUpdateDialog()
+    private void showUpdateDialog(String link)
     {
 
         Dialog dialog;
@@ -329,7 +330,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 try{
-                    Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName());
+                  //  Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName());
+                    Uri uri = Uri.parse(link);
                     Intent in = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(in);
 

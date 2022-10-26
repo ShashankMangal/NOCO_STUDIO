@@ -1,5 +1,7 @@
 package com.sharkBytesLab.nocostudio.Fragments;
 
+import static com.sharkBytesLab.nocostudio.R.id.lib_play_text;
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -42,7 +44,9 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +55,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.sharkBytesLab.nocostudio.Adapters.DownloadSongAdapter;
 import com.sharkBytesLab.nocostudio.MainActivity;
 import com.sharkBytesLab.nocostudio.Models.DownloadModel;
@@ -87,6 +93,9 @@ public class LibraryFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private InfoModel model;
     private ImageView favSong;
+    private FirebaseRemoteConfig remoteConfig;
+    private  String libaray_code;
+    private TextView lib_play_text;
 
 
     public LibraryFragment() {
@@ -134,12 +143,12 @@ public class LibraryFragment extends Fragment {
         songs_num = view.findViewById(R.id.songs_num);
         server = view.findViewById(R.id.server_song_num);
         favSong = view.findViewById(R.id.fav_song);
+        lib_play_text = view.findViewById(R.id.lib_play_text);
 
 
         firestore = FirebaseFirestore.getInstance();
-
-
-
+        remoteConfig = FirebaseRemoteConfig.getInstance();
+        checkLibrary();
 
 
         pd = new ProgressDialog(getActivity());
@@ -221,6 +230,44 @@ public class LibraryFragment extends Fragment {
         return view;
     }
 
+    private void checkLibrary() {
+
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder().setMinimumFetchIntervalInSeconds(5).build();
+        remoteConfig.setConfigSettingsAsync(configSettings);
+
+        remoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
+            @Override
+            public void onComplete(@NonNull Task<Boolean> task) {
+
+                if(task.isSuccessful())
+                {
+                    libaray_code = remoteConfig.getString("library_ns");
+                    if(Integer.parseInt(libaray_code) > 0)
+                    {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        songs_num.setVisibility(View.VISIBLE);
+                        server.setVisibility(View.VISIBLE);
+                        swipeRefreshLayout.setVisibility(View.VISIBLE);
+                        favSong.setClickable(true);
+                        lib_play_text.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        recyclerView.setVisibility(View.GONE);
+                        songs_num.setVisibility(View.GONE);
+                        server.setVisibility(View.GONE);
+                        swipeRefreshLayout.setVisibility(View.GONE);
+                        favSong.setClickable(false);
+                        lib_play_text.setVisibility(View.VISIBLE);
+                    }
+                }
+
+
+
+            }
+        });
+
+    }
 
 
     @Override
@@ -244,7 +291,7 @@ public class LibraryFragment extends Fragment {
             @Override
             public void run() {
                 try {
-
+                    checkLibrary();
                     Query query = myRef.child("DownloadData").orderByChild("serial");
                     query.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -291,6 +338,7 @@ public class LibraryFragment extends Fragment {
 
     private void processSearch(String s)
     {
+        checkLibrary();
         Query query = myRef.child("DownloadData");
         query.addValueEventListener(new ValueEventListener() {
             @Override
