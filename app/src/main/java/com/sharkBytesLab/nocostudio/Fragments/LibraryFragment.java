@@ -1,49 +1,22 @@
 package com.sharkBytesLab.nocostudio.Fragments;
 
-import static com.sharkBytesLab.nocostudio.R.id.lib_play_text;
-
-import android.Manifest;
-import android.app.AlertDialog;
-import android.app.Dialog;
+import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.musicFiles;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.provider.Settings;
-import android.speech.RecognitionListener;
-import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.airbnb.lottie.LottieAnimationView;
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -58,12 +31,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.sharkBytesLab.nocostudio.Adapters.DownloadSongAdapter;
-import com.sharkBytesLab.nocostudio.MainActivity;
+import com.sharkBytesLab.nocostudio.Adapters.MusicAdapter;
 import com.sharkBytesLab.nocostudio.Models.DownloadModel;
 import com.sharkBytesLab.nocostudio.Models.InfoModel;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.FavouriteScreen;
-
 import java.util.ArrayList;
 
 /**
@@ -95,7 +67,7 @@ public class LibraryFragment extends Fragment {
     private ImageView favSong;
     private FirebaseRemoteConfig remoteConfig;
     private  String libaray_code;
-    private TextView lib_play_text;
+    public static MusicAdapter musicAdapter;
 
 
     public LibraryFragment() {
@@ -143,7 +115,6 @@ public class LibraryFragment extends Fragment {
         songs_num = view.findViewById(R.id.songs_num);
         server = view.findViewById(R.id.server_song_num);
         favSong = view.findViewById(R.id.fav_song);
-        lib_play_text = view.findViewById(R.id.lib_play_text);
 
 
         firestore = FirebaseFirestore.getInstance();
@@ -232,6 +203,7 @@ public class LibraryFragment extends Fragment {
 
     private void checkLibrary() {
 
+
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder().setMinimumFetchIntervalInSeconds(5).build();
         remoteConfig.setConfigSettingsAsync(configSettings);
 
@@ -244,21 +216,30 @@ public class LibraryFragment extends Fragment {
                     libaray_code = remoteConfig.getString("library_ns");
                     if(Integer.parseInt(libaray_code) > 0)
                     {
+
                         recyclerView.setVisibility(View.VISIBLE);
                         songs_num.setVisibility(View.VISIBLE);
                         server.setVisibility(View.VISIBLE);
                         swipeRefreshLayout.setVisibility(View.VISIBLE);
                         favSong.setClickable(true);
-                        lib_play_text.setVisibility(View.GONE);
                     }
                     else
                     {
-                        recyclerView.setVisibility(View.GONE);
                         songs_num.setVisibility(View.GONE);
                         server.setVisibility(View.GONE);
-                        swipeRefreshLayout.setVisibility(View.GONE);
                         favSong.setClickable(false);
-                        lib_play_text.setVisibility(View.VISIBLE);
+
+                        if(!(musicFiles.size() < 1))
+                        {
+                            Log.i("GetAllAudio", "IF");
+                            try {
+                                musicAdapter = new MusicAdapter(getContext(), musicFiles);
+                                recyclerView.setAdapter(musicAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
 
