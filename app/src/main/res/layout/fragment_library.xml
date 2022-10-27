@@ -20,7 +20,9 @@
         android:textSize="18dp"
         app:layout_constraintEnd_toStartOf="@id/fav_song"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        >
 
     </SearchView>
 
@@ -36,7 +38,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/fav_song"
         android:src="@drawable/fav_icon"
-        app:tint="@color/text_shadow" />
+        app:tint="@color/text_shadow"
+        android:visibility="gone"
+        />
 
     <TextView
         android:layout_width="match_parent"

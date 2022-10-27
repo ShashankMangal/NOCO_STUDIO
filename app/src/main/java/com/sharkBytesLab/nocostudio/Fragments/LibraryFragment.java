@@ -119,7 +119,6 @@ public class LibraryFragment extends Fragment {
 
         firestore = FirebaseFirestore.getInstance();
         remoteConfig = FirebaseRemoteConfig.getInstance();
-        checkLibrary();
 
 
         pd = new ProgressDialog(getActivity());
@@ -201,54 +200,7 @@ public class LibraryFragment extends Fragment {
         return view;
     }
 
-    private void checkLibrary() {
 
-
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder().setMinimumFetchIntervalInSeconds(5).build();
-        remoteConfig.setConfigSettingsAsync(configSettings);
-
-        remoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
-            @Override
-            public void onComplete(@NonNull Task<Boolean> task) {
-
-                if(task.isSuccessful())
-                {
-                    libaray_code = remoteConfig.getString("library_ns");
-                    if(Integer.parseInt(libaray_code) > 0)
-                    {
-
-                        recyclerView.setVisibility(View.VISIBLE);
-                        songs_num.setVisibility(View.VISIBLE);
-                        server.setVisibility(View.VISIBLE);
-                        swipeRefreshLayout.setVisibility(View.VISIBLE);
-                        favSong.setClickable(true);
-                    }
-                    else
-                    {
-                        songs_num.setVisibility(View.GONE);
-                        server.setVisibility(View.GONE);
-                        favSong.setClickable(false);
-
-                        if(!(musicFiles.size() < 1))
-                        {
-                            Log.i("GetAllAudio", "IF");
-                            try {
-                                musicAdapter = new MusicAdapter(getContext(), musicFiles);
-                                recyclerView.setAdapter(musicAdapter);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-
-
-
-            }
-        });
-
-    }
 
 
     @Override
@@ -272,35 +224,85 @@ public class LibraryFragment extends Fragment {
             @Override
             public void run() {
                 try {
-                    checkLibrary();
-                    Query query = myRef.child("DownloadData").orderByChild("serial");
-                    query.addValueEventListener(new ValueEventListener() {
+
+                    FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder().setMinimumFetchIntervalInSeconds(5).build();
+                    remoteConfig.setConfigSettingsAsync(configSettings);
+
+                    remoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            clearAll();
-                            int temp=0;
+                        public void onComplete(@NonNull Task<Boolean> task) {
 
-                            for(DataSnapshot snapshot1 : snapshot.getChildren())
+                            if(task.isSuccessful())
                             {
+                                libaray_code = remoteConfig.getString("library_ns");
+                                if(Integer.parseInt(libaray_code) > 0)
+                                {
 
-                                DownloadModel model = new DownloadModel();
-                                model.setImage(snapshot1.child("image").getValue().toString());
-                                model.setTitle(snapshot1.child("title").getValue().toString());
-                                model.setLink(snapshot1.child("link").getValue().toString());
-                                model.setVideoId(snapshot1.child("videoId").getValue().toString());
-                                list.add(model);
-                                temp++;
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    songs_num.setVisibility(View.VISIBLE);
+                                    server.setVisibility(View.VISIBLE);
+                                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                                    favSong.setVisibility(View.VISIBLE);
+                                    searchView.setVisibility(View.VISIBLE);
+
+
+                                    Query query = myRef.child("DownloadData").orderByChild("serial");
+                                    query.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            clearAll();
+                                            int temp=0;
+
+                                            for(DataSnapshot snapshot1 : snapshot.getChildren())
+                                            {
+
+                                                DownloadModel model = new DownloadModel();
+                                                model.setImage(snapshot1.child("image").getValue().toString());
+                                                model.setTitle(snapshot1.child("title").getValue().toString());
+                                                model.setLink(snapshot1.child("link").getValue().toString());
+                                                model.setVideoId(snapshot1.child("videoId").getValue().toString());
+                                                list.add(model);
+                                                temp++;
+                                            }
+
+                                            adapter = new DownloadSongAdapter(getActivity(), list);
+                                            recyclerView.setAdapter(adapter);
+                                            adapter.notifyDataSetChanged();
+                                            songs_num.setText("Songs Found : " + String.valueOf(temp));
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+
+
+                                }
+                                else
+                                {
+                                    songs_num.setVisibility(View.GONE);
+                                    server.setVisibility(View.GONE);
+                                    favSong.setVisibility(View.GONE);
+                                    searchView.setVisibility(View.GONE);
+
+                                    if(!(musicFiles.size() < 1))
+                                    {
+                                        Log.i("GetAllAudio", "IF");
+                                        try {
+                                            musicAdapter = new MusicAdapter(getContext(), musicFiles);
+                                            recyclerView.setAdapter(musicAdapter);
+                                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
                             }
 
-                            adapter = new DownloadSongAdapter(getActivity(), list);
-                            recyclerView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
-                            songs_num.setText("Songs Found : " + String.valueOf(temp));
 
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
                     });
@@ -319,7 +321,7 @@ public class LibraryFragment extends Fragment {
 
     private void processSearch(String s)
     {
-        checkLibrary();
+
         Query query = myRef.child("DownloadData");
         query.addValueEventListener(new ValueEventListener() {
             @Override
