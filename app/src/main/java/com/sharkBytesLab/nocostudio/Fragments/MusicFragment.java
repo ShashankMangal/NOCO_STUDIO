@@ -270,8 +270,13 @@ public class MusicFragment extends Fragment {
                 MusicFiles musicFiles = new MusicFiles(path, title, artist, album, duration, id);
 
 
+                boolean time = false;
 
-                boolean time = Integer.parseInt(duration) > 1000;
+                try {
+                    time = Integer.parseInt(duration) > 1000;
+                } catch (Exception e) {
+                    Log.e("ParseError : ", e.getMessage());
+                }
                 if(time && !path.contains(opus)) {
                     tempAudioFiles.add(musicFiles);
                     Log.e("playstoreAlbum : ", album);
