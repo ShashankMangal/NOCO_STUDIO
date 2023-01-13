@@ -137,7 +137,11 @@ public class MusicFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        musicFiles = getAllAudio(getActivity().getApplicationContext());
+        try {
+            musicFiles = getAllAudio(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         setUpViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
