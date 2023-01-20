@@ -29,6 +29,7 @@ import androidx.core.app.NotificationCompat;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.PlayerScreen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MusicService extends Service implements MediaPlayer.OnCompletionListener {
@@ -78,14 +79,22 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 case "playPause":
                     if(actionPlaying != null)
                     {
-                        actionPlaying.playPauseBtnClicked();
+                        try {
+                            actionPlaying.playPauseBtnClicked();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "next":
                     if(actionPlaying != null)
                     {
-                        actionPlaying.nextBtnClicked();
+                        try {
+                            actionPlaying.nextBtnClicked();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
@@ -162,7 +171,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     @Override
     public void onCompletion(MediaPlayer mp) {
         if (actionPlaying != null) {
-            actionPlaying.nextBtnClicked();
+            try {
+                actionPlaying.nextBtnClicked();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             if(mediaPlayer!=null)
             {
@@ -181,8 +194,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     }
 
 
-    public void showNotification(int playPauseBtn)
-    {
+    public void showNotification(int playPauseBtn) throws IOException {
         Intent intent = new Intent(this, PlayerScreen.class);
         PendingIntent contentIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
@@ -226,8 +238,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     }
 
-    private byte[] getAlbumArt(String uri)
-    {
+    private byte[] getAlbumArt(String uri) throws IOException {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(uri);
         byte[] art = retriever.getEmbeddedPicture();

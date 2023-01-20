@@ -30,6 +30,7 @@ import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.PlayerScreen;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import www.sanju.motiontoast.MotionToast;
@@ -106,7 +107,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         }
     }
 
-    private byte[] getAlbumArt(String uri) {
+    private byte[] getAlbumArt(String uri) throws IOException {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(uri);
         byte[] art = retriever.getEmbeddedPicture();

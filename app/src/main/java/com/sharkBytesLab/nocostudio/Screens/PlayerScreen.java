@@ -52,6 +52,7 @@ import com.sharkBytesLab.nocostudio.Misc.NotificationReceiver;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.databinding.ActivityPlayerScreenBinding;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -188,7 +189,11 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
                 binding.playPause.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        playPauseBtnClicked();
+                        try {
+                            playPauseBtnClicked();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 });
             }
@@ -196,7 +201,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
         playThread.start();
     }
 
-    public void playPauseBtnClicked() {
+    public void playPauseBtnClicked() throws IOException {
         if (musicService.isPlaying()) {
             binding.playPause.setImageResource(R.drawable.playnow_icon);
             musicService.showNotification(R.drawable.playnow_icon);
@@ -240,7 +245,11 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
                 binding.idNext.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        nextBtnClicked();
+                        try {
+                            nextBtnClicked();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 });
             }
@@ -248,7 +257,7 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
         nextThread.start();
     }
 
-    public void nextBtnClicked() {
+    public void nextBtnClicked() throws IOException {
         if (musicService.isPlaying()) {
             musicService.stop();
             musicService.release();
@@ -360,7 +369,11 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
                 }
             });
             musicService.onCompleted();
-            musicService.showNotification(R.drawable.ic_pause);
+            try {
+                musicService.showNotification(R.drawable.ic_pause);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             binding.playPause.setBackgroundResource(R.drawable.ic_pause);
             musicService.start();
         } else {
@@ -390,7 +403,11 @@ public class PlayerScreen extends AppCompatActivity implements ActionPlaying, Se
                 }
             });
             musicService.onCompleted();
-            musicService.showNotification(R.drawable.playnow_icon);
+            try {
+                musicService.showNotification(R.drawable.playnow_icon);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             binding.playPause.setBackgroundResource(R.drawable.playnow_icon);
         }
     }

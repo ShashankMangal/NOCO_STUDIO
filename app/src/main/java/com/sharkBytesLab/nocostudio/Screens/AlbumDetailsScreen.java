@@ -18,6 +18,7 @@ import com.sharkBytesLab.nocostudio.Misc.MusicFiles;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.databinding.ActivityAlbumDetailsScreenBinding;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AlbumDetailsScreen extends AppCompatActivity
@@ -55,7 +56,12 @@ public class AlbumDetailsScreen extends AppCompatActivity
             }
         }
 
-        byte [] image = getAlbumArt(albumSongs.get(0).getPath());
+        byte [] image = new byte[0];
+        try {
+            image = getAlbumArt(albumSongs.get(0).getPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         if(image!=null)
         {
@@ -83,8 +89,7 @@ public class AlbumDetailsScreen extends AppCompatActivity
 
     }
 
-    private byte[] getAlbumArt(String uri)
-    {
+    private byte[] getAlbumArt(String uri) throws IOException {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(uri);
         byte[] art = retriever.getEmbeddedPicture();

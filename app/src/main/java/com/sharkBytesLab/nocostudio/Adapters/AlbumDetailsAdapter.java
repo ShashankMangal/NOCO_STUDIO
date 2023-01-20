@@ -21,6 +21,7 @@ import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.AlbumDetailsScreen;
 import com.sharkBytesLab.nocostudio.Screens.PlayerScreen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AlbumDetailsAdapter extends RecyclerView.Adapter<AlbumDetailsAdapter.MyHolder>
@@ -49,7 +50,12 @@ public class AlbumDetailsAdapter extends RecyclerView.Adapter<AlbumDetailsAdapte
     {
 
         holder.album_name.setText(albumFiles.get(position).getTitle());
-        byte [] image = getAlbumArt(albumFiles.get(position).getPath());
+        byte [] image = new byte[0];
+        try {
+            image = getAlbumArt(albumFiles.get(position).getPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if(image!=null)
         {
             Glide.with(mContext).asBitmap().load(image).into(holder.album_image);
@@ -94,8 +100,7 @@ public class AlbumDetailsAdapter extends RecyclerView.Adapter<AlbumDetailsAdapte
         }
     }
 
-    private byte[] getAlbumArt(String uri)
-    {
+    private byte[] getAlbumArt(String uri) throws IOException {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(uri);
         byte[] art = retriever.getEmbeddedPicture();
