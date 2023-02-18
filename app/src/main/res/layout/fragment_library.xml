@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Download NOCO Studio Pro"
+        android:text="NOCO Studio Pro"
         android:fontFamily="@font/helvetica_regular"
         android:textStyle="bold"
         android:background="@drawable/round_back_white_1000"
