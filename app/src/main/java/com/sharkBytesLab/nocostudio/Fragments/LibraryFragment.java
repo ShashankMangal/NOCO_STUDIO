@@ -3,6 +3,7 @@ package com.sharkBytesLab.nocostudio.Fragments;
 import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.musicFiles;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -45,6 +46,7 @@ public class LibraryFragment extends Fragment {
     private InfoModel model;
     public static MusicAdapter musicAdapter;
     public TextView pro_version;
+    public FirebaseRemoteConfig remoteConfig;
 
 
     public LibraryFragment() {
@@ -61,7 +63,7 @@ public class LibraryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.downloadRecyclerView);
         swipeRefreshLayout = view.findViewById(R.id.refreshView);
         pro_version = view.findViewById(R.id.library_noco_studio_pro);
-
+        remoteConfig = FirebaseRemoteConfig.getInstance();
 
         pd = new ProgressDialog(getActivity());
         pd.show();
@@ -115,7 +117,7 @@ public class LibraryFragment extends Fragment {
             pro_version.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    openNOCOPro();
                 }
             });
 
@@ -127,7 +129,33 @@ public class LibraryFragment extends Fragment {
         return view;
     }
 
+    private void openNOCOPro() {
 
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder().setMinimumFetchIntervalInSeconds(5).build();
+        remoteConfig.setConfigSettingsAsync(configSettings);
+
+        remoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
+            @Override
+            public void onComplete(@NonNull Task<Boolean> task) {
+
+                if(task.isSuccessful())
+                {
+
+                    final String noco_pro_link = remoteConfig.getString("noco_pro");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(noco_pro_link));
+                    startActivity(intent);
+
+                }
+                else {
+                    Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+        });
+
+    }
 
 
     @Override
