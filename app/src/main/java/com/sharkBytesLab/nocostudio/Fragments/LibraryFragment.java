@@ -44,6 +44,7 @@ public class LibraryFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private InfoModel model;
     public static MusicAdapter musicAdapter;
+    public TextView pro_version;
 
 
     public LibraryFragment() {
@@ -59,6 +60,7 @@ public class LibraryFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.downloadRecyclerView);
         swipeRefreshLayout = view.findViewById(R.id.refreshView);
+        pro_version = view.findViewById(R.id.library_noco_studio_pro);
 
 
         pd = new ProgressDialog(getActivity());
@@ -109,6 +111,14 @@ public class LibraryFragment extends Fragment {
 
         try {
             getDataFromFirebase();
+
+            pro_version.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Error on getting songs list.", Toast.LENGTH_SHORT).show();
