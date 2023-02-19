@@ -293,5 +293,16 @@
 
         </LinearLayout>
 
+        <com.applovin.mediation.ads.MaxAdView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/applovinAd"
+            xmlns:maxads="http://schemas.applovin.com/android/1.0"
+            maxads:adUnitId="c990b5f1301feeca"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        </com.applovin.mediation.ads.MaxAdView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

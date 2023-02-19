@@ -34,6 +34,7 @@ public class AllPerksScreen extends AppCompatActivity
         binding = ActivityAllPerksScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.applovinAd.loadAd();
         createInterstitialAd();
         setListeners();
 
