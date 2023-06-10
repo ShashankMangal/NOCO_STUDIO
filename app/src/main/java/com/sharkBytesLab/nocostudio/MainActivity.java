@@ -30,9 +30,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import com.facebook.ads.*;
-import com.applovin.sdk.AppLovinSdk;
-import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -86,15 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        AudienceNetworkAds.initialize(this);
-        AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
-        AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
-            @Override
-            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
-            {
 
-            }
-        } );
 
         try {
             Bundle extras = getIntent().getExtras();

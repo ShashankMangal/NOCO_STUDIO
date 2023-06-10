@@ -30,15 +30,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.applovin.mediation.MaxAd;
-import com.applovin.mediation.MaxAdListener;
-import com.applovin.mediation.MaxAdViewAdListener;
-import com.applovin.mediation.MaxError;
-import com.applovin.mediation.ads.MaxAdView;
-import com.applovin.mediation.ads.MaxInterstitialAd;
-import com.applovin.sdk.AppLovinSdk;
-import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
@@ -103,8 +94,6 @@ public class DownloadSongScreen extends AppCompatActivity {
     private String promoUrl;
     private AdView mAdView;
     private InfoModel infoModel;
-    private MaxAdView adView;
-    private MaxInterstitialAd interstitialAd;
     private int retry = 0;
     private ArrayList<String> favLists;
     private boolean favListIsChecked = false;
@@ -117,8 +106,8 @@ public class DownloadSongScreen extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
 
-        createBannerAd();
-        createInterstitialAd();
+//        createBannerAd();
+//        createInterstitialAd();
         getSliderImages();
         getInfo();
 
@@ -329,9 +318,9 @@ public class DownloadSongScreen extends AppCompatActivity {
 //                }
 
                 try {
-                    if (interstitialAd.isReady()) {
-                        interstitialAd.showAd();
-                    }
+//                    if (interstitialAd.isReady()) {
+//                        interstitialAd.showAd();
+//                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -678,109 +667,109 @@ public class DownloadSongScreen extends AppCompatActivity {
         });
     }
 
-    private void createBannerAd() {
-        adView = new MaxAdView(getResources().getString(R.string.applovin_banner_adId), this);
-        adView.setListener(new MaxAdViewAdListener() {
-            @Override
-            public void onAdExpanded(MaxAd ad) {
-                Log.d("Banner Ad", "Expanded");
-            }
-
-            @Override
-            public void onAdCollapsed(MaxAd ad) {
-
-            }
-
-            @Override
-            public void onAdLoaded(MaxAd ad) {
-                Log.d("Banner Ad", "Loaded");
-            }
-
-            @Override
-            public void onAdDisplayed(MaxAd ad) {
-                Log.d("Banner Ad", "Displayed");
-            }
-
-            @Override
-            public void onAdHidden(MaxAd ad) {
-
-            }
-
-            @Override
-            public void onAdClicked(MaxAd ad) {
-
-            }
-
-            @Override
-            public void onAdLoadFailed(String adUnitId, MaxError error) {
-                createBannerAd();
-            }
-
-            @Override
-            public void onAdDisplayFailed(MaxAd ad, MaxError error) {
-
-            }
-        });
-
-        int width = ViewGroup.LayoutParams.MATCH_PARENT;
-        int heightPx = getResources().getDimensionPixelSize(R.dimen.banner_height);
-
-        adView.setLayoutParams(new FrameLayout.LayoutParams(width, heightPx, Gravity.BOTTOM));
-        adView.setBackgroundColor(Color.WHITE);
-        LinearLayout adLayout = findViewById(R.id.adLayout);
-        adLayout.addView(adView);
-        adView.loadAd();
-    }
-
-    private void createInterstitialAd() {
-        interstitialAd = new MaxInterstitialAd(getResources().getString(R.string.applovin_inter_adId), this);
-        MaxAdListener adListener = new MaxAdListener() {
-            @Override
-            public void onAdLoaded(MaxAd ad) {
-                Log.e("Inter Ad", "Loaded");
-                showToast("You can skip the timer");
-            }
-
-            @Override
-            public void onAdDisplayed(MaxAd ad) {
-                binding.timerDownloadSong.setVisibility(View.GONE);
-                binding.skipTimer.setVisibility(View.GONE);
-                binding.downloadImage.setEnabled(true);
-                binding.downloadImage.setAlpha(1.0F);
-
-                Log.e("Inter Ad", "Displayed");
-
-            }
-
-            @Override
-            public void onAdHidden(MaxAd ad) {
-
-            }
-
-            @Override
-            public void onAdClicked(MaxAd ad) {
-
-            }
-
-            @Override
-            public void onAdLoadFailed(String adUnitId, MaxError error) {
-                retry++;
-                long delay = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retry)));
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        interstitialAd.loadAd();
-                    }
-                }, delay);
-            }
-
-            @Override
-            public void onAdDisplayFailed(MaxAd ad, MaxError error) {
-
-            }
-        };
-        interstitialAd.setListener(adListener);
-        interstitialAd.loadAd();
-    }
+//    private void createBannerAd() {
+//        adView = new MaxAdView(getResources().getString(R.string.applovin_banner_adId), this);
+//        adView.setListener(new MaxAdViewAdListener() {
+//            @Override
+//            public void onAdExpanded(MaxAd ad) {
+//                Log.d("Banner Ad", "Expanded");
+//            }
+//
+//            @Override
+//            public void onAdCollapsed(MaxAd ad) {
+//
+//            }
+//
+//            @Override
+//            public void onAdLoaded(MaxAd ad) {
+//                Log.d("Banner Ad", "Loaded");
+//            }
+//
+//            @Override
+//            public void onAdDisplayed(MaxAd ad) {
+//                Log.d("Banner Ad", "Displayed");
+//            }
+//
+//            @Override
+//            public void onAdHidden(MaxAd ad) {
+//
+//            }
+//
+//            @Override
+//            public void onAdClicked(MaxAd ad) {
+//
+//            }
+//
+//            @Override
+//            public void onAdLoadFailed(String adUnitId, MaxError error) {
+//                createBannerAd();
+//            }
+//
+//            @Override
+//            public void onAdDisplayFailed(MaxAd ad, MaxError error) {
+//
+//            }
+//        });
+//
+//        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+//        int heightPx = getResources().getDimensionPixelSize(R.dimen.banner_height);
+//
+//        adView.setLayoutParams(new FrameLayout.LayoutParams(width, heightPx, Gravity.BOTTOM));
+//        adView.setBackgroundColor(Color.WHITE);
+//        LinearLayout adLayout = findViewById(R.id.adLayout);
+//        adLayout.addView(adView);
+//        adView.loadAd();
+//    }
+//
+//    private void createInterstitialAd() {
+//        interstitialAd = new MaxInterstitialAd(getResources().getString(R.string.applovin_inter_adId), this);
+//        MaxAdListener adListener = new MaxAdListener() {
+//            @Override
+//            public void onAdLoaded(MaxAd ad) {
+//                Log.e("Inter Ad", "Loaded");
+//                showToast("You can skip the timer");
+//            }
+//
+//            @Override
+//            public void onAdDisplayed(MaxAd ad) {
+//                binding.timerDownloadSong.setVisibility(View.GONE);
+//                binding.skipTimer.setVisibility(View.GONE);
+//                binding.downloadImage.setEnabled(true);
+//                binding.downloadImage.setAlpha(1.0F);
+//
+//                Log.e("Inter Ad", "Displayed");
+//
+//            }
+//
+//            @Override
+//            public void onAdHidden(MaxAd ad) {
+//
+//            }
+//
+//            @Override
+//            public void onAdClicked(MaxAd ad) {
+//
+//            }
+//
+//            @Override
+//            public void onAdLoadFailed(String adUnitId, MaxError error) {
+//                retry++;
+//                long delay = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retry)));
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        interstitialAd.loadAd();
+//                    }
+//                }, delay);
+//            }
+//
+//            @Override
+//            public void onAdDisplayFailed(MaxAd ad, MaxError error) {
+//
+//            }
+//        };
+//        interstitialAd.setListener(adListener);
+//        interstitialAd.loadAd();
+//    }
 
 }
