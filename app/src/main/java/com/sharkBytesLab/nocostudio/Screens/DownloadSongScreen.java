@@ -596,7 +596,6 @@ public class DownloadSongScreen extends AppCompatActivity {
                 ArrayList<SlideModel> slideModels = new ArrayList<>();
 
                 slideModels.add(new SlideModel("https://firebasestorage.googleapis.com/v0/b/rewardapp-1070c.appspot.com/o/noco%20new%20banner.jpeg?alt=media&token=7118afd6-a87d-41de-b66e-48a57b9552c4", ScaleTypes.FIT));
-                slideModels.add(new SlideModel(songImage, ScaleTypes.FIT));
                 slideModels.add(new SlideModel(model.getImage1(), ScaleTypes.FIT));
                 slideModels.add(new SlideModel(model.getImage2(), ScaleTypes.FIT));
                 slideModels.add(new SlideModel(model.getImage3(), ScaleTypes.FIT));

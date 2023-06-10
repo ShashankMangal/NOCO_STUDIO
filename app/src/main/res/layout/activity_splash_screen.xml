@@ -27,7 +27,7 @@
         android:textStyle="normal"
         android:id="@+id/copyright_text"
         android:gravity="center_horizontal"
-        android:text="Copyright © 2022 Shark Bytes Lab.\nAll rights reserved."
+        android:text="Copyright © 2023 Shark Bytes Lab.\nAll rights reserved."
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/splash_progress"
         app:layout_constraintEnd_toEndOf="parent"

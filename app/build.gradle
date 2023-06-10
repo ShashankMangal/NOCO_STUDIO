@@ -12,8 +12,8 @@ android {
         applicationId "com.sharkBytesLab.nocostudio"
         minSdk 21
         targetSdk 33
-        versionCode 39
-        versionName "39.9.5"
+        versionCode 40
+        versionName "40.39.21"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
