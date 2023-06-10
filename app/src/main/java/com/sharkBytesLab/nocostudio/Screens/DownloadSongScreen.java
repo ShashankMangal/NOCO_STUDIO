@@ -92,9 +92,9 @@ public class DownloadSongScreen extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private PromotionWebViewModel promoModel;
     private String promoUrl;
-    private AdView mAdView;
     private InfoModel infoModel;
     private int retry = 0;
+    private String TAG = "Admob ads :";
     private ArrayList<String> favLists;
     private boolean favListIsChecked = false;
 
@@ -108,6 +108,8 @@ public class DownloadSongScreen extends AppCompatActivity {
 
 //        createBannerAd();
 //        createInterstitialAd();
+        googleBannerAds();
+        googleInterAds();
         getSliderImages();
         getInfo();
 
@@ -200,14 +202,14 @@ public class DownloadSongScreen extends AppCompatActivity {
         });
 
 
-        binding.downloadThumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                checkPermission();
-
-            }
-        });
+//        binding.downloadThumbnail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                checkPermission();
+//
+//            }
+//        });
 
         binding.enquiry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -297,25 +299,25 @@ public class DownloadSongScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                if ( mInterstitialAd !=null )
-//                {
-//                   mInterstitialAd.show(DownloadSongScreen.this);
-//
-//                   mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-//                       @Override
-//                       public void onAdDismissedFullScreenContent() {
-//                           super.onAdDismissedFullScreenContent();
-//
-//                           binding.timerDownloadSong.setVisibility(View.GONE);
-//                           binding.skipTimer.setVisibility(View.GONE);
-//                           binding.downloadImage.setEnabled(true);
-//                           binding.downloadImage.setAlpha(1.0F);
-//
-//
-//                       }
-//                   });
-//
-//                }
+                if ( mInterstitialAd !=null )
+                {
+                   mInterstitialAd.show(DownloadSongScreen.this);
+
+                   mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                       @Override
+                       public void onAdDismissedFullScreenContent() {
+                           super.onAdDismissedFullScreenContent();
+
+                           binding.timerDownloadSong.setVisibility(View.GONE);
+                           binding.skipTimer.setVisibility(View.GONE);
+                           binding.downloadImage.setEnabled(true);
+                           binding.downloadImage.setAlpha(1.0F);
+
+
+                       }
+                   });
+
+                }
 
                 try {
 //                    if (interstitialAd.isReady()) {
@@ -349,8 +351,8 @@ public class DownloadSongScreen extends AppCompatActivity {
 //
 //            binding.imageSlider2.setImageList(slideModels2, ScaleTypes.FIT);
 
-            Glide.with(getApplicationContext()).load(songImage).thumbnail(Glide.with(getApplicationContext()).load(R.drawable.spinner)).into(binding.songThumbnail);
-
+//            Glide.with(getApplicationContext()).load(songImage).thumbnail(Glide.with(getApplicationContext()).load(R.drawable.spinner)).into(binding.songThumbnail);
+//
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -420,6 +422,33 @@ public class DownloadSongScreen extends AppCompatActivity {
 
     }
 
+    private void googleInterAds() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this,"ca-app-pub-5127713321341585/6472373886", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+                    }
+                });
+    }
+
+    private void googleBannerAds() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
+    }
+
     private void showToast(String s) {
         MotionToast.Companion.createColorToast(this,
                 s,
@@ -441,7 +470,7 @@ public class DownloadSongScreen extends AppCompatActivity {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (report.areAllPermissionsGranted()) {
 
-                            saveImage();
+//                            saveImage();
                         } else {
                             Toast.makeText(DownloadSongScreen.this, "Please allow all permission!", Toast.LENGTH_SHORT).show();
                         }
@@ -494,59 +523,59 @@ public class DownloadSongScreen extends AppCompatActivity {
 
     }
 
-    private void saveImage() {
-        FileOutputStream fileOutputStream = null;
-        File file = getDisc();
-
-        if (!file.exists() && !file.mkdirs()) {
-            file.mkdirs();
-        }
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyymmsshhmmss");
-        String date = simpleDateFormat.format(new Date());
-        String name = "IMG" + date + ".jpg";
-        String fileName = file.getAbsolutePath() + "/" + name;
-        File new_file = new File(fileName);
-
-        try {
-
-            BitmapDrawable draw = (BitmapDrawable) binding.songThumbnail.getDrawable();
-            Bitmap bitmap = draw.getBitmap();
-            fileOutputStream = new FileOutputStream(new_file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-            MotionToast.Companion.createColorToast(this,
-                    "Thumbnail Saved In Gallery",
-                    "Successfully",
-                    MotionToastStyle.SUCCESS,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
-            fileOutputStream.flush();
-            fileOutputStream.close();
-
-
-        } catch (FileNotFoundException e) {
-            MotionToast.Companion.createColorToast(this,
-                    "ERROR ☹️ ",
-                    e.getMessage().toString(),
-                    MotionToastStyle.SUCCESS,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
-
-        } catch (IOException e) {
-            Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            MotionToast.Companion.createColorToast(this,
-                    "ERROR ☹️ ",
-                    e.getMessage().toString(),
-                    MotionToastStyle.SUCCESS,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
-        }
-
-        refreshGallery(new_file);
-    }
+//    private void saveImage() {
+//        FileOutputStream fileOutputStream = null;
+//        File file = getDisc();
+//
+//        if (!file.exists() && !file.mkdirs()) {
+//            file.mkdirs();
+//        }
+//
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyymmsshhmmss");
+//        String date = simpleDateFormat.format(new Date());
+//        String name = "IMG" + date + ".jpg";
+//        String fileName = file.getAbsolutePath() + "/" + name;
+//        File new_file = new File(fileName);
+//
+//        try {
+//
+//            BitmapDrawable draw = (BitmapDrawable) binding.songThumbnail.getDrawable();
+//            Bitmap bitmap = draw.getBitmap();
+//            fileOutputStream = new FileOutputStream(new_file);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+//            MotionToast.Companion.createColorToast(this,
+//                    "Thumbnail Saved In Gallery",
+//                    "Successfully",
+//                    MotionToastStyle.SUCCESS,
+//                    MotionToast.GRAVITY_BOTTOM,
+//                    MotionToast.LONG_DURATION,
+//                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
+//            fileOutputStream.flush();
+//            fileOutputStream.close();
+//
+//
+//        } catch (FileNotFoundException e) {
+//            MotionToast.Companion.createColorToast(this,
+//                    "ERROR ☹️ ",
+//                    e.getMessage().toString(),
+//                    MotionToastStyle.SUCCESS,
+//                    MotionToast.GRAVITY_BOTTOM,
+//                    MotionToast.LONG_DURATION,
+//                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
+//
+//        } catch (IOException e) {
+//            Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+//            MotionToast.Companion.createColorToast(this,
+//                    "ERROR ☹️ ",
+//                    e.getMessage().toString(),
+//                    MotionToastStyle.SUCCESS,
+//                    MotionToast.GRAVITY_BOTTOM,
+//                    MotionToast.LONG_DURATION,
+//                    ResourcesCompat.getFont(this, R.font.helvetica_regular));
+//        }
+//
+//        refreshGallery(new_file);
+//    }
 
     void getInfo() {
         firestore.collection("DownloadCount").document("count").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
