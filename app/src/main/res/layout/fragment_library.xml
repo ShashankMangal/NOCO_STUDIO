@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient_bg"
     tools:context=".Fragments.LibraryFragment">
 
@@ -13,76 +13,70 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        app:queryBackground="@android:color/transparent"
         android:background="@drawable/round_corner"
         android:iconifiedByDefault="false"
         android:queryHint="Song, Artist, Movie Name"
         android:textSize="18dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/fav_song"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        >
+        app:queryBackground="@android:color/transparent">
 
     </SearchView>
 
     <ImageView
+        android:id="@+id/fav_song"
         android:layout_width="45dp"
         android:layout_height="0dp"
         android:layout_marginEnd="10dp"
-        android:padding="3dp"
         android:background="@color/white"
-        app:layout_constraintStart_toEndOf="@id/search_song"
-        app:layout_constraintTop_toTopOf="@id/search_song"
+        android:padding="3dp"
+        android:src="@drawable/fav_icon"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/search_song"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/fav_song"
-        android:src="@drawable/fav_icon"
-        app:tint="@color/text_shadow"
-        android:visibility="gone"
-        />
+        app:layout_constraintStart_toEndOf="@id/search_song"
+        app:layout_constraintTop_toTopOf="@id/search_song"
+        app:tint="@color/text_shadow" />
 
     <TextView
+        android:id="@+id/songs_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Songs Found : "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/songs_num"
-        android:fontFamily="@font/airbnb_cereal_medium"
-        android:textAlignment="textStart"
-        android:textColor="@color/white"
-        android:textStyle="bold"
         android:layout_marginStart="10dp"
         android:layout_marginTop="3dp"
-        android:textSize="14sp"
+        android:fontFamily="@font/airbnb_cereal_medium"
         android:gravity="start"
-        app:layout_constraintTop_toBottomOf="@+id/search_song"
-        app:layout_constraintBottom_toTopOf="@+id/refreshView"
+        android:text="Songs Found : "
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
         android:visibility="gone"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/refreshView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_song" />
 
     <TextView
+        android:id="@+id/server_song_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Songs on Server : "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/server_song_num"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/airbnb_cereal_medium"
+        android:gravity="end"
+        android:text="Songs on Server : "
         android:textAlignment="textEnd"
         android:textColor="@color/text_shadow"
-        android:textStyle="bold"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="3dp"
         android:textSize="14sp"
-        android:gravity="end"
-        app:layout_constraintTop_toBottomOf="@+id/search_song"
-        app:layout_constraintBottom_toTopOf="@+id/refreshView"
+        android:textStyle="bold"
         android:visibility="gone"
-        />
-
-
+        app:layout_constraintBottom_toTopOf="@+id/refreshView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_song" />
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -90,19 +84,45 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/songs_num" >
+        app:layout_constraintTop_toBottomOf="@+id/songs_num">
 
         <androidx.recyclerview.widget.RecyclerView
 
             android:id="@+id/downloadRecyclerView"
-            tools:listitem="@layout/download_song_item_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/download_song_item_layout" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/empty_library"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/songs_num"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/theme"
+        android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationEmptySongs"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="no_search_found.json"
+            app:lottie_loop="true" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

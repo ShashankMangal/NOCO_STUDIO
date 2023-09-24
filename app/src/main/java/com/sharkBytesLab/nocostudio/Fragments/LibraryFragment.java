@@ -1,14 +1,18 @@
 package com.sharkBytesLab.nocostudio.Fragments;
 
 import static com.sharkBytesLab.nocostudio.Fragments.MusicFragment.musicFiles;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +41,7 @@ import com.sharkBytesLab.nocostudio.Models.DownloadModel;
 import com.sharkBytesLab.nocostudio.Models.InfoModel;
 import com.sharkBytesLab.nocostudio.R;
 import com.sharkBytesLab.nocostudio.Screens.FavouriteScreen;
+
 import java.util.ArrayList;
 
 /**
@@ -66,8 +72,9 @@ public class LibraryFragment extends Fragment {
     private InfoModel model;
     private ImageView favSong;
     private FirebaseRemoteConfig remoteConfig;
-    private  String libaray_code;
+    private String libaray_code;
     public static MusicAdapter musicAdapter;
+    private ConstraintLayout emptyLibrary;
 
 
     public LibraryFragment() {
@@ -115,6 +122,7 @@ public class LibraryFragment extends Fragment {
         songs_num = view.findViewById(R.id.songs_num);
         server = view.findViewById(R.id.server_song_num);
         favSong = view.findViewById(R.id.fav_song);
+        emptyLibrary = view.findViewById(R.id.empty_library);
 
 
         firestore = FirebaseFirestore.getInstance();
@@ -125,19 +133,17 @@ public class LibraryFragment extends Fragment {
         pd.show();
         pd.setContentView(R.layout.progress_dialog);
         pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        Thread timer = new Thread()
-        {
+        Thread timer = new Thread() {
             @Override
             public void run() {
-                try{
+                try {
                     sleep(3000);
 
                     pd.dismiss();
 
 
                     super.run();
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -155,7 +161,7 @@ public class LibraryFragment extends Fragment {
 
         clearAll();
 
-        favSong.setOnClickListener(v-> startActivity(new Intent(getActivity(), FavouriteScreen.class)));
+        favSong.setOnClickListener(v -> startActivity(new Intent(getActivity(), FavouriteScreen.class)));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -201,8 +207,6 @@ public class LibraryFragment extends Fragment {
     }
 
 
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -217,8 +221,7 @@ public class LibraryFragment extends Fragment {
     }
 
 
-    public void getDataFromFirebase()
-    {
+    public void getDataFromFirebase() {
 
         Runnable objRunnable = new Runnable() {
             @Override
@@ -232,11 +235,9 @@ public class LibraryFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Boolean> task) {
 
-                            if(task.isSuccessful())
-                            {
+                            if (task.isSuccessful()) {
                                 libaray_code = remoteConfig.getString("library_ns");
-                                if(Integer.parseInt(libaray_code) > 0)
-                                {
+                                if (Integer.parseInt(libaray_code) > 0) {
 
                                     recyclerView.setVisibility(View.VISIBLE);
                                     songs_num.setVisibility(View.VISIBLE);
@@ -251,10 +252,9 @@ public class LibraryFragment extends Fragment {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             clearAll();
-                                            int temp=0;
+                                            int temp = 0;
 
-                                            for(DataSnapshot snapshot1 : snapshot.getChildren())
-                                            {
+                                            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
                                                 DownloadModel model = new DownloadModel();
                                                 model.setImage(snapshot1.child("image").getValue().toString());
@@ -270,6 +270,7 @@ public class LibraryFragment extends Fragment {
                                             adapter.notifyDataSetChanged();
                                             songs_num.setText("Songs Found : " + String.valueOf(temp));
 
+
                                         }
 
                                         @Override
@@ -279,17 +280,13 @@ public class LibraryFragment extends Fragment {
                                     });
 
 
-
-                                }
-                                else
-                                {
+                                } else {
                                     songs_num.setVisibility(View.GONE);
                                     server.setVisibility(View.GONE);
                                     favSong.setVisibility(View.GONE);
                                     searchView.setVisibility(View.GONE);
 
-                                    if(!(musicFiles.size() < 1))
-                                    {
+                                    if (!(musicFiles.size() < 1)) {
                                         Log.i("GetAllAudio", "IF");
                                         try {
                                             musicAdapter = new MusicAdapter(getContext(), musicFiles);
@@ -301,7 +298,6 @@ public class LibraryFragment extends Fragment {
                                     }
                                 }
                             }
-
 
 
                         }
@@ -319,17 +315,16 @@ public class LibraryFragment extends Fragment {
 
     }
 
-    private void processSearch(String s)
-    {
+    private void processSearch(String s) {
 
         Query query = myRef.child("DownloadData");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 clearAll();
-                int temp=0;
+                int temp = 0;
 
-                for(DataSnapshot snapshot1 : snapshot.getChildren()) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     DownloadModel model = new DownloadModel();
 
                     if (snapshot1.child("title").getValue().toString().toLowerCase().contains(s.toLowerCase())) {
@@ -349,6 +344,13 @@ public class LibraryFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 songs_num.setText("Songs Found : " + String.valueOf(temp));
+                if (list.isEmpty()) {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    emptyLibrary.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyLibrary.setVisibility(View.GONE);
+                }
 
             }
 
@@ -359,14 +361,11 @@ public class LibraryFragment extends Fragment {
         });
     }
 
-    private void clearAll()
-    {
-        if(list != null)
-        {
+    private void clearAll() {
+        if (list != null) {
             list.clear();
 
-            if(adapter != null)
-            {
+            if (adapter != null) {
                 adapter.notifyDataSetChanged();
             }
 
@@ -376,9 +375,7 @@ public class LibraryFragment extends Fragment {
     }
 
 
-    void getInfo()
-
-    {
+    void getInfo() {
         firestore.collection("DownloadCount").document("count").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

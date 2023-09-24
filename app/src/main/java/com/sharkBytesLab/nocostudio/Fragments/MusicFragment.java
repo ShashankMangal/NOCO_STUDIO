@@ -139,6 +139,7 @@ public class MusicFragment extends Fragment {
 
         try {
             musicFiles = getAllAudio(getActivity().getApplicationContext());
+            Log.i("GetAllAudio", String.valueOf(musicFiles.size()));
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -179,6 +180,7 @@ public class MusicFragment extends Fragment {
             //Toast.makeText(getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
 //            showMusic();
             musicFiles = getAllAudio(getActivity().getApplicationContext());
+            Log.i("GetAllAudio", String.valueOf(musicFiles.size()));
             initViewPager(view);
         }
     }
@@ -191,6 +193,7 @@ public class MusicFragment extends Fragment {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getActivity(), "Permission Granted Successfully!", Toast.LENGTH_SHORT).show();
                 musicFiles = getAllAudio(getActivity().getApplicationContext());
+
             } else {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
             }

@@ -49,16 +49,7 @@ public class DownloadSongAdapter extends RecyclerView.Adapter<DownloadSongAdapte
         DownloadModel downloadModel = songList.get(position);
 
         holder.textView.setText(downloadModel.getTitle());
-        if(position%2==0) {
-            Glide.with(context).load(R.drawable.music_card_green).into(holder.imageView);
-        }
-        else if(position%5==0) {
-            Glide.with(context).load(R.drawable.music_card_yellow).into(holder.imageView);
-        }
-        else {
-            Glide.with(context).load(R.drawable.music_card_blue).into(holder.imageView);
-        }
-
+        Glide.with(context).load(R.drawable.music_card_new).into(holder.imageView);
         //Glide.with(context).load(downloadModel.getImage()).thumbnail(Glide.with(context).load(R.drawable.spinner)).into(holder.imageView);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
