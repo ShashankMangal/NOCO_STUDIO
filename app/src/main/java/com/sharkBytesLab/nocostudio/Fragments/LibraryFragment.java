@@ -133,23 +133,23 @@ public class LibraryFragment extends Fragment {
         pd.show();
         pd.setContentView(R.layout.progress_dialog);
         pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        Thread timer = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    sleep(3000);
-
-                    pd.dismiss();
-
-
-                    super.run();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        };
-        timer.start();
+//        Thread timer = new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    sleep(3000);
+//
+//                    pd.dismiss();
+//
+//
+//                    super.run();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        };
+//        timer.start();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -269,7 +269,7 @@ public class LibraryFragment extends Fragment {
                                             recyclerView.setAdapter(adapter);
                                             adapter.notifyDataSetChanged();
                                             songs_num.setText("Songs Found : " + String.valueOf(temp));
-
+                                            pd.dismiss();
 
                                         }
 
